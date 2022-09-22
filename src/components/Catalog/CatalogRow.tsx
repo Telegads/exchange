@@ -1,24 +1,39 @@
-import React from "react";
+import React, { FC } from "react";
 import { Basket } from "../Icons";
 import style from "../../scss/catalog.module.scss";
+import { ChannelWithTagsAndFormats } from "../../pages/catalog";
 
-export const CatalogRow = () => {
+export const CatalogRow: FC<ChannelWithTagsAndFormats> = ({
+  avatar,
+  cpv,
+  description,
+  er,
+  malePercent,
+  name,
+  subscribers,
+  views,
+  formats,
+  tags,
+}) => {
   return (
     <div className={style.card__wrapper}>
       <div className={style.card__content}>
         <div className={style.content__logo}>
-          <img src="/img/icons/logo_topor.jpg" alt="" />
-          <div className={style.content__sell}>
+          <img src={avatar} alt="" />
+          {/* <div className={style.content__sell}>
             <div>%</div>
-          </div>
+          </div> */}
         </div>
         <div className={style.content__title}>
-          <p>Топор 18+</p>
-          <div className={style.title__options}>
-            <div>другое</div>
-            <div>статьи</div>
-          </div>
-          <p>Живой активный канал без накруток и ботов!</p>
+          <p>{name}</p>
+          {tags.length > 0 && (
+            <div className={style.title__options}>
+              {tags.map((tag) => (
+                <div>{tag.name}</div>
+              ))}
+            </div>
+          )}
+          <p>{description}</p>
         </div>
       </div>
       <div className={style.card__border}>
@@ -26,24 +41,47 @@ export const CatalogRow = () => {
       </div>
       <div className={style.card__statistics}>
         <div className={style.statistics__subscribers}>
-          <p className={style.subscribers__title}>Подписчики:</p>
-          <p className={style.subscribers__number}>18 101</p>
-          <p className={style.subscribers__er}>ER:</p>
-          <p className={style.subscribers__er_number}>49%</p>
-          <div className={style.subscribers__people}>
-            <img src="/img/icons/male.svg" alt="" />
-            <p>90%</p>
-          </div>
+          {subscribers && (
+            <>
+              <p className={style.subscribers__title}>Подписчики:</p>
+              <p className={style.subscribers__number}>{subscribers}</p>
+            </>
+          )}
+
+          {er && (
+            <>
+              <p className={style.subscribers__er}>ER:</p>
+              <p className={style.subscribers__er_number}>{er}%</p>
+            </>
+          )}
+
+          {malePercent && (
+            <div className={style.subscribers__people}>
+              <img src="/img/icons/male.svg" alt="" />
+              <p>{malePercent}%</p>
+            </div>
+          )}
         </div>
         <div className={style.statistics__views}>
-          <p className={style.views__title}>Просмотры:</p>
-          <p className={style.views__number}>4К</p>
-          <p className={style.views__cpv}>CPV:</p>
-          <p className={style.views__cpv_number}>0.08р</p>
-          <div className={style.views__people}>
-            <img src="/img/icons/femal.svg" alt="" />
-            <p>10%</p>
-          </div>
+          {views && (
+            <>
+              <p className={style.views__title}>Просмотры:</p>
+              <p className={style.views__number}>{views}</p>
+            </>
+          )}
+          {cpv && (
+            <>
+              <p className={style.views__cpv}>CPV:</p>
+              <p className={style.views__cpv_number}>{cpv}р</p>
+            </>
+          )}
+
+          {malePercent && (
+            <div className={style.views__people}>
+              <img src="/img/icons/femal.svg" alt="" />
+              <p>{100 - malePercent}%</p>
+            </div>
+          )}
         </div>
       </div>
       <div className={style.card__btn_mb}>
@@ -61,11 +99,9 @@ export const CatalogRow = () => {
               <p className={style.format__title}>Формат:</p>
               <div className={style.format__select}>
                 <select name="items">
-                  <option selected value="num1">
-                    1/24
-                  </option>
-                  <option value="num2">2/48</option>
-                  <option value="num3">3/72</option>
+                  {formats.map((format) => (
+                    <option value={format.id}>{format.name}</option>
+                  ))}
                 </select>
               </div>
             </div>

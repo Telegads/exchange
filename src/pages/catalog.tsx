@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Basket } from "../components/Catalog/Basket";
 import { CatalogRow } from "../components/Catalog/CatalogRow";
 import { Sorting } from "../components/Catalog/Sorting";
@@ -7,7 +7,32 @@ import { Filter } from "../components/Sidebar/Filter";
 import { Navigation } from "../components/Sidebar/Navigation";
 import style from "../scss/catalog.module.scss";
 
-const Catalog = () => {
+import { Channel, Format, PrismaClient, Tag } from "@prisma/client";
+
+export type ChannelWithTagsAndFormats = Channel & {
+  formats: Format[];
+  tags: Tag[];
+};
+
+export async function getServerSideProps() {
+  const prisma = new PrismaClient();
+
+  const channels = await prisma.channel.findMany({
+    take: 50,
+    include: {
+      formats: true,
+      tags: true,
+    },
+  });
+
+  console.log(channels);
+
+  return {
+    props: { channels }, // will be passed to the page component as props
+  };
+}
+
+const Catalog: FC<{ channels: ChannelWithTagsAndFormats[] }> = ({ channels }) => {
   return (
     <Layout>
       <div className={style.line}></div>
@@ -29,8 +54,9 @@ const Catalog = () => {
               <Sorting />
             </div>
             <div className={style.catalog_rows}>
-              <CatalogRow />
-              <CatalogRow />
+              {channels.map((channel) => (
+                <CatalogRow {...channel} key={channel.id} />
+              ))}
             </div>
           </div>
           <Basket />

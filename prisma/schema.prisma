@@ -10,22 +10,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model channel {
-  id          String  @id @default(cuid())
+model Channel {
+  id          String   @id @default(cuid())
   name        String
   description String?
   avatar      String?
-  url         String  @unique
-  isArchived	Boolean
+  url         String   @unique
+  isArchived  Boolean
   isBlogger   Boolean
+  subscribers Int?
+  er          Int?
+  malePercent Int?
+  views       Int?
+  cpv         Int?
+  postPrice   Int?
+  formats      Format[]
+  tags         Tag[]
+}
+
+model Format {
+  id   String @id @default(cuid())
+  name String
+
+  channels Channel[]
+}
+
+model Tag {
+  id       String    @id @default(cuid())
+  name     String
+  channels Channel[]
 }
 
 model Account {
   id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
+  userId             String
   type               String
   provider           String
-  providerAccountId  String  @map("provider_account_id")
+  providerAccountId  String
   refresh_token      String?
   access_token       String?
   expires_at         Int?
