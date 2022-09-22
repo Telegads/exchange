@@ -14,7 +14,7 @@ async function main() {
       isBlogger: false,
       url: "https://t.me/kunuzofficial",
       avatar: "/channels/kunuz.jpeg",
-      format: {
+      formats: {
         create: {
           name: "1/24",
         },
