@@ -4,7 +4,7 @@ import style from "../../scss/catalog.module.scss";
 export const Sorting = () => {
   return (
     <div className={style.content__filters}>
-      <div className={style.filter_item}>
+      {/* <div className={style.filter_item}>
         <div className={style.filter__views}>Просмотры</div>
       </div>
       <div className={`${style.filter_item} ${style.filter__rating}`}>
@@ -24,7 +24,7 @@ export const Sorting = () => {
       </div>
       <div className={`${style.filter_item} ${style.filter__cpv}`}>
         <div>CPV</div>
-      </div>
+      </div> */}
     </div>
   );
 };

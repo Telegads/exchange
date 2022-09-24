@@ -3,7 +3,7 @@ import { Basket } from "../Icons";
 import style from "../../scss/catalog.module.scss";
 import { ChannelWithTagsAndFormats } from "../../pages/catalog";
 
-export const CatalogRow: FC<ChannelWithTagsAndFormats> = ({
+export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
   avatar,
   cpv,
   description,
@@ -13,7 +13,8 @@ export const CatalogRow: FC<ChannelWithTagsAndFormats> = ({
   subscribers,
   views,
   formats,
-  tags,
+  category,
+  postPrice,
 }) => {
   return (
     <div className={style.card__wrapper}>
@@ -26,11 +27,9 @@ export const CatalogRow: FC<ChannelWithTagsAndFormats> = ({
         </div>
         <div className={style.content__title}>
           <p>{name}</p>
-          {tags.length > 0 && (
+          {category && (
             <div className={style.title__options}>
-              {tags.map((tag) => (
-                <div>{tag.name}</div>
-              ))}
+              <div>{category.name}</div>
             </div>
           )}
           <p>{description}</p>
@@ -93,33 +92,40 @@ export const CatalogRow: FC<ChannelWithTagsAndFormats> = ({
         </div>
       </div>
       <div className={style.card__wrapper_fil_buy}>
-        <div className={style.card__filter}>
-          <div className={style.filter__forms}>
-            <div className={style.form__format}>
-              <p className={style.format__title}>Формат:</p>
-              <div className={style.format__select}>
-                <select name="items">
-                  {formats.map((format) => (
-                    <option value={format.id}>{format.name}</option>
-                  ))}
-                </select>
+        {formats?.length > 0 ? (
+          <div className={style.card__filter}>
+            <div className={style.filter__forms}>
+              <div className={style.form__format}>
+                <p className={style.format__title}>Формат:</p>
+                <div className={style.format__select}>
+                  <select name="items">
+                    {formats.map((format) => (
+                      <option value={format.id}>{format.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className={style.form__amount}>
+                <p className={style.amount__title}>Количество:</p>
+                <div className={style.amount__select}>
+                  <select name="items">
+                    <option selected value="num1">
+                      3
+                    </option>
+                    <option value="num2">6</option>
+                    <option value="num3">8</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div className={style.form__amount}>
-              <p className={style.amount__title}>Количество:</p>
-              <div className={style.amount__select}>
-                <select name="items">
-                  <option selected value="num1">
-                    3
-                  </option>
-                  <option value="num2">6</option>
-                  <option value="num3">8</option>
-                </select>
-              </div>
-            </div>
+            {postPrice && <p className={style.filter__sum}>{postPrice}</p>}
           </div>
-          <p className={style.filter__sum}>360р</p>
-        </div>
+        ) : (
+          <div className={style.card__filter}>
+            <p className={style.filter__sum}>Цена <br/> по запросу</p>
+          </div>
+        )}
+
         <div className={style.card__buy}>
           <div className={style.card__buy_hover}>
             <a href="#">

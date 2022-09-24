@@ -24,20 +24,23 @@ model Channel {
   views       Int?
   cpv         Int?
   postPrice   Int?
-  formats      Format[]
-  tags         Tag[]
+  formats     Format[]
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  tagId       String?
 }
 
-model Format {
+model Category {
   id   String @id @default(cuid())
   name String
 
   channels Channel[]
 }
 
-model Tag {
-  id       String    @id @default(cuid())
-  name     String
+model Format {
+  id   String @id @default(cuid())
+  name String
+
   channels Channel[]
 }
 
