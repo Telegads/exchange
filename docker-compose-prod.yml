@@ -16,9 +16,7 @@ services:
     container_name: app
     ports:
       - 3000:3000
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: peteranikitin/telegads-exchange:latest
     depends_on:
       - db
     environment:
