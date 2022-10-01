@@ -307,14 +307,7 @@
     background: #F7F7F7;
 }
 
-.catalog__text {
-    margin-top: 79px;
-}
 
-.catalog__title {
-    margin-top: 79px;
-    margin-right: 282px;
-}
 
 .how_it_works__balance {
     margin-top: 79px;
@@ -351,15 +344,6 @@
         margin-right: 4px;
         max-width: 434px;
     }
-    .catalog__title {
-        margin-right: 172px;
-    }
-    .catalog__text {
-        width: 244px;
-    }
-    .balance__text {
-        margin-right: 120px;
-    }
 }
 
 @media (max-width: 767px) {
@@ -374,16 +358,6 @@
     }
     .registration__text p {
         margin-top: 40px;
-    }
-    .catalog__text {
-        margin-top: 40px;
-    }
-    .balance__text p:first-child {
-        margin-top: 40px;
-        margin-bottom: 20px;
-    }
-    .balance__text {
-        margin: 0;
     }
 }
 

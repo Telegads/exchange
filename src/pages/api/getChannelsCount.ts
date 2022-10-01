@@ -3,18 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient();
-  const page = Number(req.query["page"]) || 0;
-  const limit = Number(req.query["limit"]) || 50;
-  const sortType = req.query.sort_type;
-  const sortDir = req.query.sort_dir;
-
-  const sorting = sortType
-    ? {
-        orderBy: {
-          [sortType as string]: sortDir,
-        },
-      }
-    : { orderBy: undefined };
 
   const filter =
     req.query.category !== undefined && req.query.category !== "all"
@@ -50,18 +38,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           ...filter,
         };
 
-  const channels = await prisma.channel.findMany({
-    take: limit,
-    skip: page * limit,
-    include: {
-      formats: true,
-      category: true,
+  const channelsCount = await prisma.channel.aggregate({
+    _count: {
+      id: true,
     },
     ...search,
-    ...sorting,
   });
 
-  console.log();
-
-  res.status(200).json(channels);
+  res.status(200).json(channelsCount._count.id);
 };
