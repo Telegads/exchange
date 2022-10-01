@@ -23,11 +23,10 @@ model Channel {
   malePercent Int?
   views       Int?
   cpv         Int?
-  postPrice   Int?
+  postPrice   Float?
   formats     Format[]
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  tagId       String?
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
 }
 
 model Category {

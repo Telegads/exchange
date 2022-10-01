@@ -1,38 +1,69 @@
 import { PrismaClient } from "@prisma/client";
+import csv from "csvtojson";
+import path from "path";
 const prisma = new PrismaClient();
 
+const csvFilePath = "../seed_data/TelegAds-data-seed.csv";
+const getNumberOrUndefined = (input: string|undefined) => {
+  if (typeof input === undefined) {
+    return input as undefined;
+  }
+  const number = Number(input);
+
+  try {
+    if (isNaN(number)) {
+      return;
+    }
+    return number;
+  } catch (error) {
+    console.log(error);
+
+    return;
+  }
+};
+
 async function main() {
-  const category = await prisma.category.create({
-    data: {
-      name: "Общество, новости, сми",
-      id: "1",
-    },
-  });
+  console.log(path.resolve(__dirname, csvFilePath));
 
-  const firstChannel = await prisma.channel.upsert({
-    where: {
-      url: "https://t.me/kunuzofficial",
-    },
-    update: {},
-    create: {
-      name: "Kun.uz | Расмий канал",
-      isArchived: false,
-      isBlogger: false,
-      url: "https://t.me/kunuzofficial",
-      avatar: "/channels/kunuz.jpeg",
-      category: {
-        connect: {
-          id: "1",
-        },
+  const channels = await csv().fromFile(path.resolve(__dirname, csvFilePath));
+
+  for await (const channel of channels) {
+    // console.log(channel);
+    
+    await prisma.channel.upsert({
+      where: {
+        url: channel.url,
       },
-      er: 31,
-      subscribers: 1146487,
-      description:
-        "Kun.uz сайтининг расмий Telegram каналиO'zbekcha 👉 @kunuzРусский 👉 @kunuzruТезкор 👉 @kunonlineСайт: kun.uzРеклама: +998 78 113 10 10",
-    },
-  });
+      update: {},
+      create: {
+        isArchived: channel.isArchived === "FALSE",
+        isBlogger: channel.isBlogger === "FALSE",
+        name: channel.name,
+        url: channel.url,
+        avatar: channel.avatar,
+        category: {
+          connectOrCreate: {
+            where: {
+              id: channel.categoryId,
+            },
+            create: {
+              name: channel.categories,
+              id: channel.categoryId,
+            },
+          },
+        },
+        cpv: getNumberOrUndefined(channel.cpv),
+        description: channel.description,
+        er: getNumberOrUndefined(channel.er),
+        malePercent: getNumberOrUndefined(channel.malePercent),
+        postPrice: getNumberOrUndefined(channel.postPrice),
+        subscribers: getNumberOrUndefined(channel.subscribers),
+        views: getNumberOrUndefined(channel.views),
+      },
+    });
+  }
 
-  console.log({ firstChannel, category });
+  console.log("done ", channels.length);
 }
 
 main()
