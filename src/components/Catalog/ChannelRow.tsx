@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { Basket } from "../Icons";
 import style from "../../scss/catalog.module.scss";
 import { ChannelWithTagsAndFormats } from "../../pages/catalog";
+import Highlighter from "react-highlight-words";
+import { useRouter } from "next/router";
 
 export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
   avatar,
@@ -16,23 +18,37 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
   category,
   postPrice,
 }) => {
+  const router = useRouter();
+
   return (
     <div className={style.card__wrapper}>
       <div className={style.card__content}>
         <div className={style.content__logo}>
           <img src={avatar} alt="" />
-          {/* <div className={style.content__sell}>
-            <div>%</div>
-          </div> */}
         </div>
         <div className={style.content__title}>
-          <p>{name}</p>
-          {category && (
+          <p>
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={[router.query.search]}
+              autoEscape={true}
+              textToHighlight={name}
+            />
+          </p>
+          {category && category.name !== "" && (
             <div className={style.title__options}>
               <div>{category.name}</div>
             </div>
           )}
-          <p>{description}</p>
+
+          <p>
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={[router.query.search]}
+              autoEscape={true}
+              textToHighlight={description}
+            />
+          </p>
         </div>
       </div>
       <div className={style.card__border}>
@@ -40,47 +56,30 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
       </div>
       <div className={style.card__statistics}>
         <div className={style.statistics__subscribers}>
-          {subscribers && (
-            <>
-              <p className={style.subscribers__title}>Подписчики:</p>
-              <p className={style.subscribers__number}>{subscribers}</p>
-            </>
-          )}
+          <p className={style.subscribers__title}>Подписчики:</p>
+          <p className={style.subscribers__number}>
+            {subscribers ? subscribers : "–"}
+          </p>
 
-          {er && (
-            <>
-              <p className={style.subscribers__er}>ER:</p>
-              <p className={style.subscribers__er_number}>{er}%</p>
-            </>
-          )}
+          <p className={style.subscribers__er}>ER:</p>
+          <p className={style.subscribers__er_number}>{er ? `${er}%` : "–"}</p>
 
-          {malePercent && (
-            <div className={style.subscribers__people}>
-              <img src="/img/icons/male.svg" alt="" />
-              <p>{malePercent}%</p>
-            </div>
-          )}
+          <div className={style.subscribers__people}>
+            <img src="/img/icons/male.svg" alt="" />
+            <p>{malePercent ? `${malePercent}%` : "–"}</p>
+          </div>
         </div>
         <div className={style.statistics__views}>
-          {views && (
-            <>
-              <p className={style.views__title}>Просмотры:</p>
-              <p className={style.views__number}>{views}</p>
-            </>
-          )}
-          {cpv && (
-            <>
-              <p className={style.views__cpv}>CPV:</p>
-              <p className={style.views__cpv_number}>{cpv}р</p>
-            </>
-          )}
+          <p className={style.views__title}>Просмотры:</p>
+          <p className={style.views__number}>{views ? views : "–"}</p>
 
-          {malePercent && (
-            <div className={style.views__people}>
-              <img src="/img/icons/femal.svg" alt="" />
-              <p>{100 - malePercent}%</p>
-            </div>
-          )}
+          <p className={style.views__cpv}>CPV:</p>
+          <p className={style.views__cpv_number}>{cpv ? `${cpv}р` : "–"}</p>
+
+          <div className={style.views__people}>
+            <img src="/img/icons/femal.svg" alt="" />
+            <p>{malePercent ? `${100 - malePercent}%` : "–"}</p>
+          </div>
         </div>
       </div>
       <div className={style.card__btn_mb}>
@@ -122,7 +121,9 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
           </div>
         ) : (
           <div className={style.card__filter}>
-            <p className={style.filter__sum}>Цена <br/> по запросу</p>
+            <p className={style.filter__sum}>
+              Цена <br /> по запросу
+            </p>
           </div>
         )}
 

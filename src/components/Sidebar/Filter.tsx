@@ -1,43 +1,101 @@
-import React from "react";
+import { Category } from "@prisma/client";
+import { useRouter } from "next/router";
+import React, { FC, useCallback } from "react";
 import style from "../../scss/catalog.module.scss";
 
-export const Filter = () => {
+type FilterProps = {
+  categories: Category[];
+};
+
+export const Filter: FC<FilterProps> = ({ categories }) => {
+  const router = useRouter();
+
+  const category = router.query.category;
+  const search = router.query.search;
+
+  const handleCategoryChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      router.push({
+        query: {
+          ...router.query,
+          category: event.target.value,
+        },
+      });
+    },
+    [router.push]
+  );
+
+  const handleSearchChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      router.push({
+        query: {
+          ...router.query,
+          search: event.target.value,
+        },
+      });
+    },
+    [router.push]
+  );
+
+  const handleFilterClear = useCallback(() => {
+    router.push({
+      query: {
+        ...router.query,
+        search: undefined,
+        category: undefined,
+      },
+    });
+  }, []);
+
   return (
     <div className={style.wrapper_content}>
       <div className={style.filter}>
-        <form action="#" method="get">
-          <div className={style.filter__close}>
-            <img src="/img/icons/close.svg" alt="" />
-          </div>
-          <div className={style.filter__reset}>
-            <p>Фильтр</p>
-            <button type="reset">Очистить все</button>
-          </div>
-          <div className={style.filter__search}>
-            <input type="search" placeholder="Поиск" />
-            <button type="submit">
-              <img src="/img/icons/search.svg" alt="" />
-            </button>
-          </div>
-          <div className={style.filter__select}>
-            <select tabIndex={0} name="items">
-              <option selected value="theme">
-                Все тематики
-              </option>
-              <option value="subscribers">Подписчики</option>
-              <option value="views">Просмотры</option>
-            </select>
-          </div>
-        </form>
-        <div className={`${style.filter__format_title} ${style.filter__title}`}>
+        <div className={style.filter__close}>
+          <img src="/img/icons/close.svg" alt="" />
+        </div>
+        <div className={style.filter__reset}>
+          <p>Фильтр</p>
+          <button type="reset" onClick={handleFilterClear}>Очистить все</button>
+        </div>
+        <div className={style.filter__search}>
+          <input
+            type="search"
+            placeholder="Поиск"
+            value={search}
+            onChange={handleSearchChange}
+          />
+          <button type="submit">
+            <img src="/img/icons/search.svg" alt="" />
+          </button>
+        </div>
+        <div className={style.filter__select}>
+          <select tabIndex={0} name="items" onChange={handleCategoryChange}>
+            <option selected={category === "all"} value="all">
+              Все тематики
+            </option>
+            {categories.map((cat) =>
+              cat.id === "" ? (
+                <option value="" selected={category === ""}>
+                  Без тематики
+                </option>
+              ) : (
+                <option value={cat.id} selected={category === cat.id}>
+                  {cat.name}
+                </option>
+              )
+            )}
+          </select>
+        </div>
+
+        {/* <div className={`${style.filter__format_title} ${style.filter__title}`}>
           <p>Формат</p>
           <img
             className={style.close_title}
             src="/img/icons/arrow.svg"
             alt=""
           />
-        </div>
-        <div className={style.filter__format_wrapper}>
+        </div> */}
+        {/* <div className={style.filter__format_wrapper}>
           <p>Формат размещения:</p>
           <div className={style.filter__format_items}>
             <div className={`${style.filter__format_item} ${style.active}`}>
@@ -106,7 +164,7 @@ export const Filter = () => {
               <input type="checkbox" role="switch" />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
