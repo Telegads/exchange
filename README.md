@@ -1,4 +1,4 @@
-# telegads.uz - telegram channels stock
+# telegads.uz - telegram channels exchange
 
 ## Development
 
