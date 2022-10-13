@@ -6,3 +6,7 @@
 2. `npm ci` - install dependencies
 3. `npn run dev` - start development mode
 
+##  Stack
+
+FE: React
+BE: NextJS + Postgres 
