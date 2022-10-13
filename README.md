@@ -9,4 +9,5 @@
 ##  Stack
 
 FE: React
+
 BE: NextJS + Postgres 
