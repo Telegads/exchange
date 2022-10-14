@@ -1,4 +1,4 @@
-name: ci
+name: update_database_containers
 
 on:
   workflow_dispatch
