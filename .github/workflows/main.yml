@@ -37,6 +37,7 @@ jobs:
             NEXTAUTH_URL_ARG=http://staging.telegads.uz/api/auth
             NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
+            API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_STAGE}}
 
       - name: Build and push production image
         uses: docker/build-push-action@v3
@@ -48,6 +49,7 @@ jobs:
             DATABASE_URL_ARG=postgresql://telegads-prod:${{secrets.DB_PASS_PROD}}@db:5432/exchange?schema=public
             NEXTAUTH_URL_ARG=http://telegads.uz/api/auth
             NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
+            API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_PROD}}
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
   
   deploy:
