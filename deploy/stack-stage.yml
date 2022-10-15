@@ -23,7 +23,7 @@ services:
     networks:
       - network
     volumes:
-      - ../postgres/data:/var/lib/postgresql/data
+      - ./postgres/data:/var/lib/postgresql/data
   app:
     image: peteranikitin/telegads-exchange-app-stage:latest
     stdin_open: true
