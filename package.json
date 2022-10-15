@@ -20,6 +20,7 @@
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.3.1",
+    "@sentry/nextjs": "^7.15.0",
     "axios": "^0.27.2",
     "csvtojson": "^2.0.10",
     "lodash": "^4.17.21",
