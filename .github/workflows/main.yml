@@ -49,7 +49,10 @@ jobs:
             NEXTAUTH_URL_ARG=http://telegads.uz/api/auth
             NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
-
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
       - name: deploy staging stack to swarm
         uses: appleboy/ssh-action@master
         with:
