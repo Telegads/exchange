@@ -49,16 +49,6 @@ jobs:
             NEXTAUTH_URL_ARG=http://telegads.uz/api/auth
             NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
-     
-      - name: copy staging stack file to server
-        uses: appleboy/scp-action@master
-        with:
-          host: telegads.uz
-          username: ci
-          password: ${{ secrets.SSH_CI_PASS }}
-          source: "./deploy/stack-stage.yml"
-          target: "/telegads-staging"
-          debug: true
 
       - name: deploy staging stack to swarm
         uses: appleboy/ssh-action@master
@@ -66,4 +56,4 @@ jobs:
           host: telegads.uz
           username: ci
           password: ${{ secrets.SSH_CI_PASS }}
-          script: docker stack deploy -c ./deploy/stack-stage.yml staging
+          script: docker stack deploy -c /telegads-stage/stack-stage.yml staging
