@@ -58,6 +58,7 @@ jobs:
           password: ${{ secrets.SSH_CI_PASS }}
           source: "./deploy/stack-stage.yml"
           target: "/telegads-staging"
+          debug: true
 
       - name: deploy staging stack to swarm
         uses: appleboy/ssh-action@master
