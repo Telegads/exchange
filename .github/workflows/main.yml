@@ -52,6 +52,7 @@ jobs:
   
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: deploy staging stack to swarm
         uses: appleboy/ssh-action@master
@@ -59,4 +60,4 @@ jobs:
           host: telegads.uz
           username: ci
           password: ${{ secrets.SSH_CI_PASS }}
-          script: docker stack deploy -c /telegads-staging/stack-stage.yml staging
+          script: docker stack deploy -c /telegads-stage/stack-stage.yml staging
