@@ -56,4 +56,4 @@ jobs:
           host: telegads.uz
           username: ci
           password: ${{ secrets.SSH_CI_PASS }}
-          script: docker stack deploy -c /telegads-stage/stack-stage.yml staging
+          script: docker stack deploy -c /telegads-staging/stack-stage.yml staging
