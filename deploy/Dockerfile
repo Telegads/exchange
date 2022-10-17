@@ -12,8 +12,11 @@ RUN npm ci
 
 FROM node:16-alpine AS build
 WORKDIR /app
+ARG SENTRY_AUTH_TOKEN_ARG
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN_ARG
 ENV DATABASE_URL=$DATABASE_URL
 RUN npx prisma generate
 RUN npm run build
