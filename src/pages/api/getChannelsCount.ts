@@ -1,48 +1,11 @@
-import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { channelRepository } from "../../repositories/channelRepository";
+import { getParameterFromQuery } from "../../utils/getParameterFromQuery";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const prisma = new PrismaClient();
-
-  const filter =
-    req.query.category !== undefined && req.query.category !== "all"
-      ? {
-          where: {
-            categoryId: req.query.category as string,
-          },
-        }
-      : {
-          where: undefined,
-        };
-
-  const search =
-    req.query.search !== undefined
-      ? {
-          where: {
-            ...filter.where,
-            OR: [
-              {
-                name: {
-                  contains: (req.query.search as string).trim(),
-                },
-              },
-              {
-                description: {
-                  contains: (req.query.search as string).trim(),
-                },
-              },
-            ],
-          },
-        }
-      : {
-          ...filter,
-        };
-
-  const channelsCount = await prisma.channel.aggregate({
-    _count: {
-      id: true,
-    },
-    ...search,
+  const channelsCount = await channelRepository.countByFilter({
+    category: getParameterFromQuery(req.query, "category"),
+    search: getParameterFromQuery(req.query, "search"),
   });
 
   res.status(200).json(channelsCount._count.id);

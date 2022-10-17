@@ -14,6 +14,9 @@ import { Counter } from "../components/Counter/Counter";
 import { NextPageContext } from "next";
 
 import { throttle } from "lodash";
+import { channelRepository } from "../repositories/channelRepository";
+import { getParameterFromQuery } from "../utils/getParameterFromQuery";
+import { categoryRepository } from "../repositories/categoryRepository";
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
@@ -23,70 +26,27 @@ export type ChannelWithTagsAndFormats = Channel & {
 const PAGE_SIZE = 50;
 
 export async function getServerSideProps(context: NextPageContext) {
-  const prisma = new PrismaClient();
+  const searchString = getParameterFromQuery(context.query, "search");
+  const filterCategory = getParameterFromQuery(context.query, "category");
 
-  const filter =
-    context.query.category !== undefined && context.query.category !== "all"
-      ? {
-          where: {
-            categoryId: context.query.category as string,
-          },
-        }
-      : {
-          where: undefined,
-        };
+  const sortType = getParameterFromQuery(context.query, "sort_type");
+  const sortDirection = getParameterFromQuery(context.query, "sort_dir");
 
-  const search =
-    context.query.search !== undefined
-      ? {
-          where: {
-            ...filter.where,
-            OR: [
-              {
-                name: {
-                  contains: (context.query.search as string).trim(),
-                },
-              },
-              {
-                description: {
-                  contains: (context.query.search as string).trim(),
-                },
-              },
-            ],
-          },
-        }
-      : {
-          ...filter,
-        };
-
-  const sortType = context.query.sort_type;
-  const sortDir = context.query.sort_dir;
-
-  const sorting = sortType
-    ? {
-        orderBy: {
-          [sortType as string]: sortDir,
-        },
-      }
-    : { orderBy: undefined };
-
-  const channels = await prisma.channel.findMany({
-    take: PAGE_SIZE,
-    include: {
-      formats: true,
-      category: true,
+  const channels = await channelRepository.getChannelsByFilterWithSort({
+    pageNumber: 1,
+    pageSize: PAGE_SIZE,
+    filter: {
+      category: filterCategory,
+      search: searchString,
     },
-    ...search,
-    ...sorting,
-  });
-
-  const categories = await prisma.category.findMany({});
-
-  const channelsCount = await prisma.channel.aggregate({
-    _count: {
-      id: true,
+    sort: {
+      direction: sortDirection,
+      type: sortType,
     },
   });
+  const categories = await categoryRepository.getAllCategories();
+
+  const channelsCount = await channelRepository.countAll();
 
   return {
     props: {
