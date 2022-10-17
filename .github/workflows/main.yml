@@ -25,6 +25,8 @@ jobs:
           push: true
           tags: peteranikitin/telegads-exchange:latest
           file: ./deploy/Dockerfile
+          build-args: |
+            SENTRY_AUTH_TOKEN_ARG=${{secrets.SENTRY_AUTH_TOKEN}}
 
       - name: Build and push staging image
         uses: docker/build-push-action@v3
@@ -38,7 +40,6 @@ jobs:
             NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
             API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_STAGE}}
-            SENTRY_AUTH_TOKEN_ARG=${{secrets.SENTRY_AUTH_TOKEN}}
 
       - name: Build and push production image
         uses: docker/build-push-action@v3
