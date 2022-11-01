@@ -79,7 +79,7 @@ export const channelRepository = {
       ...sorting,
     });
   },
-  updateChannel(channel: Channel) {
+  updateChannel(channel: Partial<Channel>) {
     return prisma.channel.update({
       where: {
         url: channel.url,
@@ -132,6 +132,14 @@ export const channelRepository = {
         id: true,
       },
       ...search,
+    });
+  },
+  getChannelsToUpdate(limit = 20) {
+    return prisma.channel.findMany({
+      take: limit,
+      orderBy: {
+        lastUpdateDateTime: "desc",
+      },
     });
   },
 };
