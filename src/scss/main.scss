@@ -69,15 +69,6 @@ body {
   position: relative;
 }
 
-.header__img_line {
-  position: absolute;
-  left: 50%;
-  margin-left: -58px;
-  width: 116px;
-  height: 6px;
-  background: #7044CC;
-}
-
 .header__container {
   margin: 0 30px;
   display: flex;
@@ -143,10 +134,31 @@ body {
       margin: 0 13.5px 0 13.5px;
   }
   a {
+      position: relative;
       font-weight: 500;
       line-height: 160%;
       color: #000;
       transition: all 0.3s ease-in 0s;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: -79px;
+        left: 50%;
+        margin-left: -58px;
+        width: 116px;
+        height: 6px;
+        background: #7044CC;
+        opacity: 0;
+        transition: all 0.3s ease-in 0s;
+      }
+      &:hover {
+        color: #7044CC;
+        
+        &:before {
+          opacity: 1;
+        }
+      }
   }
 }
 
@@ -262,9 +274,7 @@ body {
   margin: 0 0 0 20px;
 }
 
-.header__menu a:hover {
-  color: #7044CC;
-}
+
 
 .header__btn_reg {
   background-color: #7044CC;
