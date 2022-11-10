@@ -26,6 +26,10 @@ export const HeaderAccount = () => {
       <Link href="/api/auth/signin">
         <a href="#">Вход</a>
       </Link>
+      <p>/</p>
+      <Link href="/api/auth/signin">
+        <a href="#">Регистрация</a>
+      </Link>
       <img src="/img/icons/adduser.svg" alt="" />
     </div>
   );

@@ -8,7 +8,6 @@ import { Logo } from "./Logo";
 const Header: React.FC = () => {
   return (
     <header className="header">
-      <div className="header__img_line"></div>
       <div className="header__container">
         <Logo />
         <LanguageSelector />
