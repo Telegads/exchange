@@ -5,6 +5,7 @@ import Post, { PostProps } from "../components/Post";
 import prisma from "../../lib/prisma";
 import style from "../scss/index.module.scss";
 import Footer from "../components/Footer/Footer";
+import { Container } from "react-bootstrap";
 
 // export const getStaticProps: GetStaticProps = async () => {
 //   // const channels = await prisma.channel.findMany();
@@ -236,12 +237,16 @@ const Blog: React.FC<Props> = ({ channels }) => {
           </div>
         </section>
         <section className={style.questions}>
-          <div className={style.questions__wrapper}>
+          <Container className="d-flex flex-column flex-xl-row justify-content-between">
+          <div className={`${style.questions__wrapper} ${style.questions__wrapper_background}`}>
             <div className={style.questions__title}>
               <h4>Возникли вопросы?</h4>
-              <a>Напишите нам и ответим Вам в ближайшее время</a>
+              <a href="#">Напишите нам и ответим Вам в ближайшее время</a>
             </div>
+          </div>
+          <div className={style.questions__wrapper}>
             <div className={style.questions__social_media}>
+                <div className={style.questions__social_media__wrapper}>
               <div
                 className={`${style.questions__vk} ${style.questions__item}`}
               >
@@ -259,6 +264,8 @@ const Blog: React.FC<Props> = ({ channels }) => {
               </div>
             </div>
           </div>
+            </div>
+          </Container>
         </section>
         <Footer />
       </Layout>

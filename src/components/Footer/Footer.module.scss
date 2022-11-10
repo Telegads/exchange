@@ -3,12 +3,12 @@
 .footer {
   &__wrapper {
     margin-top: 194px;
-  
+
     @include respondTo(1330px) {
-      margin: 890px 0 42px;
+      margin-top: 100px;
     }
     @include respondTo(767px) {
-      margin: 500px 0 100px;
+      margin-top: 80px;
     }
   }
   &__navigation {
@@ -33,16 +33,16 @@
   }
   &__contacts {
     a {
-        font-weight: 300;
-        font-size: 45px;
-        line-height: 34px;
-        color: #7044CC;
-        padding-bottom: 1px;
-        border-bottom: 2px solid #7044CC;;
-  
-        @include respondTo(767px) {
-          font-size: 25px;
-        }
+      font-weight: 300;
+      font-size: 45px;
+      line-height: 34px;
+      color: #7044CC;
+      padding-bottom: 1px;
+      border-bottom: 2px solid #7044CC;
+
+      @include respondTo(767px) {
+        font-size: 25px;
+      }
     }
   }
   &__line {
@@ -54,9 +54,9 @@
     padding-bottom: 178px;
 
     p {
-        font-weight: 500;
-        font-size: 17px;
-        line-height: 160%;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 160%;
     }
   }
 }
