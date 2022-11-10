@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import Post, { PostProps } from "../components/Post";
 import prisma from "../../lib/prisma";
 import style from "../scss/index.module.scss";
+import Footer from "../components/Footer/Footer";
 
 // export const getStaticProps: GetStaticProps = async () => {
 //   // const channels = await prisma.channel.findMany();
@@ -259,6 +260,7 @@ const Blog: React.FC<Props> = ({ channels }) => {
             </div>
           </div>
         </section>
+        <Footer />
       </Layout>
     </div>
   );

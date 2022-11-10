@@ -1,0 +1,5 @@
+@mixin respondTo($width) {
+  @media (max-width: $width) {
+    @content
+  }
+}
