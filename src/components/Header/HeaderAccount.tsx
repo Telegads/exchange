@@ -22,8 +22,6 @@ export const HeaderAccount: FC<HeaderAccountProps> = ({ session }) => {
 			{session && (
 				<div className='header__balance_logout'>
 					<div className='header__balance'>
-						<p className='balance__text'>Баланс:</p>
-						<p className='balace'>360Р</p>
 						<a href='#'>
 							<img src='/img/icons/plus.svg' alt='' />
 						</a>
