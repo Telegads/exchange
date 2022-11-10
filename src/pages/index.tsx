@@ -58,7 +58,7 @@ const Blog: React.FC<Props> = ({ channels }) => {
                 </p>
               </div>
               <div
-                className={`${style.advantage__channel} ${style.advantage__item}`}
+                className={`${style.advantage__orders} ${style.advantage__item}`}
               >
                 <p className={style.advantage__namber}>460 482</p>
                 <p className={style.advantage__text}>
@@ -245,25 +245,25 @@ const Blog: React.FC<Props> = ({ channels }) => {
             </div>
           </div>
           <div className={style.questions__wrapper}>
-            <div className={style.questions__social_media}>
+              <div className={style.questions__social_media}>
                 <div className={style.questions__social_media__wrapper}>
-              <div
-                className={`${style.questions__vk} ${style.questions__item}`}
-              >
-                <a href="#">Написать в Вконтакте</a>
+                  <div
+                    className={`${style.questions__vk} ${style.questions__item}`}
+                  >
+                    <a href="#">Написать в Вконтакте</a>
+                  </div>
+                  <div
+                    className={`${style.questions__vk} ${style.questions__item}`}
+                  >
+                    <a href="#">Написать в Facebook</a>
+                  </div>
+                  <div
+                    className={`${style.questions__vk} ${style.questions__item}`}
+                  >
+                    <a href="#">Написать в Telegram</a>
+                  </div>
+                </div>
               </div>
-              <div
-                className={`${style.questions__vk} ${style.questions__item}`}
-              >
-                <a href="#">Написать в Facebook</a>
-              </div>
-              <div
-                className={`${style.questions__vk} ${style.questions__item}`}
-              >
-                <a href="#">Написать в Telegram</a>
-              </div>
-            </div>
-          </div>
             </div>
           </Container>
         </section>
