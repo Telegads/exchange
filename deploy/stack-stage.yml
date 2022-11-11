@@ -55,6 +55,3 @@ services:
       retries: 10
       start_period: 40s
 
-networks:
-  network:
-    driver: overlay
