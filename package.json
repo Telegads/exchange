@@ -9,7 +9,8 @@
     "db:run": "docker-compose up -d --build",
     "image:build": "docker build -t peteranikitin/telegads-exchange:latest  . ",
     "image:push": "docker push peteranikitin/telegads-exchange:latest   ",
-    "release": "npm run image:build && npm run image:push"
+    "release": "npm run image:build && npm run image:push",
+    "check-types": "tsc --noEmit --incremental"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
