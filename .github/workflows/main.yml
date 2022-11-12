@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: deploy staging stack to swarm
+      - name: deploy staging 
         uses: appleboy/ssh-action@master
         with:
           host: telegads.uz
