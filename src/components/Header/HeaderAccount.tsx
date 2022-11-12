@@ -1,6 +1,5 @@
 import { Session } from 'next-auth';
 import { useSession, signOut } from 'next-auth/react';
-
 import Link from 'next/link';
 import React, { FC } from 'react';
 

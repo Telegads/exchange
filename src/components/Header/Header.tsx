@@ -5,22 +5,25 @@ import { LanguageSelector } from './LanguageSelector';
 import { HeaderMenu } from './HeaderMenu';
 import { Logo } from './Logo';
 import { Session } from 'next-auth';
+import { Navbar, Container } from "react-bootstrap";
+import { Burger } from "./Burger";
 
 type HeaderProps = {
 	session: Session;
 };
 
+
 const Header: FC<HeaderProps> = ({session}) => {
 	return (
-		<header className='header'>
-			<div className='header__img_line'></div>
-			<div className='header__container'>
+		<Navbar className='navbar'>
+			<Container className='d-flex align-items-center justify-content-between'>
 				<Logo />
 				<LanguageSelector />
 				<HeaderMenu />
 				<HeaderAccount session={session}/>
-			</div>
-		</header>
+        <Burger />
+			</Container>
+		</Navbar>
 	);
 };
 
