@@ -1,7 +1,13 @@
 import Link from "next/link";
 import React from "react";
+import { Button } from "../Button/Button";
 
 export const HeaderAccount = () => {
+  const handleLoginModal = () => {
+    console.log('test');
+    
+  }
+
   const loggedIn = (
     <div className="header__balance_logout">
       <div className="header__balance">
