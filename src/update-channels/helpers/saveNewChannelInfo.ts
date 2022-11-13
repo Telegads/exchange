@@ -4,7 +4,7 @@ import { ChannelInfoResponse } from "./getNewChannelInfo";
 export const saveNewChannelInfo = async (
   channelId: string,
   newChannelInfo: ChannelInfoResponse
-) => {
+) =>
   channelRepository.updateChannel({
     name: newChannelInfo.name,
     subscribers: newChannelInfo.subs_count,
@@ -12,4 +12,3 @@ export const saveNewChannelInfo = async (
     url: `${channelId}`,
     description: newChannelInfo.description,
   });
-};
