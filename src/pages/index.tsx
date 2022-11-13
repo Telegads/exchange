@@ -44,7 +44,7 @@ const Blog: React.FC<Props> = ({ channels }) => {
               <div
                 className={`${style.advantage__user} ${style.advantage__item}`}
               >
-                <p className={style.advantage__namber}>207 228</p>
+                <p className={style.advantage__number}>207 228</p>
                 <p className={style.advantage__text}>
                   новых пользователей на бирже
                 </p>
@@ -52,7 +52,7 @@ const Blog: React.FC<Props> = ({ channels }) => {
               <div
                 className={`${style.advantage__channel} ${style.advantage__item}`}
               >
-                <p className={style.advantage__namber}>7 754</p>
+                <p className={style.advantage__number}>7 754</p>
                 <p className={style.advantage__text}>
                   каналов, проверенных вручную
                 </p>
@@ -60,7 +60,7 @@ const Blog: React.FC<Props> = ({ channels }) => {
               <div
                 className={`${style.advantage__orders} ${style.advantage__item}`}
               >
-                <p className={style.advantage__namber}>460 482</p>
+                <p className={style.advantage__number}>460 482</p>
                 <p className={style.advantage__text}>
                   успешно реализованных заказов
                 </p>
