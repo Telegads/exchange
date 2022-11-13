@@ -1,9 +1,12 @@
-import React from "react";
-import { GetStaticProps } from "next";
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from "../../lib/prisma";
-import style from "../scss/index.module.scss";
+import React from 'react';
+import { GetServerSideProps, GetStaticProps } from 'next';
+import Layout from '../components/Layout';
+import Post, { PostProps } from '../components/Post';
+import prisma from '../../lib/prisma';
+import style from '../scss/index.module.scss';
+import Footer from "../components/Footer/Footer";
+import { getSession, useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 // export const getStaticProps: GetStaticProps = async () => {
 //   // const channels = await prisma.channel.findMany();
@@ -15,12 +18,13 @@ import style from "../scss/index.module.scss";
 
 type Props = {
   channels: any[];
+	session: Session;
 };
 
-const Blog: React.FC<Props> = ({ channels }) => {
+const Blog: React.FC<Props> = ({ channels, session }) => {
   return (
     <div className={style.index_body}>
-      <Layout>
+			<Layout session={session}>
         <section className={style.advertising}>
           <div className={style.container}>
             <div className={style.advertising__title}>
@@ -240,10 +244,7 @@ const Blog: React.FC<Props> = ({ channels }) => {
               <h4>Возникли вопросы?</h4>
               <a>Напишите нам и ответим Вам в ближайшее время</a>
             </div>
-          </div>
-          <div className={style.questions__wrapper}>
               <div className={style.questions__social_media}>
-                <div className={style.questions__social_media__wrapper}>
                   <div
                     className={`${style.questions__vk} ${style.questions__item}`}
                   >
@@ -261,12 +262,23 @@ const Blog: React.FC<Props> = ({ channels }) => {
                   </div>
                 </div>
               </div>
-            </div>
-          </Container>
         </section>
+        <Footer />
       </Layout>
     </div>
   );
 };
 
 export default Blog;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	const { req } = ctx;
+
+	const session = await getSession({ req });
+
+	return {
+		props: {
+			session: await session,
+		},
+	};
+};
