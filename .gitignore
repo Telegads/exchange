@@ -9,3 +9,4 @@ node_modules/
 # Sentry
 .sentryclirc
 tsconfig.tsbuildinfo
+coverage
