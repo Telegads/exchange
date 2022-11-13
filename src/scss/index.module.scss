@@ -289,6 +289,10 @@
 
   &__balance {
     margin-top: 79px;
+
+    @include respondTo(767px) {
+      margin-top: 172px;
+    }
   }
 
 }
@@ -309,7 +313,8 @@
 
   @include respondTo(767px) {
     background: url(/img/mobile/backgraund380.jpg)center / cover no-repeat;
-    margin-bottom: 20px;
+    height: 527px;
+    margin: 0 10px 20px;
   }
 
   &__wrapper {
@@ -373,6 +378,10 @@
     @include respondTo(1000px) {
       margin-right: 172px;
     }
+
+    @include respondTo(767px) {
+      margin-right: 15px;
+    }
   }
 
   &__text {
@@ -406,7 +415,7 @@
         margin-bottom: 36px;
 
         @include respondTo(767px) {
-          width: 100%;
+          width: 90%;
         }
       }
 
@@ -713,7 +722,12 @@
       padding: 0
     }
 
-    &__wrapper {}
+    &__wrapper {
+
+      @include respondTo(767px) {
+        width: 100%;
+      }
+    }
 
     a {
       font-family: 'Montserrat';
@@ -721,6 +735,10 @@
       font-size: 14px;
       color: #000;
       text-transform: uppercase;
+
+      @include respondTo(330px) {
+        font-size: 12px;
+      }
     }
   }
 

@@ -32,6 +32,11 @@
     margin-bottom: 62px;
   }
   &__contacts {
+
+    @include respondTo(767px) {
+      margin-bottom: 100px;
+    }
+
     a {
       font-weight: 300;
       font-size: 45px;
