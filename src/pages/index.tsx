@@ -4,6 +4,8 @@ import Layout from '../components/Layout';
 import Post, { PostProps } from '../components/Post';
 import prisma from '../../lib/prisma';
 import style from '../scss/index.module.scss';
+import Footer from "../components/Footer/Footer";
+import { Container } from "react-bootstrap";
 import { getSession, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 // export const getStaticProps: GetStaticProps = async () => {
@@ -34,7 +36,7 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 								эффективные рекламные кампании
 							</p>
 							<a
-								href='https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit'
+								href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit"
 								className={style.advertising__btn}
 							>
 								Начать сейчас
@@ -44,7 +46,7 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 							<div
 								className={`${style.advantage__user} ${style.advantage__item}`}
 							>
-								<p className={style.advantage__namber}>207 228</p>
+								<p className={style.advantage__number}>207 228</p>
 								<p className={style.advantage__text}>
 									новых пользователей на бирже
 								</p>
@@ -52,15 +54,15 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 							<div
 								className={`${style.advantage__channel} ${style.advantage__item}`}
 							>
-								<p className={style.advantage__namber}>7 754</p>
+								<p className={style.advantage__number}>7 754</p>
 								<p className={style.advantage__text}>
 									каналов, проверенных вручную
 								</p>
 							</div>
 							<div
-								className={`${style.advantage__channel} ${style.advantage__item}`}
+								className={`${style.advantage__orders} ${style.advantage__item}`}
 							>
-								<p className={style.advantage__namber}>460 482</p>
+								<p className={style.advantage__number}>460 482</p>
 								<p className={style.advantage__text}>
 									успешно реализованных заказов
 								</p>
@@ -75,16 +77,16 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 						</div>
 						<div className={style.partners__items}>
 							<div className={style.partners__google}>
-								<img src='img/partners/google.svg' alt='' />
+								<img src="img/partners/google.svg" alt="" />
 							</div>
 							<div className={style.partners__yandex}>
-								<img src='img/partners/yandex.svg' alt='' />
+								<img src="img/partners/yandex.svg" alt="" />
 							</div>
 							<div className={style.partners__visa}>
-								<img src='img/partners/visa.svg' alt='' />
+								<img src="img/partners/visa.svg" alt="" />
 							</div>
 							<div className={style.partners__master}>
-								<img src='img/partners/master.svg' alt='' />
+								<img src="img/partners/master.svg" alt="" />
 							</div>
 						</div>
 					</div>
@@ -98,10 +100,10 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 								<div className={style.registration__icon}>
 									<img
 										className={style.icon__number}
-										src='img/how_it_works/01.svg'
-										alt=''
+										src="img/how_it_works/01.svg"
+										alt=""
 									/>
-									<img src='img/how_it_works/reg.svg' alt='' />
+									<img src="img/how_it_works/reg.svg" alt="" />
 								</div>
 								<div className={style.registration__subtitle}>
 									<h3>Регистрируйте аккаунт</h3>
@@ -111,7 +113,7 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 								<p className={style.text}>
 									Пройдите быструю регистрацию чтобы активировать аккаунт.
 								</p>
-								<a href='https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit'>
+								<a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">
 									регистрация
 								</a>
 							</div>
@@ -131,10 +133,10 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 									<div className={style.catalog__icon}>
 										<img
 											className={style.icon__number}
-											src='img/how_it_works/02.svg'
-											alt=''
+											src="img/how_it_works/02.svg"
+											alt=""
 										/>
-										<img src='img/how_it_works/catalog.svg' alt='' />
+										<img src="img/how_it_works/catalog.svg" alt="" />
 									</div>
 									<div className={style.catalog__subtitle}>
 										<h3>Каталог каналов</h3>
@@ -151,10 +153,10 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 								<div className={style.balance__icon}>
 									<img
 										className={style.icon__number}
-										src='img/how_it_works/03.svg'
-										alt=''
+										src="img/how_it_works/03.svg"
+										alt=""
 									/>
-									<img src='img/how_it_works/balance.svg' alt='' />
+									<img src="img/how_it_works/balance.svg" alt="" />
 								</div>
 								<div className={style.balance__subtitle}>
 									<h3>Пополните баланс</h3>
@@ -164,8 +166,8 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 								<p className={style.text}>Пополните баланс удобным способом:</p>
 								<p>Visa/MasterCard/МИР, Qiwi Банковский перевод</p>
 								<div className={style.balance__img}>
-									<img src='img/how_it_works/visa.svg' alt='' />
-									<img src='img/how_it_works/master.svg' alt='' />
+									<img src="img/how_it_works/visa.svg" alt="" />
+									<img src="img/how_it_works/master.svg" alt="" />
 								</div>
 							</div>
 						</div>
@@ -231,36 +233,43 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 							</div>
 							<div className={style.registation__subtitle}>
 								<p>Создайте аккаунт через Telegram всего за пару кликов</p>
-								<a href='#'>Создать аккаунт</a>
+								<a href="#">Создать аккаунт</a>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section className={style.questions}>
-					<div className={style.questions__wrapper}>
-						<div className={style.questions__title}>
-							<h4>Возникли вопросы?</h4>
-							<a>Напишите нам и ответим Вам в ближайшее время</a>
-						</div>
-						<div className={style.questions__social_media}>
-							<div
-								className={`${style.questions__vk} ${style.questions__item}`}
-							>
-								<a href='#'>Написать в Вконтакте</a>
-							</div>
-							<div
-								className={`${style.questions__vk} ${style.questions__item}`}
-							>
-								<a href='#'>Написать в Facebook</a>
-							</div>
-							<div
-								className={`${style.questions__vk} ${style.questions__item}`}
-							>
-								<a href='#'>Написать в Telegram</a>
+					<Container className="d-flex flex-column flex-xl-row justify-content-between">
+						<div className={`${style.questions__wrapper} ${style.questions__wrapper_background}`}>
+							<div className={style.questions__title}>
+								<h4>Возникли вопросы?</h4>
+								<a href="#">Напишите нам и ответим Вам в ближайшее время</a>
 							</div>
 						</div>
-					</div>
+						<div className={style.questions__wrapper}>
+							<div className={style.questions__social_media}>
+								<div className={style.questions__social_media__wrapper}>
+									<div
+										className={`${style.questions__vk} ${style.questions__item}`}
+									>
+										<a href="#">Написать в Вконтакте</a>
+									</div>
+									<div
+										className={`${style.questions__vk} ${style.questions__item}`}
+									>
+										<a href="#">Написать в Facebook</a>
+									</div>
+									<div
+										className={`${style.questions__vk} ${style.questions__item}`}
+									>
+										<a href="#">Написать в Telegram</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</Container>
 				</section>
+				<Footer />
 			</Layout>
 		</div>
 	);
