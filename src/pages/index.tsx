@@ -18,7 +18,8 @@ import { Session } from 'next-auth';
 // };
 
 type Props = {
-  channels: any[];
+	channels: any[];
+	session: Session;
 };
 
 const Blog: React.FC<Props> = ({ channels, session }) => {
@@ -275,3 +276,15 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
 };
 
 export default Blog;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	const { req } = ctx;
+
+	const session = await getSession({ req });
+
+	return {
+		props: {
+			session: await session,
+		},
+	};
+};
