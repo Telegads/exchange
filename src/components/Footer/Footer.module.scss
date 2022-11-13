@@ -1,0 +1,67 @@
+@import '../../scss/mixins';
+
+.footer {
+  &__wrapper {
+    margin-top: 194px;
+
+    @include respondTo(1330px) {
+      margin-top: 100px;
+    }
+    @include respondTo(767px) {
+      margin-top: 80px;
+    }
+  }
+  &__navigation {
+    a {
+      font-size: 17px;
+      color: #677488;
+    }
+    li {
+      margin-bottom: 42px;
+
+      &:last-child {
+        margin-bottom: 82px;
+      }
+    }
+  }
+  &__subtitle {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 99%;
+    color: #7044CC;
+    margin-bottom: 62px;
+  }
+  &__contacts {
+
+    @include respondTo(767px) {
+      margin-bottom: 100px;
+    }
+
+    a {
+      font-weight: 300;
+      font-size: 45px;
+      line-height: 34px;
+      color: #7044CC;
+      padding-bottom: 1px;
+      border-bottom: 2px solid #7044CC;
+
+      @include respondTo(767px) {
+        font-size: 25px;
+      }
+    }
+  }
+  &__line {
+    height: 1px;
+    background: #CECECE;
+  }
+  &__copyright {
+    margin: 82px 0 23px;
+    padding-bottom: 178px;
+
+    p {
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 160%;
+    }
+  }
+}
