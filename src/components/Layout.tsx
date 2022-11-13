@@ -1,16 +1,17 @@
+import { Session } from 'next-auth';
 import React, { ReactNode } from "react";
 import Header from "./Header/Header";
 import style from "../scss/index.module.scss";
 
 type Props = {
-  children: ReactNode;
+	session: Session;
 };
 
-const Layout: React.FC<Props> = (props) => (
-  <div className={style.wrapper}>
-    <Header />
-    {props.children}
-  </div>
+const Layout: React.FC<Props> = ({ children, session }) => (
+	<div className={style.wrapper}>
+		<Header session={session}/>
+		{children}
+	</div>
 );
 
 export default Layout;
