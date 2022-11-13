@@ -17,7 +17,7 @@ import { Session } from 'next-auth';
 // };
 
 type Props = {
-  channels: any[];
+	channels: any[];
 	session: Session;
 };
 
