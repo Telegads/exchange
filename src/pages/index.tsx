@@ -1,11 +1,13 @@
-import React from "react";
-import { GetStaticProps } from "next";
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from "../../lib/prisma";
-import style from "../scss/index.module.scss";
+import React from 'react';
+import { GetServerSideProps, GetStaticProps } from 'next';
+import Layout from '../components/Layout';
+import Post, { PostProps } from '../components/Post';
+import prisma from '../../lib/prisma';
+import style from '../scss/index.module.scss';
 import Footer from "../components/Footer/Footer";
 import { Container } from "react-bootstrap";
+import { getSession, useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 // export const getStaticProps: GetStaticProps = async () => {
 //   // const channels = await prisma.channel.findMany();
@@ -19,10 +21,10 @@ type Props = {
   channels: any[];
 };
 
-const Blog: React.FC<Props> = ({ channels }) => {
+const Blog: React.FC<Props> = ({ channels, session }) => {
   return (
     <div className={style.index_body}>
-      <Layout>
+      <Layout session={session}>
         <section className={style.advertising}>
           <div className={style.container}>
             <div className={style.advertising__title}>
@@ -270,6 +272,5 @@ const Blog: React.FC<Props> = ({ channels }) => {
       </Layout>
     </div>
   );
-};
 
 export default Blog;
