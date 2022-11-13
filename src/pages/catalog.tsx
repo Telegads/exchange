@@ -17,6 +17,7 @@ import { throttle } from "lodash";
 import { channelRepository } from "../repositories/channelRepository";
 import { getParameterFromQuery } from "../utils/getParameterFromQuery";
 import { categoryRepository } from "../repositories/categoryRepository";
+import { useSession } from "next-auth/react";
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
@@ -107,8 +108,10 @@ const Catalog: FC<{
     setSize(size + 1);
   }, [setSize, size]);
 
+  const { data: session, status } = useSession();
+
   return (
-    <Layout>
+    <Layout session={session}>
       <div className={style.line}></div>
       {/* <Navigation /> */}
       <div className={style.wrapper}>

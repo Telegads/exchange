@@ -1,32 +1,40 @@
-import Link from "next/link";
-import React from "react";
+import { Session } from 'next-auth';
+import { useSession, signOut } from 'next-auth/react';
 
-export const HeaderAccount = () => {
-  const loggedIn = (
-    <div className="header__balance_logout">
-      <div className="header__balance">
-        <p className="balance__text">Баланс:</p>
-        <p className="balace">360Р</p>
-        <a href="#">
-          <img src="/img/icons/plus.svg" alt="" />
-        </a>
-      </div>
-      <div className="header__logout">
-        <a href="#">Выйти</a>
-        <a href="#">
-          Dmitry001
-          <img src="/img/icons/adduser.svg" alt="" />
-        </a>
-      </div>
-    </div>
-  );
+import Link from 'next/link';
+import React, { FC } from 'react';
 
-  return (
-    <div className="header__btn_reg header__btn_none">
-      <Link href="/api/auth/signin">
-        <a href="#">Вход</a>
-      </Link>
-      <img src="/img/icons/adduser.svg" alt="" />
-    </div>
-  );
+type HeaderAccountProps = {
+	session: Session;
+};
+
+export const HeaderAccount: FC<HeaderAccountProps> = ({ session }) => {
+	return (
+		<>
+			{!session && (
+				<div className='header__btn_reg header__btn_none'>
+					<Link href='/api/auth/signin'>
+						<a href='#'>Вход</a>
+					</Link>
+					<img src='/img/icons/adduser.svg' alt='' />
+				</div>
+			)}
+			{session && (
+				<div className='header__balance_logout'>
+					<div className='header__balance'>
+						<a href='#'>
+							<img src='/img/icons/plus.svg' alt='' />
+						</a>
+					</div>
+					<div className='header__logout'>
+						<button onClick={() => signOut()}>Выйти</button>
+						<div>{session.user.name}</div>
+						<a href='#'>
+							<img src='/img/icons/adduser.svg' alt='' />
+						</a>
+					</div>
+				</div>
+			)}
+		</>
+	);
 };

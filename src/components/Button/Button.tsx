@@ -1,29 +1,39 @@
 import React, { FC } from "react";
 import style from "./Button.module.scss";
+import { Button as BootstrapButton } from "react-bootstrap";
 
 type ButtonTypes = "primary" | "ghost";
-type Size = "S" | "M" | "L";
+type Size = "lg" | "sm";
 
 type ButtonProps = {
   type: ButtonTypes;
-  rounded?: boolean;
   size?: Size;
   onClick: () => void;
+  rounded?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 };
 
 export const Button: FC<ButtonProps> = ({
   type,
-  children,
+  size = "sm",
   rounded,
   onClick,
-  size = "M",
+  loading,
+  disabled,
+  children,
 }) => {
   return (
-    <button
-      className={`${style[type]} ${rounded ?? style.rounded} ${style[size]}`}
+    <BootstrapButton
+      variant={type}
+      size={size}
       onClick={onClick}
+      disabled={disabled}
+      className={`${style.btn} ${style[type]} ${style[size]} ${
+        rounded ? style.rounded : ""
+      } ${loading ? style.loading : ""}`}
     >
-      {children}
-    </button>
+      {loading ? "Загрузка..." : children}
+    </BootstrapButton>
   );
 };
