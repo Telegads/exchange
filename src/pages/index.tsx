@@ -272,5 +272,6 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
       </Layout>
     </div>
   );
+};
 
 export default Blog;
