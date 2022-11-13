@@ -7,4 +7,4 @@ export const HTTP_STATUS = {
 };
 
 export const DEFAULT_PAGE_SIZE = 50;
-export const DEFAULT_PAGE_SIZE_FOR_UPDATE = 1
+export const DEFAULT_PAGE_SIZE_FOR_UPDATE = 20

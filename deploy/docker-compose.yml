@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  db:
+    image: peteranikitin/telegads-exchange-db-stage:latest
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    ports:
+      - "5433:5432"
+    networks:
+      - network
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+  app:
+    image: peteranikitin/telegads-exchange-app-stage:latest
+    stdin_open: true
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    networks:
+      - network
+    ports:
+      - 3001:3000
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+
+networks:
+  network:
+    driver: bridge
+  tg_connector_network:
+    external: true
