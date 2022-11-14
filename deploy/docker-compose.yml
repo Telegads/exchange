@@ -25,7 +25,9 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
   app:
     image: peteranikitin/telegads-exchange-app-stage:latest
-    stdin_open: true
+    stdin_open: true 
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     deploy:
       replicas: 1
       update_config:
