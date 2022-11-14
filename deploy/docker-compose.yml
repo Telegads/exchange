@@ -26,8 +26,7 @@ services:
   app:
     image: peteranikitin/telegads-exchange-app-stage:latest
     stdin_open: true 
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    network_mode: "host"
     deploy:
       replicas: 1
       update_config:
