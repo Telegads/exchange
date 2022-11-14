@@ -8,8 +8,8 @@ export type Filter = {
 } | null;
 
 export type Sort = {
-  type: string;
-  direction: string;
+  type: string | undefined;
+  direction: string | undefined;
 };
 
 export type GetChannelArgs = {
@@ -30,11 +30,12 @@ export const channelRepository = {
     pageNumber = 0,
   }: GetChannelArgs) {
     const sorting = {
-      orderBy: sort
-        ? {
-            [sort.type]: sort.direction,
-          }
-        : undefined,
+      orderBy:
+        sort && sort.type
+          ? {
+              [sort.type]: sort.direction,
+            }
+          : undefined,
     };
 
     const filterCondition = {

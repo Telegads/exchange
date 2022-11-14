@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 
 type HeaderAccountProps = {
-	session: Session;
+	session: Session | null;
 };
 
 export const HeaderAccount: FC<HeaderAccountProps> = ({ session }) => {
@@ -28,7 +28,7 @@ export const HeaderAccount: FC<HeaderAccountProps> = ({ session }) => {
 					</div>
 					<div className='header__logout'>
 						<button onClick={() => signOut()}>Выйти</button>
-						<div>{session.user.name}</div>
+						<div>{session.user?.name}</div>
 						<a href='#'>
 							<img src='/img/icons/adduser.svg' alt='' />
 						</a>
