@@ -72,4 +72,4 @@ jobs:
           host: telegads.uz
           username: ci
           password: ${{ secrets.SSH_CI_PASS }}
-          script: docker compose -f /telegads-stage/stack-stage.yml up -d
+          script: docker compose -f /telegads-stage/docker-compose.yml -f /telegads-stage/docker-compose.stage.yml -e TG_CONNECTOR_URL="host.docker.internal:3003" up --force-recreate --build -d

@@ -1,5 +1,6 @@
 import { Channel } from "@prisma/client";
-import { prisma } from "../core/prisma";
+import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_FOR_UPDATE } from "../constants";
+import prisma from "../core/prisma";
 
 export type Filter = {
   category?: string | null;
@@ -7,15 +8,15 @@ export type Filter = {
 } | null;
 
 export type Sort = {
-  type: string;
-  direction: string;
+  type: string | undefined;
+  direction: string | undefined;
 };
 
 export type GetChannelArgs = {
   filter?: Filter | null;
   sort?: Sort | null;
-  pageSize: number | null;
-  pageNumber: number | null;
+  pageSize: number | undefined;
+  pageNumber: number | undefined;
 };
 
 export const channelRepository = {
@@ -25,15 +26,16 @@ export const channelRepository = {
   getChannelsByFilterWithSort({
     filter,
     sort,
-    pageSize,
-    pageNumber,
+    pageSize = DEFAULT_PAGE_SIZE,
+    pageNumber = 0,
   }: GetChannelArgs) {
     const sorting = {
-      orderBy: sort
-        ? {
-            [sort.type]: sort.direction,
-          }
-        : undefined,
+      orderBy:
+        sort && sort.type
+          ? {
+              [sort.type]: sort.direction,
+            }
+          : undefined,
     };
 
     const filterCondition = {
@@ -79,7 +81,7 @@ export const channelRepository = {
       ...sorting,
     });
   },
-  updateChannel(channel: Channel) {
+  updateChannel(channel: Partial<Channel>) {
     return prisma.channel.update({
       where: {
         url: channel.url,
@@ -104,34 +106,41 @@ export const channelRepository = {
       },
     };
 
-    const search =
-      filter?.search !== undefined
-        ? {
-            where: {
-              ...filterCondition.where,
-              OR: [
-                {
-                  name: {
-                    contains: filter.search.trim(),
-                  },
+    const search = filter?.search
+      ? {
+          where: {
+            ...filterCondition.where,
+            OR: [
+              {
+                name: {
+                  contains: filter.search.trim(),
                 },
-                {
-                  description: {
-                    contains: filter.search.trim(),
-                  },
+              },
+              {
+                description: {
+                  contains: filter.search.trim(),
                 },
-              ],
-            },
-          }
-        : {
-            ...filterCondition,
-          };
+              },
+            ],
+          },
+        }
+      : {
+          ...filterCondition,
+        };
 
     return prisma.channel.aggregate({
       _count: {
         id: true,
       },
       ...search,
+    });
+  },
+  getChannelsToUpdate(limit: number) {
+    return prisma.channel.findMany({
+      take: limit,
+      orderBy: {
+        lastUpdateDateTime: "desc",
+      },
     });
   },
 };

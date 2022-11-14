@@ -24,7 +24,7 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
     <div className={style.card__wrapper}>
       <div className={style.card__content}>
         <div className={style.content__logo}>
-          <img src={avatar} alt="" />
+          {avatar && <img src={avatar} alt="" />}
         </div>
         <div className={style.content__title}>
           <p>

@@ -51,7 +51,14 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      ssr: { channels, channelsCount: channelsCount._count.id, categories },
+      ssr: {
+        channels: channels.map((channel) => ({
+          ...channel,
+          lastUpdateDateTime: "",
+        })),
+        channelsCount: channelsCount._count.id,
+        categories,
+      },
     }, // will be passed to the page component as props
   };
 }

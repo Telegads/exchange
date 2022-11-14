@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import Header from './Header/Header';
 
 type Props = {
-	session: Session;
+	session: Session | null;
 };
 
 const Layout: React.FC<Props> = ({ children, session }) => (

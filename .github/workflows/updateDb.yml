@@ -24,7 +24,7 @@ jobs:
         with:
           push: true
           tags: peteranikitin/telegads-exchange-db-stage:latest
-          file: ./deploy/Dockerfile-ab-deploy
+          file: ./deploy/Dockerfile-db-deploy
           build-args: |
             POSTGRES_USER_ARG=telegads-staging
             POSTGRES_PASSWORD_ARG=${{ secrets.DB_PASS_STAGE }}
@@ -35,7 +35,7 @@ jobs:
         with:
           push: true
           tags: peteranikitin/telegads-exchange-db-prod:latest
-          file: ./deploy/Dockerfile-ab-deploy
+          file: ./deploy/Dockerfile-db-deploy
           build-args: |
             POSTGRES_USER_ARG=telegads-prod
             POSTGRES_PASSWORD_ARG=${{ secrets.DB_PASS_PROD }}
