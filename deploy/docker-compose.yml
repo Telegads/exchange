@@ -25,8 +25,7 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
   app:
     image: peteranikitin/telegads-exchange-app-stage:latest
-    stdin_open: true 
-    network_mode: "host"
+    stdin_open: true
     deploy:
       replicas: 1
       update_config:

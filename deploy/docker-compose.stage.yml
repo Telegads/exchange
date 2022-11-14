@@ -9,6 +9,7 @@ services:
     image: peteranikitin/telegads-exchange-app-stage:latest
     networks:
       - network
+      - tg-connector-stage_tg_connector_network
     ports:
       - 3001:3000
     healthcheck:
@@ -21,3 +22,5 @@ services:
 networks:
   network:
     driver: bridge
+  tg-connector-stage_tg_connector_network:
+    external: true
