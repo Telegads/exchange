@@ -10,7 +10,7 @@
     "image:build": "docker build -t peteranikitin/telegads-exchange:latest  . ",
     "image:push": "docker push peteranikitin/telegads-exchange:latest   ",
     "release": "npm run image:build && npm run image:push",
-    "check-types": "tsc --noEmit --incremental",
+    "check-types": "tsc --noEmit",
     "check-scripts": "eslint",
     "test": "jest -i",
     "test-dev": "jest --watch --coverage"

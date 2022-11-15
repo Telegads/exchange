@@ -62,7 +62,6 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
               </div>
               <div
                 className={`${style.advantage__orders} ${style.advantage__item}`}
-                className={`${style.advantage__channel} ${style.advantage__item}`}
 
               >
                 <p className={style.advantage__namber}>460 482</p>
