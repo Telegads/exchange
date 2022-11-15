@@ -6,7 +6,6 @@ import prisma from '../../lib/prisma';
 import style from '../scss/index.module.scss';
 import Footer from "../components/Footer/Footer";
 import { Container } from "react-bootstrap";
-
 import { getSession, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const Blog: React.FC<Props> = ({ channels, session }) => {
-
   return (
     <div className={style.index_body}>
       <Layout session={session}>
@@ -63,7 +61,9 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
                 </p>
               </div>
               <div
+                className={`${style.advantage__orders} ${style.advantage__item}`}
                 className={`${style.advantage__channel} ${style.advantage__item}`}
+
               >
                 <p className={style.advantage__namber}>460 482</p>
                 <p className={style.advantage__text}>
@@ -242,6 +242,7 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
           </div>
         </section>
         <section className={style.questions}>
+
           <Container className="d-flex flex-column flex-xl-row justify-content-between">
           <div className={`${style.questions__wrapper} ${style.questions__wrapper_background}`}>
             <div className={style.questions__title}>
