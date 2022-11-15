@@ -39,6 +39,7 @@ COPY --from=build --chown=nextjs:nodejs /app/public ./public
 COPY --from=build --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=build --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=build --chown=nextjs:nodejs /app/.bin/app_run.sh ./app_run.sh
+COPY --from=build --chown=nextjs:nodejs /app/src ./src
 
 USER nextjs
 

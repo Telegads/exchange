@@ -7,7 +7,7 @@ import { Logo } from './Logo';
 import { Session } from 'next-auth';
 
 type HeaderProps = {
-	session: Session;
+	session: Session | null;
 };
 
 const Header: FC<HeaderProps> = ({session}) => {

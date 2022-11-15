@@ -5,6 +5,7 @@ import Post, { PostProps } from '../components/Post';
 import prisma from '../../lib/prisma';
 import style from '../scss/index.module.scss';
 import Footer from "../components/Footer/Footer";
+import { Container } from "react-bootstrap";
 import { getSession, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 
@@ -24,7 +25,7 @@ type Props = {
 const Blog: React.FC<Props> = ({ channels, session }) => {
   return (
     <div className={style.index_body}>
-			<Layout session={session}>
+      <Layout session={session}>
         <section className={style.advertising}>
           <div className={style.container}>
             <div className={style.advertising__title}>
@@ -61,6 +62,8 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
               </div>
               <div
                 className={`${style.advantage__orders} ${style.advantage__item}`}
+                className={`${style.advantage__channel} ${style.advantage__item}`}
+
               >
                 <p className={style.advantage__namber}>460 482</p>
                 <p className={style.advantage__text}>
@@ -239,31 +242,37 @@ const Blog: React.FC<Props> = ({ channels, session }) => {
           </div>
         </section>
         <section className={style.questions}>
-          <div className={style.questions__wrapper}>
+
+          <Container className="d-flex flex-column flex-xl-row justify-content-between">
+          <div className={`${style.questions__wrapper} ${style.questions__wrapper_background}`}>
             <div className={style.questions__title}>
               <h4>Возникли вопросы?</h4>
-              <a>Напишите нам и ответим Вам в ближайшее время</a>
+              <a href="#">Напишите нам и ответим Вам в ближайшее время</a>
             </div>
-              <div className={style.questions__social_media}>
-                  <div
-                    className={`${style.questions__vk} ${style.questions__item}`}
-                  >
-                    <a href="#">Написать в Вконтакте</a>
-                  </div>
-                  <div
-                    className={`${style.questions__vk} ${style.questions__item}`}
-                  >
-                    <a href="#">Написать в Facebook</a>
-                  </div>
-                  <div
-                    className={`${style.questions__vk} ${style.questions__item}`}
-                  >
-                    <a href="#">Написать в Telegram</a>
-                  </div>
-                </div>
+          </div>
+          <div className={style.questions__wrapper}>
+            <div className={style.questions__social_media}>
+                <div className={style.questions__social_media__wrapper}>
+              <div
+                className={`${style.questions__vk} ${style.questions__item}`}
+              >
+                <a href="#">Написать в Вконтакте</a>
               </div>
+              <div
+                className={`${style.questions__vk} ${style.questions__item}`}
+              >
+                <a href="#">Написать в Facebook</a>
+              </div>
+              <div
+                className={`${style.questions__vk} ${style.questions__item}`}
+              >
+                <a href="#">Написать в Telegram</a>
+              </div>
+            </div>
+          </div>
+            </div>
+          </Container>
         </section>
-        <Footer />
       </Layout>
     </div>
   );
