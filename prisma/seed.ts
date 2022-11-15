@@ -25,45 +25,45 @@ const getNumberOrUndefined = (input: string|undefined) => {
 async function main() {
   console.log(path.resolve(__dirname, csvFilePath));
 
-  const channels = await csv().fromFile(path.resolve(__dirname, csvFilePath));
+  // const channels = await csv().fromFile(path.resolve(__dirname, csvFilePath));
 
-  for await (const channel of channels) {
-    // console.log(channel);
+  // for await (const channel of channels) {
+  //   // console.log(channel);
     
-    await prisma.channel.upsert({
-      where: {
-        url: channel.url,
-      },
-      update: {},
-      create: {
-        isArchived: channel.isArchived === "FALSE",
-        isBlogger: channel.isBlogger === "FALSE",
-        name: channel.name,
-        url: channel.url,
-        avatar: channel.avatar,
-        category: {
-          connectOrCreate: {
-            where: {
-              id: channel.categoryId,
-            },
-            create: {
-              name: channel.categories,
-              id: channel.categoryId,
-            },
-          },
-        },
-        cpv: getNumberOrUndefined(channel.cpv),
-        description: channel.description,
-        er: getNumberOrUndefined(channel.er),
-        malePercent: getNumberOrUndefined(channel.malePercent),
-        postPrice: getNumberOrUndefined(channel.postPrice),
-        subscribers: getNumberOrUndefined(channel.subscribers),
-        views: getNumberOrUndefined(channel.views),
-      },
-    });
-  }
+  //   await prisma.channel.upsert({
+  //     where: {
+  //       url: channel.url,
+  //     },
+  //     update: {},
+  //     create: {
+  //       isArchived: channel.isArchived === "FALSE",
+  //       isBlogger: channel.isBlogger === "FALSE",
+  //       name: channel.name,
+  //       url: channel.url,
+  //       avatar: channel.avatar,
+  //       category: {
+  //         connectOrCreate: {
+  //           where: {
+  //             id: channel.categoryId,
+  //           },
+  //           create: {
+  //             name: channel.categories,
+  //             id: channel.categoryId,
+  //           },
+  //         },
+  //       },
+  //       cpv: getNumberOrUndefined(channel.cpv),
+  //       description: channel.description,
+  //       er: getNumberOrUndefined(channel.er),
+  //       malePercent: getNumberOrUndefined(channel.malePercent),
+  //       postPrice: getNumberOrUndefined(channel.postPrice),
+  //       subscribers: getNumberOrUndefined(channel.subscribers),
+  //       views: getNumberOrUndefined(channel.views),
+  //     },
+  //   });
+  // }
 
-  console.log("done ", channels.length);
+  // console.log("done ", channels.length);
 }
 
 main()

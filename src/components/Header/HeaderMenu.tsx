@@ -6,9 +6,11 @@ export const HeaderMenu = () => {
     <nav>
       <div className="header__menu">
         <ul>
-          <Link href="/catalog">
-            <a href="catalog.html">Каталог</a>
-          </Link>
+          <li>
+            <Link href="/catalog">
+              <a href="catalog.html">Каталог</a>
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

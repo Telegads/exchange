@@ -11,22 +11,23 @@ datasource db {
 }
 
 model Channel {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  avatar      String?
-  url         String   @unique
-  isArchived  Boolean
-  isBlogger   Boolean
-  subscribers Int?
-  er          Int?
-  malePercent Int?
-  views       Int?
-  cpv         Int?
-  postPrice   Float?
-  formats     Format[]
-  categoryId  String?
-  category    Category? @relation(fields: [categoryId], references: [id])
+  id                 String    @id @default(cuid())
+  name               String
+  description        String?
+  avatar             String?
+  url                String    @unique
+  isArchived         Boolean
+  isBlogger          Boolean
+  subscribers        Int?
+  er                 Int?
+  malePercent        Int?
+  views              Int?
+  cpv                Int?
+  postPrice          Float?
+  formats            Format[]
+  categoryId         String?
+  category           Category? @relation(fields: [categoryId], references: [id])
+  lastUpdateDateTime DateTime  @updatedAt @default(now())
 }
 
 model Category {
