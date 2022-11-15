@@ -1,4 +1,4 @@
-
+@import '../scss/mixins';
 
 .index_body {
     font-family: 'HelvetivaNeueCyr';
@@ -564,32 +564,34 @@
 }
 
 .questions__wrapper {
-    max-width: 1435px;
+    width: 50%;
     height: 626px;
     margin: 0 auto;
-    background: #EEF4FD url(/img/questions/bg_questions.jpg)left no-repeat ;
+    background-color: #EEF4FD;
     display: flex;
     justify-content: space-between;
-}
 
-@media (max-width: 1330px) {
-    .questions__wrapper {
-        background-position: center;
-        display: flex;
-        flex-direction: column;
+    @include respondTo(1299px) {
+        width: 100%;
     }
-}
-
-@media (max-width: 1000px) {
-    .questions__wrapper {
+    @include respondTo(1000px) {
         text-align: center;
     }
-}
+    @include respondTo(767px) {
+        height: 100%;
+        background-color: transparent;
+    }
+    &_background {
+        background: url(/img/questions/bg_questions.jpg)left / cover no-repeat ;
 
-@media (max-width: 767px) {
-    .questions__wrapper {
-        background: url(/img/mobile/bg_questions380.jpg)center no-repeat;
-        height: 527px;
+        @include respondTo(1299px) {
+            margin-bottom: 15px;
+        }
+        @include respondTo(767px) {
+            height: 527px;
+            background: url(/img/mobile/bg_questions380.jpg)center / cover no-repeat;
+            margin-bottom: 50px;
+        }
     }
 }
 
@@ -641,7 +643,18 @@
 }
 
 .questions__social_media {
-    margin: 155px 112px 0 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+
+    @include respondTo(767px) {
+        padding: 0
+    }
+    &__wrapper {}
+    
     a {
         font-family: 'Montserrat';
         font-weight: 700;
@@ -651,19 +664,9 @@
     }
 }
 
-@media (max-width: 1330px) {
-    .questions__social_media {
-        margin: 300px auto;
-    }
-}
-
-@media (max-width: 767px) {
-    .questions__social_media {
-        margin: 150px auto;
-    }
-}
-
 .questions__item {
+    margin-bottom: 18px;
+
     a {
         display: block;
         text-align: center;
@@ -675,7 +678,7 @@
 .questions__vk {
     width: 469px;
     height: 99px;
-    border: #A5A5A5 solid;
+    border: 1px #A5A5A5 solid;
     a {
         background: url(/img/questions/vk.svg)right no-repeat;
     }
@@ -684,7 +687,7 @@
 .questions__facebook {
     width: 469px;
     height: 99px;
-    border: #A5A5A5 solid;
+    border: 1px #A5A5A5 solid;
     margin: 18px 0;
     a {
         background: url(/img/questions/fb.svg)right no-repeat;
@@ -694,7 +697,7 @@
 .questions__telegram {
     width: 469px;
     height: 99px;
-    border: #A5A5A5 solid;
+    border: 1px #A5A5A5 solid;
     a {
         background: url(/img/questions/tg.svg)right no-repeat;
     }
