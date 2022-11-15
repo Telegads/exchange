@@ -6,6 +6,7 @@ import prisma from '../../lib/prisma';
 import style from '../scss/index.module.scss';
 import Footer from "../components/Footer/Footer";
 import { Container } from "react-bootstrap";
+
 import { getSession, useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 
@@ -23,6 +24,7 @@ type Props = {
 };
 
 const Blog: React.FC<Props> = ({ channels, session }) => {
+
   return (
     <div className={style.index_body}>
       <Layout session={session}>
