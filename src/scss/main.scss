@@ -7,171 +7,6 @@ body {
   font-size: 17px;
 }
 
-.header {
-  max-width: 1435px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.header__container {
-  margin: 0 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding-top: 73px;
-}
-
-.header__logo {
-  margin-top: 8px;
-}
-
-.header__language {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  font-weight: 500;
-  margin-top: 8px
-}
-
-.header__language_active {
-  color: #650DF0;
-  padding-bottom: 2px;
-}
-
-.header__language_active::after {
-  background: url(/img/icons/lang_icon.svg) no-repeat scroll center center;
-  content: "";
-  height: 7px;
-  position: absolute;
-  left: 25px;
-  top: 4px;
-  width: 7px;
-  padding: 3px 3px 3px 16px;
-}
-
-.header__language_btn {
-  position: absolute;
-  display: none;
-  a {
-      color: black;
-      padding: 2px 0;
-      text-decoration: none;
-      display: block;
-  }
-}
-
-.header__language_btn a:hover {
-  color: #650DF0;
-}
-
-.header__language:hover .header__language_btn {
-  display: block;
-}
-
-.header__menu {
-  ul {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-  }
-  li {
-      margin: 0 13.5px 0 13.5px;
-  }
-  a {
-      position: relative;
-      font-weight: 500;
-      line-height: 160%;
-      color: #000;
-      transition: all 0.3s ease-in 0s;
-
-      &:before {
-        content: '';
-        position: absolute;
-        top: -79px;
-        left: 50%;
-        margin-left: -58px;
-        width: 116px;
-        height: 6px;
-        background: #7044CC;
-        opacity: 0;
-        transition: all 0.3s ease-in 0s;
-      }
-      &:hover {
-        color: #7044CC;
-        
-        &:before {
-          opacity: 1;
-        }
-      }
-  }
-}
-
-@media (max-width: 1100px) {
-  .header__language_none {
-      display: none;
-  }
-  .header__menu {
-      display: none;
-  }
-}
-
-.header__wrapper_burger {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.header__burger_btn {
-  width: 58px;
-  height: 40px;
-  position: relative;
-  span {
-      width: 39px;
-      height: 4px;
-      background-color: #fff;
-      position: absolute;
-      border-radius: 4px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-  }
-}
-
-.header__burger_btn span:first-child {
-  top: calc(50% - 10px);
-}
-
-.header__burger_btn span:nth-child(2) {
-  width: 58px;
-  height: 4px;
-  left: calc(50% + 9.4px);
-  border-radius: 4px;
-}
-
-.header__burger_btn span:nth-child(3) {
-  top: calc(50% + 10px);
-}
-
-.header__burger{
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  padding: 54px 30px;
-  z-index: 1;
-  transform: translateX(-100%);
-}
-
-.header__burger.active{
-  transform: translateX(0);
-}
-
-.burger__header {
-  display: flex;
-  justify-content: space-between;
-}
-
 .burger__menu ul > li:nth-child(2) {
   border-top: 1px solid #E6E6E6;
   border-bottom: 1px solid #E6E6E6;
@@ -185,9 +20,11 @@ body {
   width: 247px;
   margin-top: 177px;
   margin-left: 20px;
+
   ul > li {
       padding: 17px 0;
   }
+
   a {
       color: #000;
       font-size: 25px;
@@ -204,57 +41,9 @@ body {
   margin: 58px 0 74px 20px;
 }
 
-.header__wrapper_burger {
-  display: none;
-}
-
-@media (max-width: 1100px) {
-  .header__wrapper_burger {
-      display: block;
-  }
-}
-
 .burger__bnt {
   margin: 0 0 0 20px;
 }
-
-
-
-.header__btn_reg {
-  background-color: #7044CC;
-  width: 302px;
-  height: 74px;
-  border-radius: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -22px;
-  position: relative;
-  a, p{
-      color: #fff;
-      font-weight: 500;
-      font-size: 15px;
-      text-transform: uppercase;
-      transition: all 0.3s ease-in 0s;
-  }
-  p {
-     margin: 0 8px; 
-  }
-  img {
-      margin-left: 14px;
-  }
-}
-
-@media (max-width: 767px) {
-  .header__btn_none {
-      display: none;
-  }
-}
-
-.header__btn_reg a:hover {
-  color: #000;
-}
-
 
 h2 {
   font-weight: 500;
@@ -270,7 +59,6 @@ h2 {
   }
 }
 
-
 h3 {
   font-weight: 500;
   font-size: 35px;
@@ -283,7 +71,6 @@ h4 {
   line-height: 34px;
   color: #fff;
 }
-
 
 @media (max-width: 1000px) {
   h4 {

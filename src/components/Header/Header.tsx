@@ -6,15 +6,17 @@ import { HeaderMenu } from './HeaderMenu';
 import { Logo } from './Logo';
 import { Session } from 'next-auth';
 
+import styles from './header.module.scss';
+
 type HeaderProps = {
 	session: Session | null;
 };
 
 const Header: FC<HeaderProps> = ({session}) => {
 	return (
-		<header className='header'>
-			<div className='header__img_line'></div>
-			<div className='header__container'>
+		<header className={ styles.header }>
+			<div className={ styles.header__img_line }></div>
+			<div className={ styles.header__container }>
 				<Logo />
 				<LanguageSelector />
 				<HeaderMenu />
