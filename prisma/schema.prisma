@@ -27,7 +27,7 @@ model Channel {
   formats            Format[]
   categoryId         String?
   category           Category? @relation(fields: [categoryId], references: [id])
-  lastUpdateDateTime DateTime  @updatedAt @default(now())
+  lastUpdateDateTime DateTime  @default(now()) @updatedAt
 }
 
 model Category {
@@ -90,4 +90,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum TaskStatus {
+  STARTED
+  STOPPED
+}
+
+model BackgroundTask {
+  id     Int        @id @default(autoincrement())
+  name   String     @unique
+  status TaskStatus @default(STOPPED)
 }

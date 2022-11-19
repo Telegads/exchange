@@ -8,3 +8,5 @@ export const HTTP_STATUS = {
 
 export const DEFAULT_PAGE_SIZE = 50;
 export const DEFAULT_PAGE_SIZE_FOR_UPDATE = 20
+
+export const API_AUTH_VALUE = `secret: ${process.env.API_AUTH_SECRET}`;

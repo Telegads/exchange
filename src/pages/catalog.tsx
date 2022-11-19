@@ -34,7 +34,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const sortDirection = getParameterFromQuery(context.query, "sort_dir");
 
   const channels = await channelRepository.getChannelsByFilterWithSort({
-    pageNumber: 1,
+    pageNumber: 0,
     pageSize: PAGE_SIZE,
     filter: {
       category: filterCategory,
@@ -99,7 +99,7 @@ const Catalog: FC<{
         queryString = queryString + `&search=${router.query.search}`;
       }
 
-      return `/api/getChannels?${queryString}`;
+      return `/api/channels/getChannels?${queryString}`;
     },
     [router]
   );

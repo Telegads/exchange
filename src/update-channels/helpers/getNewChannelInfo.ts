@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const TG_CONNECTOR_URL = process.env["TG_CONNECTOR_URL"];
-
 export type ChannelInfoResponse = {
   description: string;
   name: string;
@@ -13,5 +11,5 @@ export type ChannelInfoResponse = {
 
 export const getNewChannelInfo = (channelId: string) =>
   axios.get<ChannelInfoResponse>(
-    `http://${TG_CONNECTOR_URL}/get_info/${channelId}`
+    `https://tg-connector.telegads.uz/get_info/${channelId}`
   );
