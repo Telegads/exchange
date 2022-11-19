@@ -19,7 +19,7 @@ const getKey = (category: string | undefined, search: string | undefined) => {
   if (search) {
     queryString = queryString + `&search=${search}`;
   }
-  return `/api/getChannelsCount?${queryString}`;
+  return `/api/channels/getCount?${queryString}`;
 };
 
 export const Counter: FC<CounterProps> = ({ ssrCount }) => {

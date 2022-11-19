@@ -44,7 +44,6 @@ jobs:
             API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_STAGE}}
             GOOGLE_AUTH_ID_ARG=${{secrets.GOOGLE_AUTH_ID_STAGE}}
             GOOGLE_AUTH_SECRET_ARG=${{secrets.GOOGLE_AUTH_SECRET_STAGE}}
-            TG_CONNECTOR_URL_ARG=tg-connector
 
       - name: Build and push production image
         uses: docker/build-push-action@v3
@@ -61,7 +60,6 @@ jobs:
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
             GOOGLE_AUTH_ID_ARG=${{secrets.GOOGLE_AUTH_ID_PROD}}
             GOOGLE_AUTH_SECRET_ARG=${{secrets.GOOGLE_AUTH_SECRET_PROD}}
-            TG_CONNECTOR_URL_ARG=tg-connector
 
   deploy:
     runs-on: ubuntu-latest

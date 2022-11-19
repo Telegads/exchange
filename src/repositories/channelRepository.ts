@@ -139,7 +139,7 @@ export const channelRepository = {
     return prisma.channel.findMany({
       take: limit,
       orderBy: {
-        lastUpdateDateTime: "desc",
+        lastUpdateDateTime: "asc",
       },
     });
   },

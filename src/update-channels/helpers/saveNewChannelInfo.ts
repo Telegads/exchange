@@ -9,6 +9,6 @@ export const saveNewChannelInfo = async (
     name: newChannelInfo.name,
     subscribers: newChannelInfo.subs_count,
     views: newChannelInfo.views_last_30_days,
-    url: `${channelId}`,
+    url: channelId,
     description: newChannelInfo.description,
   });
