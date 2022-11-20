@@ -11,4 +11,5 @@ export const saveNewChannelInfo = async (
     views: newChannelInfo.views_last_30_days,
     url: channelId,
     description: newChannelInfo.description,
+    avatar: newChannelInfo.avatar_path,
   });
