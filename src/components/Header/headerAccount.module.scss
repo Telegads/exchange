@@ -1,0 +1,43 @@
+.accountButtonText {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header__btn_reg {
+  background-color: #7044CC;
+  width: 302px;
+  height: 74px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -22px;
+  position: relative;
+
+  a, p{
+      color: #fff;
+      font-weight: 500;
+      font-size: 15px;
+      text-transform: uppercase;
+      transition: all 0.3s ease-in 0s;
+  }
+
+  p {
+     margin: 0 8px; 
+  }
+
+  img {
+      margin-left: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header__btn_none {
+      display: none;
+  }
+}
+
+.header__btn_reg a:hover {
+  color: #000;
+}
