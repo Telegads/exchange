@@ -4,7 +4,7 @@ services:
   db:
     image: peteranikitin/telegads-exchange-db-prod:latest
     ports:
-      - "5432:5432"
+      - "5433:5432"
   app:
     image: peteranikitin/telegads-exchange-app-prod:latest
     networks:
