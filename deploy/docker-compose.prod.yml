@@ -5,12 +5,18 @@ services:
     image: peteranikitin/telegads-exchange-db-prod:latest
     ports:
       - "5432:5432"
+    networks:
+      - network
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
   app:
     image: peteranikitin/telegads-exchange-app-prod:latest
     networks:
       - network
     ports:
       - 3000:3000
+    depends_on:
+      - db
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 20s
