@@ -10,4 +10,10 @@ export const saveNewChannelInfo = async (channelId: string, newChannelInfo: Chan
     url: channelId,
     description: newChannelInfo.description,
     avatar: newChannelInfo.avatar_path,
+    er: Math.round(
+      (newChannelInfo.views_last_30_days /
+        newChannelInfo.posts_last_30_days /
+        newChannelInfo.subs_count) *
+        100
+    ),
   });
