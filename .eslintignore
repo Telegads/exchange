@@ -1,0 +1,9 @@
+node_modules
+__mocks__
+__generated__
+
+jest.config.js
+plopfile.js
+/src/generated/graphql-typing.ts
+/lib
+e2e
