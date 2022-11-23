@@ -1,17 +1,19 @@
 import { Session } from 'next-auth';
-import React, { ReactNode } from "react";
-import Header from "./Header/Header";
-import style from "../scss/index.module.scss";
+import React from 'react';
+
+import style from '../scss/index.module.scss';
+
+import Header from './Header/Header';
 
 type Props = {
-	session: Session | null;
+  session: Session | null;
 };
 
 const Layout: React.FC<Props> = ({ children, session }) => (
-	<div className={style.wrapper}>
-		<Header session={session}/>
-		{children}
-	</div>
+  <div className={style.wrapper}>
+    <Header session={session} />
+    {children}
+  </div>
 );
 
 export default Layout;

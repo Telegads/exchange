@@ -1,7 +1,8 @@
-import { Category } from "@prisma/client";
-import { useRouter } from "next/router";
-import React, { FC, useCallback } from "react";
-import style from "../../scss/catalog.module.scss";
+import { Category } from '@prisma/client';
+import { useRouter } from 'next/router';
+import React, { FC, useCallback } from 'react';
+
+import style from '../../scss/catalog.module.scss';
 
 type FilterProps = {
   categories: Category[];
@@ -22,7 +23,7 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         },
       });
     },
-    [router.push]
+    [router.push],
   );
 
   const handleSearchChange = useCallback(
@@ -34,7 +35,7 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         },
       });
     },
-    [router.push]
+    [router.push],
   );
 
   const handleFilterClear = useCallback(() => {
@@ -55,34 +56,31 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         </div>
         <div className={style.filter__reset}>
           <p>Фильтр</p>
-          <button type="reset" onClick={handleFilterClear}>Очистить все</button>
+          <button type="reset" onClick={handleFilterClear}>
+            Очистить все
+          </button>
         </div>
         <div className={style.filter__search}>
-          <input
-            type="search"
-            placeholder="Поиск"
-            value={search}
-            onChange={handleSearchChange}
-          />
+          <input type="search" placeholder="Поиск" value={search} onChange={handleSearchChange} />
           <button type="submit">
             <img src="/img/icons/search.svg" alt="" />
           </button>
         </div>
         <div className={style.filter__select}>
           <select tabIndex={0} name="items" onChange={handleCategoryChange}>
-            <option selected={category === "all"} value="all">
+            <option selected={category === 'all'} value="all">
               Все тематики
             </option>
             {categories.map((cat) =>
-              cat.id === "" ? (
-                <option value="" selected={category === ""}>
+              cat.id === '' ? (
+                <option value="" selected={category === ''}>
                   Без тематики
                 </option>
               ) : (
                 <option value={cat.id} selected={category === cat.id}>
                   {cat.name}
                 </option>
-              )
+              ),
             )}
           </select>
         </div>

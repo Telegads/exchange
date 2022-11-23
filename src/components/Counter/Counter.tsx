@@ -1,8 +1,9 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import React, { FC, useEffect } from "react";
-import useSWR from "swr";
-import style from "../../scss/catalog.module.scss";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { FC } from 'react';
+import useSWR from 'swr';
+
+import style from '../../scss/catalog.module.scss';
 
 type CounterProps = {
   ssrCount: number;
@@ -11,7 +12,7 @@ type CounterProps = {
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const getKey = (category: string | undefined, search: string | undefined) => {
-  let queryString = "";
+  let queryString = '';
 
   if (category) {
     queryString = queryString + `&category=${category}`;
@@ -25,10 +26,7 @@ const getKey = (category: string | undefined, search: string | undefined) => {
 export const Counter: FC<CounterProps> = ({ ssrCount }) => {
   const router = useRouter();
 
-  const { data } = useSWR(
-    getKey(router.query.category as string, router.query.search as string),
-    fetcher
-  );
+  const { data } = useSWR(getKey(router.query.category as string, router.query.search as string), fetcher);
 
   return (
     <div className={style.content_channels}>

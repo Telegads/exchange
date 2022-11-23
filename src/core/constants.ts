@@ -5,7 +5,7 @@ type PrismaErrorCodeType = {
 
 export const PRISMA_ERROR_CODES: Record<string, PrismaErrorCodeType> = {
   RECORD_NOT_FOUND: {
-    code: "P2025",
-    message: "Not found",
+    code: 'P2025',
+    message: 'Not found',
   },
 };

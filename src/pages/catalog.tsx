@@ -1,23 +1,21 @@
-import React, { FC, useCallback } from "react";
-import { ChannelRow } from "../components/Catalog/ChannelRow";
-import { Sorting } from "../components/Catalog/Sorting";
-import Layout from "../components/Layout";
-import { Filter } from "../components/Sidebar/Filter";
-import style from "../scss/catalog.module.scss";
+import React, { FC, useCallback } from 'react';
+import { Category, Channel, Format } from '@prisma/client';
+import axios from 'axios';
+import useSWRInfinite from 'swr/infinite';
+import { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
+import { useSession } from 'next-auth/react';
 
-import { Category, Channel, Format, PrismaClient } from "@prisma/client";
-import axios from "axios";
-import useSWRInfinite from "swr/infinite";
-import { Button } from "../components/Button/Button";
-import { useRouter } from "next/router";
-import { Counter } from "../components/Counter/Counter";
-import { NextPageContext } from "next";
-
-import { throttle } from "lodash";
-import { channelRepository } from "../repositories/channelRepository";
-import { getParameterFromQuery } from "../utils/getParameterFromQuery";
-import { categoryRepository } from "../repositories/categoryRepository";
-import { useSession } from "next-auth/react";
+import { ChannelRow } from '../components/Catalog/ChannelRow';
+import { Sorting } from '../components/Catalog/Sorting';
+import Layout from '../components/Layout';
+import { Filter } from '../components/Sidebar/Filter';
+import style from '../scss/catalog.module.scss';
+import { Button } from '../components/Button/Button';
+import { Counter } from '../components/Counter/Counter';
+import { channelRepository } from '../repositories/channelRepository';
+import { getParameterFromQuery } from '../utils/getParameterFromQuery';
+import { categoryRepository } from '../repositories/categoryRepository';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
@@ -27,11 +25,11 @@ export type ChannelWithTagsAndFormats = Channel & {
 const PAGE_SIZE = 50;
 
 export async function getServerSideProps(context: NextPageContext) {
-  const searchString = getParameterFromQuery(context.query, "search");
-  const filterCategory = getParameterFromQuery(context.query, "category");
+  const searchString = getParameterFromQuery(context.query, 'search');
+  const filterCategory = getParameterFromQuery(context.query, 'category');
 
-  const sortType = getParameterFromQuery(context.query, "sort_type");
-  const sortDirection = getParameterFromQuery(context.query, "sort_dir");
+  const sortType = getParameterFromQuery(context.query, 'sort_type');
+  const sortDirection = getParameterFromQuery(context.query, 'sort_dir');
 
   const channels = await channelRepository.getChannelsByFilterWithSort({
     pageNumber: 0,
@@ -47,24 +45,23 @@ export async function getServerSideProps(context: NextPageContext) {
   });
   const categories = await categoryRepository.getAllCategories();
 
-  const channelsCount = await channelRepository.countAll();
+  const { _count: channelsCount } = await channelRepository.countAll();
 
   return {
     props: {
       ssr: {
         channels: channels.map((channel) => ({
           ...channel,
-          lastUpdateDateTime: "",
+          lastUpdateDateTime: '',
         })),
-        channelsCount: channelsCount._count.id,
+        channelsCount: channelsCount.id,
         categories,
       },
     }, // will be passed to the page component as props
   };
 }
 
-const fetcher = (url: string) =>
-  axios.get<ChannelWithTagsAndFormats[]>(url).then((res) => res.data);
+const fetcher = (url: string) => axios.get<ChannelWithTagsAndFormats[]>(url).then((res) => res.data);
 
 const Catalog: FC<{
   ssr: {
@@ -78,7 +75,7 @@ const Catalog: FC<{
   const getKey = useCallback(
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null;
-      let queryString = "";
+      let queryString = '';
 
       if (pageIndex) {
         queryString = queryString + `page=${pageIndex}&limit=${PAGE_SIZE}`;
@@ -101,21 +98,20 @@ const Catalog: FC<{
 
       return `/api/channels/getChannels?${queryString}`;
     },
-    [router]
+    [router],
   );
 
   const { data, size, setSize } = useSWRInfinite(getKey, fetcher);
   const channels = data?.map((chunk) => chunk).flat() ?? ssr.channels;
 
   const isEmpty = data?.[0]?.length === 0;
-  const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+  const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
   const loadMore = useCallback(() => {
     setSize(size + 1);
   }, [setSize, size]);
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <Layout session={session}>

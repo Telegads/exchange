@@ -1,5 +1,6 @@
-import React from "react";
-import style from "../../scss/catalog.module.scss";
+import React from 'react';
+
+import style from '../../scss/catalog.module.scss';
 
 export const Basket = () => {
   return (
@@ -21,7 +22,7 @@ export const Basket = () => {
         <p className={style.basket__number}>10к</p>
       </div>
       <div className={style.basket__btn}>
-        <a href="#">Перейти в корзину</a>
+        <a href="#1">Перейти в корзину</a>
       </div>
     </div>
   );

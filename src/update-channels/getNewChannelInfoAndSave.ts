@@ -1,6 +1,7 @@
-import { captureException } from "../core/sentry";
-import { getNewChannelInfo } from "./helpers/getNewChannelInfo";
-import { saveNewChannelInfo } from "./helpers/saveNewChannelInfo";
+import { captureException } from '../core/sentry';
+
+import { getNewChannelInfo } from './helpers/getNewChannelInfo';
+import { saveNewChannelInfo } from './helpers/saveNewChannelInfo';
 
 export const getNewChannelInfoAndSave = async (channelId: string) => {
   try {

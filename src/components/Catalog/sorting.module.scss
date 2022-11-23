@@ -60,7 +60,7 @@
   padding-right: 40px;
   &::after {
     display: block;
-    content: "";
+    content: '';
     position: absolute;
     right: 6px;
     top: 6px;
@@ -88,5 +88,4 @@
 .filter__price.active,
 .filter__add.active,
 .filter__cpv.active {
-
 }
