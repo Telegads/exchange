@@ -1,9 +1,10 @@
-import React, { FC } from "react";
-import { Basket } from "../Icons";
-import style from "../../scss/catalog.module.scss";
-import { ChannelWithTagsAndFormats } from "../../pages/catalog";
-import Highlighter from "react-highlight-words";
-import { useRouter } from "next/router";
+import React, { FC, useMemo } from 'react';
+import Highlighter from 'react-highlight-words';
+import { useRouter } from 'next/router';
+
+import { Basket } from '../Icons';
+import style from '../../scss/catalog.module.scss';
+import { ChannelWithTagsAndFormats } from '../../pages/catalog';
 
 export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
   avatar,
@@ -17,25 +18,26 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
   formats,
   category,
   postPrice,
+  id,
 }) => {
   const router = useRouter();
+
+  const searchWords = useMemo(() => [router.query.search as string], [router.query.search]);
 
   return (
     <div className={style.card__wrapper}>
       <div className={style.card__content}>
-        <div className={style.content__logo}>
-          {avatar && <img src={avatar} alt="" />}
-        </div>
+        <div className={style.content__logo}>{avatar && <img src={avatar} alt="" />}</div>
         <div className={style.content__title}>
           <p>
             <Highlighter
               highlightClassName="YourHighlightClass"
-              searchWords={[router.query.search]}
+              searchWords={searchWords}
               autoEscape={true}
               textToHighlight={name}
             />
           </p>
-          {category && category.name !== "" && (
+          {category && category.name !== '' && (
             <div className={style.title__options}>
               <div>{category.name}</div>
             </div>
@@ -44,9 +46,9 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
           <p>
             <Highlighter
               highlightClassName="YourHighlightClass"
-              searchWords={[router.query.search]}
+              searchWords={searchWords}
               autoEscape={true}
-              textToHighlight={description}
+              textToHighlight={description || ''}
             />
           </p>
         </div>
@@ -57,28 +59,26 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
       <div className={style.card__statistics}>
         <div className={style.statistics__subscribers}>
           <p className={style.subscribers__title}>Подписчики:</p>
-          <p className={style.subscribers__number}>
-            {subscribers ? subscribers : "–"}
-          </p>
+          <p className={style.subscribers__number}>{subscribers ? subscribers : '–'}</p>
 
           <p className={style.subscribers__er}>ER:</p>
-          <p className={style.subscribers__er_number}>{er ? `${er}%` : "–"}</p>
+          <p className={style.subscribers__er_number}>{er ? `${er}%` : '–'}</p>
 
           <div className={style.subscribers__people}>
             <img src="/img/icons/male.svg" alt="" />
-            <p>{malePercent ? `${malePercent}%` : "–"}</p>
+            <p>{malePercent ? `${malePercent}%` : '–'}</p>
           </div>
         </div>
         <div className={style.statistics__views}>
           <p className={style.views__title}>Просмотры:</p>
-          <p className={style.views__number}>{views ? views : "–"}</p>
+          <p className={style.views__number}>{views ? views : '–'}</p>
 
           <p className={style.views__cpv}>CPV:</p>
-          <p className={style.views__cpv_number}>{cpv ? `${cpv}р` : "–"}</p>
+          <p className={style.views__cpv_number}>{cpv ? `${cpv}р` : '–'}</p>
 
           <div className={style.views__people}>
             <img src="/img/icons/femal.svg" alt="" />
-            <p>{malePercent ? `${100 - malePercent}%` : "–"}</p>
+            <p>{malePercent ? `${100 - malePercent}%` : '–'}</p>
           </div>
         </div>
       </div>
@@ -99,7 +99,9 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
                 <div className={style.format__select}>
                   <select name="items">
                     {formats.map((format) => (
-                      <option value={format.id}>{format.name}</option>
+                      <option value={format.id} key={`${id}-${format.id}`}>
+                        {format.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -129,7 +131,7 @@ export const ChannelRow: FC<ChannelWithTagsAndFormats> = ({
 
         <div className={style.card__buy}>
           <div className={style.card__buy_hover}>
-            <a href="#">
+            <a href="#1">
               <Basket />
             </a>
           </div>

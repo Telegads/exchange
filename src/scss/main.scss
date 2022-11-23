@@ -1,6 +1,6 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 @import 'fonts';
-@import "nullstyle.scss";
+@import 'nullstyle.scss';
 
 body {
   font-family: 'HelvetivaNeueCyr';
@@ -8,12 +8,12 @@ body {
 }
 
 .burger__menu ul > li:nth-child(2) {
-  border-top: 1px solid #E6E6E6;
-  border-bottom: 1px solid #E6E6E6;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .burger__menu ul > li:nth-child(3) {
-  border-bottom: 1px solid #E6E6E6;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .burger__menu {
@@ -22,19 +22,19 @@ body {
   margin-left: 20px;
 
   ul > li {
-      padding: 17px 0;
+    padding: 17px 0;
   }
 
   a {
-      color: #000;
-      font-size: 25px;
-      font-weight: 500;
-      transition: all 0.3s;
+    color: #000;
+    font-size: 25px;
+    font-weight: 500;
+    transition: all 0.3s;
   }
 }
 
 .burger__menu a:hover {
-  color: #7044CC;
+  color: #7044cc;
 }
 
 .burger__language {
@@ -49,13 +49,13 @@ h2 {
   font-weight: 500;
   font-size: 55px;
   line-height: 99%;
-  color: #7044CC;
+  color: #7044cc;
   text-align: center;
 }
 
 @media (max-width: 767px) {
   h2 {
-      font-size: 35px;
+    font-size: 35px;
   }
 }
 
@@ -74,7 +74,7 @@ h4 {
 
 @media (max-width: 1000px) {
   h4 {
-      font-size: 35px;
+    font-size: 35px;
   }
 }
 

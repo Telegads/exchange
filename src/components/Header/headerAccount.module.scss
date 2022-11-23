@@ -5,7 +5,7 @@
 }
 
 .header__btn_reg {
-  background-color: #7044CC;
+  background-color: #7044cc;
   width: 302px;
   height: 74px;
   border-radius: 100px;
@@ -15,26 +15,27 @@
   margin-top: -22px;
   position: relative;
 
-  a, p{
-      color: #fff;
-      font-weight: 500;
-      font-size: 15px;
-      text-transform: uppercase;
-      transition: all 0.3s ease-in 0s;
+  a,
+  p {
+    color: #fff;
+    font-weight: 500;
+    font-size: 15px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in 0s;
   }
 
   p {
-     margin: 0 8px; 
+    margin: 0 8px;
   }
 
   img {
-      margin-left: 14px;
+    margin-left: 14px;
   }
 }
 
 @media (max-width: 767px) {
   .header__btn_none {
-      display: none;
+    display: none;
   }
 }
 

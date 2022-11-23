@@ -1,12 +1,12 @@
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link';
+import React from 'react';
 
-import styles from "./headerMenu.module.scss";
+import styles from './headerMenu.module.scss';
 
 export const HeaderMenu = () => {
   return (
     <nav>
-      <div className={ styles.header__menu }>
+      <div className={styles.header__menu}>
         <ul>
           <li>
             <Link href="/catalog">

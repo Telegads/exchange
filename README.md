@@ -5,10 +5,10 @@
 1. clone repo
 2. `npm ci` - install dependencies
 3. `npm run db:run` - start database in Docker
-3. `npn run dev` - start NextJS development mode
+4. `npn run dev` - start NextJS development mode
 
-##  Stack
+## Stack
 
 FE: React
 
-BE: NextJS + Postgres 
+BE: NextJS + Postgres

@@ -1,8 +1,9 @@
-import cron from "node-cron";
-import { getChannelsFromDbAndUpdate } from "./getChannelsFromDbAndUpdate";
+import cron from 'node-cron';
 
-const task = cron.schedule("*/10 * * * *", () => {
+import { getChannelsFromDbAndUpdate } from './getChannelsFromDbAndUpdate';
+
+const task = cron.schedule('*/10 * * * *', () => {
   getChannelsFromDbAndUpdate();
 });
 
-task.start()
+task.start();

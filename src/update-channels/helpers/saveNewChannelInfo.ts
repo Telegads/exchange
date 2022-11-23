@@ -1,10 +1,8 @@
-import { channelRepository } from "../../repositories/channelRepository";
-import { ChannelInfoResponse } from "./getNewChannelInfo";
+import { channelRepository } from '../../repositories/channelRepository';
 
-export const saveNewChannelInfo = async (
-  channelId: string,
-  newChannelInfo: ChannelInfoResponse
-) =>
+import { ChannelInfoResponse } from './getNewChannelInfo';
+
+export const saveNewChannelInfo = async (channelId: string, newChannelInfo: ChannelInfoResponse) =>
   channelRepository.updateChannel({
     name: newChannelInfo.name,
     subscribers: newChannelInfo.subs_count,

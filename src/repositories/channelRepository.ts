@@ -1,6 +1,7 @@
-import { Channel } from "@prisma/client";
-import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_FOR_UPDATE } from "../constants";
-import prisma from "../core/prisma";
+import { Channel } from '@prisma/client';
+
+import { DEFAULT_PAGE_SIZE } from '../constants';
+import prisma from '../core/prisma';
 
 export type Filter = {
   category?: string | null;
@@ -23,12 +24,7 @@ export const channelRepository = {
   getAllChannels() {
     return prisma.channel.findMany();
   },
-  getChannelsByFilterWithSort({
-    filter,
-    sort,
-    pageSize = DEFAULT_PAGE_SIZE,
-    pageNumber = 0,
-  }: GetChannelArgs) {
+  getChannelsByFilterWithSort({ filter, sort, pageSize = DEFAULT_PAGE_SIZE, pageNumber = 0 }: GetChannelArgs) {
     const sorting = {
       orderBy:
         sort && sort.type
@@ -40,10 +36,7 @@ export const channelRepository = {
 
     const filterCondition = {
       where: {
-        categoryId:
-          filter?.category && filter.category !== "all"
-            ? (filter.category as string)
-            : undefined,
+        categoryId: filter?.category && filter.category !== 'all' ? (filter.category as string) : undefined,
       },
     };
 
@@ -99,10 +92,7 @@ export const channelRepository = {
   countByFilter(filter: Filter) {
     const filterCondition = {
       where: {
-        categoryId:
-          filter?.category !== undefined && filter?.category !== "all"
-            ? filter.category
-            : undefined,
+        categoryId: filter?.category !== undefined && filter?.category !== 'all' ? filter.category : undefined,
       },
     };
 
@@ -139,7 +129,7 @@ export const channelRepository = {
     return prisma.channel.findMany({
       take: limit,
       orderBy: {
-        lastUpdateDateTime: "asc",
+        lastUpdateDateTime: 'asc',
       },
     });
   },

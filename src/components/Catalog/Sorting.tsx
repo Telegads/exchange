@@ -1,80 +1,75 @@
-import { useRouter } from "next/router";
-import React, { useCallback } from "react";
-import style from "./sorting.module.scss";
+import { useRouter } from 'next/router';
+import React, { useCallback } from 'react';
 
-type SortDirection = "asc" | "desc";
+import style from './sorting.module.scss';
+
+type SortDirection = 'asc' | 'desc';
 
 export const Sorting = () => {
   const router = useRouter();
 
   const sortType = router.query.sort_type;
-  const sortDirection =
-    (router.query.sort_dir as SortDirection) === "asc" ? "desc" : "asc";
+  const sortDirection = (router.query.sort_dir as SortDirection) === 'asc' ? 'desc' : 'asc';
 
-  const isActive = (type: string) => (sortType === type ? style.active : "");
+  const isActive = (type: string) => (sortType === type ? style.active : '');
 
   const sortByViews = useCallback(() => {
     router.push({
       query: {
-        ...router.query, 
-        sort_type: "views",
+        ...router.query,
+        sort_type: 'views',
         sort_dir: sortDirection,
       },
     });
-  }, [router.push]);
+  }, [router, sortDirection]);
 
   const sortByEr = useCallback(() => {
     router.push({
       query: {
-        ...router.query, 
-        sort_type: "er",
+        ...router.query,
+        sort_type: 'er',
         sort_dir: sortDirection,
       },
     });
-  }, [router.push]);
+  }, [router, sortDirection]);
 
   const sortBySubscribers = useCallback(() => {
     router.push({
       query: {
-        ...router.query, 
-        sort_type: "subscribers",
+        ...router.query,
+        sort_type: 'subscribers',
         sort_dir: sortDirection,
       },
     });
-  }, [router.push]);
-
-  const sortByCpv = useCallback(() => {
-    router.push({
-      query: {
-        ...router.query, 
-        sort_type: "cpv",
-        sort_dir: sortDirection,
-      },
-    });
-  }, [router.push]);
+  }, [router, sortDirection]);
 
   return (
     <div className={style.content__filters}>
       <div
-        className={`${style.filter_item} ${style.filter_item} ${isActive(
-          "views"
-        )} ${style[sortDirection]}`}
+        className={`${style.filter_item} ${style.filter_item} ${isActive('views')} ${style[sortDirection]}`}
         onClick={sortByViews}
+        role="button"
+        onKeyPress={sortByViews}
+        tabIndex={0}
       >
         Просмотры
       </div>
       <div
-        className={`${style.filter_item} ${style.filter_item} ${isActive(
-          "er"
-        )} ${style[sortDirection]}`}
+        className={`${style.filter_item} ${style.filter_item} ${isActive('er')} ${style[sortDirection]}`}
         onClick={sortByEr}
+        role="button"
+        onKeyPress={sortByViews}
+        tabIndex={0}
       >
         <div>ER</div>
       </div>
-      <div className={`${style.filter_item} ${style.filter_item} ${isActive(
-          "subscribers"
-        )} ${style[sortDirection]}`}
-        onClick={sortBySubscribers} >
+      <div
+        className={`${style.filter_item} ${style.filter_item} ${isActive('subscribers')} ${style[sortDirection]}`}
+        onClick={sortBySubscribers}
+        role="button"
+        onKeyPress={sortByViews}
+        tabIndex={0}
+      >
         <div>Подписчики</div>
       </div>
       {/* <div className={`${style.filter_item} ${style.filter_item} ${isActive(

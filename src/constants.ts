@@ -3,10 +3,10 @@ export const HTTP_STATUS = {
   OK: 200,
   INTERNAL_ERROR: 503,
   INVALID_CLIENT_REQUEST: 403,
-  METHOD_NOT_ALLOWED: 405
+  METHOD_NOT_ALLOWED: 405,
 };
 
 export const DEFAULT_PAGE_SIZE = 50;
-export const DEFAULT_PAGE_SIZE_FOR_UPDATE = 20
+export const DEFAULT_PAGE_SIZE_FOR_UPDATE = 20;
 
 export const API_AUTH_VALUE = `secret: ${process.env.API_AUTH_SECRET}`;

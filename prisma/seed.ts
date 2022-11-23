@@ -1,26 +1,9 @@
-import { PrismaClient } from "@prisma/client";
-import csv from "csvtojson";
-import path from "path";
+import path from 'path';
+
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-const csvFilePath = "../seed_data/TelegAds-data-seed.csv";
-const getNumberOrUndefined = (input: string|undefined) => {
-  if (typeof input === undefined) {
-    return input as undefined;
-  }
-  const number = Number(input);
-
-  try {
-    if (isNaN(number)) {
-      return;
-    }
-    return number;
-  } catch (error) {
-    console.log(error);
-
-    return;
-  }
-};
+const csvFilePath = '../seed_data/TelegAds-data-seed.csv';
 
 async function main() {
   console.log(path.resolve(__dirname, csvFilePath));
@@ -29,7 +12,7 @@ async function main() {
 
   // for await (const channel of channels) {
   //   // console.log(channel);
-    
+
   //   await prisma.channel.upsert({
   //     where: {
   //       url: channel.url,

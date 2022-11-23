@@ -4,14 +4,11 @@
   &__wrapper {
     margin-top: 194px;
 
-
-  
     @include respondTo(1330px) {
       margin: 890px 0 42px;
     }
     @include respondTo(767px) {
       margin: 500px 0 100px;
-
     }
   }
   &__navigation {
@@ -31,39 +28,35 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 99%;
-    color: #7044CC;
+    color: #7044cc;
     margin-bottom: 62px;
   }
   &__contacts {
     a {
+      font-weight: 300;
+      font-size: 45px;
+      line-height: 34px;
+      color: #7044cc;
+      padding-bottom: 1px;
+      border-bottom: 2px solid #7044cc;
 
-        font-weight: 300;
-        font-size: 45px;
-        line-height: 34px;
-        color: #7044CC;
-        padding-bottom: 1px;
-        border-bottom: 2px solid #7044CC;;
-  
-        @include respondTo(767px) {
-          font-size: 25px;
-        }
-
+      @include respondTo(767px) {
+        font-size: 25px;
+      }
     }
   }
   &__line {
     height: 1px;
-    background: #CECECE;
+    background: #cecece;
   }
   &__copyright {
     margin: 82px 0 23px;
     padding-bottom: 178px;
 
     p {
-
-        font-weight: 500;
-        font-size: 17px;
-        line-height: 160%;
-
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 160%;
     }
   }
 }

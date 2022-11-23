@@ -1,5 +1,6 @@
-import { TaskStatus } from "@prisma/client";
-import prisma from "../core/prisma";
+import { TaskStatus } from '@prisma/client';
+
+import prisma from '../core/prisma';
 
 export const backgroundTaskRepository = {
   getOrCreateTask(taskName: string) {

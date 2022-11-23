@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export type ChannelInfoResponse = {
   description: string;
@@ -11,6 +11,4 @@ export type ChannelInfoResponse = {
 };
 
 export const getNewChannelInfo = (channelId: string) =>
-  axios.get<ChannelInfoResponse>(
-    `https://tg-connector.telegads.uz/get_info/${channelId}`
-  );
+  axios.get<ChannelInfoResponse>(`https://tg-connector.telegads.uz/get_info/${channelId}`);
