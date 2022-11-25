@@ -28,6 +28,8 @@ model Channel {
   categoryId         String?
   category           Category? @relation(fields: [categoryId], references: [id])
   lastUpdateDateTime DateTime  @default(now()) @updatedAt
+  Cart               Cart?     @relation(fields: [cartId], references: [id])
+  cartId             String?
 }
 
 model Category {
@@ -81,6 +83,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Cart          Cart[]
 }
 
 model VerificationToken {
@@ -101,4 +104,11 @@ model BackgroundTask {
   id     Int        @id @default(autoincrement())
   name   String     @unique
   status TaskStatus @default(STOPPED)
+}
+
+model Cart {
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @map("user_id") @unique
+  cartItems Channel[]
 }
