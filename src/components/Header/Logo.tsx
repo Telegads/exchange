@@ -7,9 +7,7 @@ export const Logo = () => {
   return (
     <div className={styles.header__logo}>
       <Link href="/">
-        <a href="/">
-          <img src="/img/logo.svg" alt="" />
-        </a>
+        <img src="/img/logo.svg" alt="" />
       </Link>
     </div>
   );

@@ -26,12 +26,7 @@ export const channelRepository = {
   },
   getChannelsByFilterWithSort({ filter, sort, pageSize = DEFAULT_PAGE_SIZE, pageNumber = 0 }: GetChannelArgs) {
     const sorting = {
-      orderBy:
-        sort && sort.type
-          ? {
-              [sort.type]: sort.direction,
-            }
-          : undefined,
+      orderBy: sort && sort.type ? { [sort.type]: sort.direction } : undefined,
     };
 
     const filterCondition = {
@@ -45,23 +40,10 @@ export const channelRepository = {
         ? {
             where: {
               ...filterCondition.where,
-              OR: [
-                {
-                  name: {
-                    contains: filter.search.trim(),
-                  },
-                },
-                {
-                  description: {
-                    contains: filter.search.trim(),
-                  },
-                },
-              ],
+              OR: [{ name: { contains: filter.search.trim() } }, { description: { contains: filter.search.trim() } }],
             },
           }
-        : {
-            ...filterCondition,
-          };
+        : { ...filterCondition };
 
     return prisma.channel.findMany({
       take: pageSize,

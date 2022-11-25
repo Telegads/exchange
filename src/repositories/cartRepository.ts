@@ -1,6 +1,6 @@
 import prisma from '../core/prisma';
 
-export type UpdateCartArg = { userId: string; channelIds: [{ id: string }] };
+export type UpdateCartArg = { userId: string; channelIds: { id: string }[] };
 
 export const cartRepository = {
   getCart(userId: string) {
@@ -28,7 +28,7 @@ export const cartRepository = {
       },
       update: {
         cartItems: {
-          connect: channelIds,
+          set: channelIds,
         },
       },
     });
