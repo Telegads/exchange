@@ -23,7 +23,7 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         },
       });
     },
-    [router.push],
+    [router],
   );
 
   const handleSearchChange = useCallback(
@@ -35,7 +35,7 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         },
       });
     },
-    [router.push],
+    [router],
   );
 
   const handleFilterClear = useCallback(() => {
@@ -46,7 +46,7 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         category: undefined,
       },
     });
-  }, []);
+  }, [router]);
 
   return (
     <div className={style.wrapper_content}>

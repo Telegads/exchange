@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Category, Channel, Format } from '@prisma/client';
 import axios from 'axios';
 import useSWRInfinite from 'swr/infinite';
@@ -16,6 +16,9 @@ import { Counter } from '../components/Counter/Counter';
 import { channelRepository } from '../repositories/channelRepository';
 import { getParameterFromQuery } from '../utils/getParameterFromQuery';
 import { categoryRepository } from '../repositories/categoryRepository';
+import { CartContextProvider } from '../components/Cart/context/CartContext';
+import { Cart } from '../components/Cart/Card';
+import { useGetCartValue } from '../components/Cart/hooks/useGetCartValue';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
@@ -72,6 +75,17 @@ const Catalog: FC<{
 }> = ({ ssr }) => {
   const router = useRouter();
 
+  const { cartValue, updateCartValue, isInCart } = useGetCartValue();
+
+  const cartContextValue = useMemo(
+    () => ({
+      cartValue,
+      updateCartValue,
+      isInCart,
+    }),
+    [cartValue, isInCart, updateCartValue],
+  );
+
   const getKey = useCallback(
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null;
@@ -114,39 +128,41 @@ const Catalog: FC<{
   const { data: session } = useSession();
 
   return (
-    <Layout session={session}>
-      <div className={style.line}></div>
-      {/* <Navigation /> */}
-      <div className={style.wrapper}>
-        {/* <div className={style.line_navbar}></div> */}
-        <Filter categories={ssr.categories} />
-        <div className={style.line_filter}></div>
-        <div className={style.content}>
-          <div className={style.content__display_no}>
-            <div className={style.content__wrapper}>
-              <div className={style.content__header}>
-                <h1>Каталог Telegram-каналов</h1>
-                <Counter ssrCount={ssr.channelsCount} />
+    <CartContextProvider value={cartContextValue}>
+      <Layout session={session}>
+        <div className={style.line}></div>
+        {/* <Navigation /> */}
+        <div className={style.wrapper}>
+          {/* <div className={style.line_navbar}></div> */}
+          <Filter categories={ssr.categories} />
+          <div className={style.line_filter}></div>
+          <div className={style.content}>
+            <div className={style.content__display_no}>
+              <div className={style.content__wrapper}>
+                <div className={style.content__header}>
+                  <h1>Каталог Telegram-каналов</h1>
+                  <Counter ssrCount={ssr.channelsCount} />
+                </div>
+                <Sorting />
               </div>
-              <Sorting />
-            </div>
-            <div className={style.catalog_rows}>
-              {channels.map((channel) => (
-                <ChannelRow {...channel} key={channel.id} />
-              ))}
-            </div>
-            {!isReachingEnd && (
-              <div className={style.loadMore}>
-                <Button onClick={loadMore} type="primary">
-                  Load more
-                </Button>
+              <div className={style.catalog_rows}>
+                {channels.map((channel) => (
+                  <ChannelRow channelInfo={channel} key={channel.id} />
+                ))}
               </div>
-            )}
+              {!isReachingEnd && (
+                <div className={style.loadMore}>
+                  <Button onClick={loadMore} type="primary">
+                    Load more
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
-          {/* <Basket /> */}
         </div>
-      </div>
-    </Layout>
+        <Cart />
+      </Layout>
+    </CartContextProvider>
   );
 };
 

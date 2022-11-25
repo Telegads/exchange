@@ -46,6 +46,7 @@ module.exports = {
     'comma-dangle': ['error', 'only-multiline'],
     '@typescript-eslint/dot-notation': 'off',
     '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/quotes': 'off',
     'no-underscore-dangle': ['error', { allow: ['__typename'] }],
     'import/order': [
       'error',

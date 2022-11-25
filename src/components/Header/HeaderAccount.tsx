@@ -25,7 +25,7 @@ export const HeaderAccount: FC<HeaderAccountProps> = ({ session }) => {
         </div>
       )}
       {session && (
-        <Button onClick={handleSingOutClick} type={'primary'} rounded size="lg">
+        <Button onClick={handleSingOutClick} type={'primary'} rounded="rounded" size="lg">
           <div className={styles.accountButtonText}>
             <span>{session.user?.name}</span>
             <img src="/img/icons/adduser.svg" alt="" />

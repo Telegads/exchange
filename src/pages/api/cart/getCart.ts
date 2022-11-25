@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
-import { cartRepository } from '../../../repositories/ cartRepository';
+import { cartRepository } from '../../../repositories/cartRepository';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {

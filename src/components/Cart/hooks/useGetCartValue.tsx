@@ -1,0 +1,50 @@
+import { Channel } from '@prisma/client';
+import axios from 'axios';
+import { useCallback } from 'react';
+import useSWR from 'swr';
+
+import { cartRepository, UpdateCartArg } from '../../../repositories/cartRepository';
+
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+export type GetCartResult = Awaited<ReturnType<typeof cartRepository.getCart>>;
+type UpdateCartResult = Awaited<ReturnType<typeof cartRepository.updateCart>>;
+
+export const useGetCartValue = () => {
+  const { data, mutate } = useSWR<GetCartResult>('/api/cart/getCart', fetcher);
+
+  const isInCart = useCallback(
+    (channelId: Channel['id']) =>
+      data ? Boolean(data.cartItems.find((cartLine) => cartLine.id === channelId)) : false,
+    [data],
+  );
+
+  const updateCartValue = useCallback(
+    (newChannel: Channel) => {
+      let newCartValue: Channel[] = [];
+
+      if (data?.cartItems && data.cartItems.find((cartLine) => cartLine.id === newChannel.id)) {
+        newCartValue = data?.cartItems.filter((cartLine) => cartLine.id !== newChannel.id);
+      } else if (data?.cartItems) {
+        newCartValue = [...data.cartItems, newChannel];
+      } else {
+        newCartValue = [newChannel];
+      }
+
+      console.log(newCartValue);
+
+      axios
+        .post<UpdateCartResult, any, { channels: UpdateCartArg['channelIds'] }>('/api/cart/updateCart', {
+          channels: newCartValue.map((ch) => ({ id: ch.id })),
+        })
+        .then(() => mutate());
+    },
+    [data?.cartItems],
+  );
+
+  return {
+    cartValue: data,
+    updateCartValue,
+    isInCart,
+  };
+};
