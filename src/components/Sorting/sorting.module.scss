@@ -1,0 +1,28 @@
+.wrapper {
+  margin: 30px 0;
+}
+
+@media (max-width: 990px) {
+  .content_channels {
+    display: none;
+  }
+}
+
+.sort_button {
+  display: flex;
+  gap: 10px;
+
+  transition: 150ms;
+  transition-timing-function: ease-in-out;
+  -webkit-transition: 150ms;
+  -webkit-transition-timing-function: ease-in-out;
+}
+
+.sorting_text {
+  padding-top: 3px
+}
+
+.active {
+  border-color: #7044cc;
+  color: #7044cc;
+}
