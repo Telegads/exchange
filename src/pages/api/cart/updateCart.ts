@@ -24,7 +24,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const ids = channels.map((ch) => ch.id).filter((id) => id !== undefined);
 
-    if (ids.length === 0) {
+    if (channels.length && ids.length === 0) {
       throw new Error('channels should contain id field');
     }
 
