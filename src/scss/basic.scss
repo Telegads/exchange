@@ -1,0 +1,12 @@
+@import 'fonts';
+@import 'nullstyle.scss';
+
+$font-family-sans-serif: 'HelvetivaNeueCyr', 'Gotham Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !default;
+$font-family-serif: Georgia, 'Times New Roman', Times, serif !default;
+$font-family-monospace: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+
+$purple: #783afa;
+$primary: $purple;
+
+@import '~bootstrap/scss/bootstrap';

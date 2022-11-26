@@ -3,7 +3,7 @@ import { Button as BootstrapButton } from 'react-bootstrap';
 
 import style from './Button.module.scss';
 
-type ButtonTypes = 'primary' | 'ghost' | 'inverted';
+type ButtonTypes = 'primary' | 'ghost' | 'inverted' | 'link';
 type Size = 'lg' | 'sm';
 type BorderRadius = 'square' | 'rounded' | 'standard';
 

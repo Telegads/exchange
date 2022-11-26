@@ -11,6 +11,14 @@
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  border: none;
+  color: #783afa;
+  text-decoration: none;;
 }
 
 .primary {
@@ -62,7 +70,6 @@
     path {
       stroke: #fff;
     }
-    
   }
 
   &:focus-visible {

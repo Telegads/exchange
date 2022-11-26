@@ -11,22 +11,16 @@ type CounterProps = {
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-const getKey = (category: string | undefined, search: string | undefined) => {
-  let queryString = '';
+const getKey = (routerQuery: Record<string, string>) => {
+  const searchParams = new URLSearchParams(routerQuery);
 
-  if (category) {
-    queryString = queryString + `&category=${category}`;
-  }
-  if (search) {
-    queryString = queryString + `&search=${search}`;
-  }
-  return `/api/channels/getCount?${queryString}`;
+  return `/api/channels/getCount?${searchParams.toString()}`;
 };
 
 export const Counter: FC<CounterProps> = ({ ssrCount }) => {
   const router = useRouter();
 
-  const { data } = useSWR<number>(getKey(router.query.category as string, router.query.search as string), fetcher);
+  const { data } = useSWR<number>(getKey(router.query as Record<string, string>), fetcher);
 
   const count = data ?? ssrCount;
 
