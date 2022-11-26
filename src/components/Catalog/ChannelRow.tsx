@@ -43,6 +43,7 @@ export const ChannelRow: FC<{ channelInfo: ChannelWithTagsAndFormats }> = ({ cha
           <p>
             <Highlighter
               highlightClassName="YourHighlightClass"
+              className={channelRowStyle.channelRow__description}
               searchWords={searchWords}
               autoEscape={true}
               textToHighlight={channelInfo.description || ''}
@@ -56,7 +57,9 @@ export const ChannelRow: FC<{ channelInfo: ChannelWithTagsAndFormats }> = ({ cha
       <div className={style.card__statistics}>
         <div className={style.statistics__subscribers}>
           <p className={style.subscribers__title}>Подписчики:</p>
-          <p className={style.subscribers__number}>{channelInfo.subscribers ? channelInfo.subscribers : '–'}</p>
+          <p className={style.subscribers__number}>
+            {channelInfo.subscribers ? channelInfo.subscribers?.toLocaleString('ru-RU') : '–'}
+          </p>
 
           <p className={style.subscribers__er}>ER:</p>
           <p className={style.subscribers__er_number}>{channelInfo.er ? `${channelInfo.er}%` : '–'}</p>
@@ -68,7 +71,7 @@ export const ChannelRow: FC<{ channelInfo: ChannelWithTagsAndFormats }> = ({ cha
         </div>
         <div className={style.statistics__views}>
           <p className={style.views__title}>Просмотры:</p>
-          <p className={style.views__number}>{channelInfo.views ? channelInfo.views : '–'}</p>
+          <p className={style.views__number}>{channelInfo.views ? channelInfo.views?.toLocaleString('ru-RU') : '–'}</p>
 
           <p className={style.views__cpv}>CPV:</p>
           <p className={style.views__cpv_number}>{channelInfo.cpv ? `${channelInfo.cpv}р` : '–'}</p>

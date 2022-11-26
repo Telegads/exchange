@@ -9,8 +9,6 @@ import style from './Cart.module.scss';
 export const Cart: FC = () => {
   const cartContext = useCartContext();
 
-  console.log(cartContext);
-
   const channelsCount = useMemo(
     () => cartContext?.cartValue?.cartItems?.length || 0,
     [cartContext?.cartValue?.cartItems?.length],
@@ -43,11 +41,11 @@ export const Cart: FC = () => {
       </div> */}
         <div className={style.basket__subscribers}>
           <p className={style.basket__subtitle}>Подписчики:</p>
-          <p className={style.basket__number}>{channelsSubscribersCount}</p>
+          <p className={style.basket__number}>{channelsSubscribersCount?.toLocaleString('ru-RU')}</p>
         </div>
         <div className={style.basket__views}>
           <p className={style.basket__subtitle}>Просмотры:</p>
-          <p className={style.basket__number}>{channelsViewsCount}</p>
+          <p className={style.basket__number}>{channelsViewsCount?.toLocaleString('ru-RU')}</p>
         </div>
         <Button onClick={handleDownloadListButtonClick} type="ghost">
           Скачать список каналов
