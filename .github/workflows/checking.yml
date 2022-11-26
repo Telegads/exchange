@@ -1,0 +1,28 @@
+name: checking
+
+on:
+  pull_request:
+
+jobs:
+  checking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: prepear nodjs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      
+      - name: install deps
+        run: npm ci
+        
+      - name: run type check
+        run: npm run check-types
+        
+      - name: run scripts check
+        run: npm run check-scripts
+
+      - name: run tests
+        run: npm run test
