@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
+import { unstable_getServerSession } from 'next-auth';
 
 import { cartRepository, UpdateCartArg } from '../../../repositories/cartRepository';
 import { userRepository } from '../../../repositories/userRepository';
+import { options } from '../auth/[...nextauth]';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const channels = req.body.channels as UpdateCartArg['channelIds'];
-    const session = await getSession({ req });
+    const session = await unstable_getServerSession(req, res, options);
 
     if (req.method !== 'POST') {
       throw new Error('only POST methods allowed');
@@ -27,7 +28,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error('channels should contain id field');
     }
 
-    if (!session?.user.id) {
+    if (!session?.user?.id) {
       throw new Error('Session user was not provided');
     }
 

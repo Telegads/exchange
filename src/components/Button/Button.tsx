@@ -29,8 +29,6 @@ export const Button: FC<ButtonProps> = ({
   fillHeight,
   className,
 }) => {
-  console.log(className);
-
   return (
     <BootstrapButton
       variant={type}
