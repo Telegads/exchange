@@ -6,10 +6,10 @@ import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import { useSession } from 'next-auth/react';
 
-import { ChannelRow } from '../components/Catalog/ChannelRow';
-import { Sorting } from '../components/Catalog/Sorting';
+import { ChannelRow } from '../components/ChannelRow/ChannelRow';
+import { Sorting } from '../components/Sorting/Sorting';
 import Layout from '../components/Layout';
-import { Filter } from '../components/Sidebar/Filter';
+import { Filter } from '../components/Filter/Filter';
 import style from '../scss/catalog.module.scss';
 import { Button } from '../components/Button/Button';
 import { Counter } from '../components/Counter/Counter';
@@ -37,10 +37,8 @@ export async function getServerSideProps(context: NextPageContext) {
   const channels = await channelRepository.getChannelsByFilterWithSort({
     pageNumber: 0,
     pageSize: PAGE_SIZE,
-    filter: {
-      category: filterCategory,
-      search: searchString,
-    },
+    category: filterCategory,
+    searchString: searchString,
     sort: {
       direction: sortDirection,
       type: sortType,
@@ -89,28 +87,15 @@ const Catalog: FC<{
   const getKey = useCallback(
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null;
-      let queryString = '';
+
+      const searchParams = new URLSearchParams(router.query as Record<string, string>);
+      searchParams.set('limit', PAGE_SIZE.toFixed());
 
       if (pageIndex) {
-        queryString = queryString + `page=${pageIndex}&limit=${PAGE_SIZE}`;
+        searchParams.set('page', pageIndex);
       }
 
-      if (router.query.sort_type) {
-        queryString = queryString + `&sort_type=${router.query.sort_type}`;
-      }
-
-      if (router.query.sort_dir) {
-        queryString = queryString + `&sort_dir=${router.query.sort_dir}`;
-      }
-
-      if (router.query.category) {
-        queryString = queryString + `&category=${router.query.category}`;
-      }
-      if (router.query.search) {
-        queryString = queryString + `&search=${router.query.search}`;
-      }
-
-      return `/api/channels/getChannels?${queryString}`;
+      return `/api/channels/getChannels?${searchParams.toString()}`;
     },
     [router],
   );
