@@ -1,4 +1,3 @@
-import { isFunction } from 'lodash';
 import React, { FC, useCallback } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 
@@ -15,7 +14,7 @@ type RangeInputProps = {
 const RangeInput: FC<RangeInputProps> = ({ maxValue, minValue, onMaxValueChange, onMinValueChange, fieldName }) => {
   const handleMinValueChange = useCallback(
     (event) => {
-      if (isFunction(onMinValueChange)) {
+      if (onMinValueChange) {
         onMinValueChange(event.target.value !== '' ? Number(event.target.value) : undefined);
       }
     },
@@ -26,7 +25,7 @@ const RangeInput: FC<RangeInputProps> = ({ maxValue, minValue, onMaxValueChange,
     (event) => {
       console.log(event);
 
-      if (isFunction(onMaxValueChange)) {
+      if (onMaxValueChange) {
         onMaxValueChange(event.target.value !== '' ? Number(event.target.value) : undefined);
       }
     },
