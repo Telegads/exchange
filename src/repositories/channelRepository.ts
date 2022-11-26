@@ -1,49 +1,66 @@
-import { Channel } from '@prisma/client';
+import { Channel, Prisma } from '@prisma/client';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 import prisma from '../core/prisma';
-
-export type Filter = {
-  category?: string | null;
-  search?: string | null;
-} | null;
 
 export type Sort = {
   type: string | undefined;
   direction: string | undefined;
 };
 
-export type GetChannelArgs = {
-  filter?: Filter | null;
-  sort?: Sort | null;
+type Pagination = {
   pageSize: number | undefined;
   pageNumber: number | undefined;
 };
+
+type Filter = {
+  searchString?: string | null;
+  category?: string | null;
+  sort?: Sort | null;
+  subscriptionsCount?:
+    | {
+        min?: number | undefined;
+        max?: number | undefined;
+      }
+    | undefined;
+};
+
+export type GetChannelArgs = Pagination & Filter;
 
 export const channelRepository = {
   getAllChannels() {
     return prisma.channel.findMany();
   },
-  getChannelsByFilterWithSort({ filter, sort, pageSize = DEFAULT_PAGE_SIZE, pageNumber = 0 }: GetChannelArgs) {
+  getChannelsByFilterWithSort({
+    searchString,
+    category,
+    sort,
+    subscriptionsCount,
+    pageSize = DEFAULT_PAGE_SIZE,
+    pageNumber = 0,
+  }: GetChannelArgs) {
     const sorting = {
       orderBy: sort && sort.type ? { [sort.type]: sort.direction } : undefined,
     };
 
-    const filterCondition = {
-      where: {
-        categoryId: filter?.category && filter.category !== 'all' ? (filter.category as string) : undefined,
-      },
+    const categoryCondition: Prisma.ChannelFindManyArgs['where'] = {
+      categoryId: category && category !== 'all' ? category : undefined,
     };
 
-    const searchCondition =
-      filter && filter.search
+    const subscriptionsCondition: Prisma.ChannelFindManyArgs['where'] = {
+      subscribers: subscriptionsCount
         ? {
-            where: {
-              ...filterCondition.where,
-              OR: [{ name: { contains: filter.search.trim() } }, { description: { contains: filter.search.trim() } }],
-            },
+            lte: subscriptionsCount?.max,
+            gte: subscriptionsCount?.min,
           }
-        : { ...filterCondition };
+        : undefined,
+    };
+
+    const searchCondition: Prisma.ChannelFindManyArgs['where'] = {
+      OR: searchString
+        ? [{ name: { contains: searchString.trim() } }, { description: { contains: searchString.trim() } }]
+        : undefined,
+    };
 
     return prisma.channel.findMany({
       take: pageSize,
@@ -52,7 +69,11 @@ export const channelRepository = {
         formats: true,
         category: true,
       },
-      ...searchCondition,
+      where: {
+        ...searchCondition,
+        ...subscriptionsCondition,
+        ...categoryCondition,
+      },
       ...sorting,
     });
   },
@@ -71,40 +92,35 @@ export const channelRepository = {
       },
     });
   },
-  countByFilter(filter: Filter) {
-    const filterCondition = {
-      where: {
-        categoryId: filter?.category !== undefined && filter?.category !== 'all' ? filter.category : undefined,
-      },
+  countByFilter({ category, searchString, subscriptionsCount }: Filter) {
+    const categoryCondition: Prisma.ChannelFindManyArgs['where'] = {
+      categoryId: category && category !== 'all' ? category : undefined,
     };
 
-    const search = filter?.search
-      ? {
-          where: {
-            ...filterCondition.where,
-            OR: [
-              {
-                name: {
-                  contains: filter.search.trim(),
-                },
-              },
-              {
-                description: {
-                  contains: filter.search.trim(),
-                },
-              },
-            ],
-          },
-        }
-      : {
-          ...filterCondition,
-        };
+    const searchCondition: Prisma.ChannelFindManyArgs['where'] = {
+      OR: searchString
+        ? [{ name: { contains: searchString.trim() } }, { description: { contains: searchString.trim() } }]
+        : undefined,
+    };
+
+    const subscriptionsCondition: Prisma.ChannelFindManyArgs['where'] = {
+      subscribers: subscriptionsCount
+        ? {
+            lte: subscriptionsCount?.max,
+            gte: subscriptionsCount?.min,
+          }
+        : undefined,
+    };
 
     return prisma.channel.aggregate({
       _count: {
         id: true,
       },
-      ...search,
+      where: {
+        ...searchCondition,
+        ...subscriptionsCondition,
+        ...categoryCondition,
+      },
     });
   },
   getChannelsToUpdate(limit: number) {
