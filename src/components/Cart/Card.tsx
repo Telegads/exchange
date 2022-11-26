@@ -9,16 +9,18 @@ import style from './Cart.module.scss';
 export const Cart: FC = () => {
   const cartContext = useCartContext();
 
+  console.log(cartContext);
+
   const channelsCount = useMemo(
     () => cartContext?.cartValue?.cartItems?.length || 0,
     [cartContext?.cartValue?.cartItems?.length],
   );
   const channelsSubscribersCount = useMemo(
-    () => cartContext?.cartValue?.cartItems.reduce((prev, cur) => prev + (cur.subscribers || 0), 0),
+    () => cartContext?.cartValue?.cartItems?.reduce((prev, cur) => prev + (cur.subscribers || 0), 0),
     [cartContext?.cartValue],
   );
   const channelsViewsCount = useMemo(
-    () => cartContext?.cartValue?.cartItems.reduce((prev, cur) => prev + (cur.views || 0), 0),
+    () => cartContext?.cartValue?.cartItems?.reduce((prev, cur) => prev + (cur.views || 0), 0),
     [cartContext?.cartValue],
   );
 

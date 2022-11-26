@@ -1,5 +1,6 @@
 import { Channel } from '@prisma/client';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 import { useCallback } from 'react';
 import useSWR from 'swr';
 
@@ -12,6 +13,7 @@ type UpdateCartResult = Awaited<ReturnType<typeof cartRepository.updateCart>>;
 
 export const useGetCartValue = () => {
   const { data, mutate } = useSWR<GetCartResult>('/api/cart/getCart', fetcher);
+  const { data: session } = useSession();
 
   const isInCart = useCallback(
     (channelId: Channel['id']) =>
@@ -31,7 +33,9 @@ export const useGetCartValue = () => {
         newCartValue = [newChannel];
       }
 
-      console.log(newCartValue);
+      if (!session) {
+        return;
+      }
 
       axios
         .post<UpdateCartResult, any, { channels: UpdateCartArg['channelIds'] }>('/api/cart/updateCart', {
@@ -39,7 +43,7 @@ export const useGetCartValue = () => {
         })
         .then(() => mutate());
     },
-    [data?.cartItems],
+    [data?.cartItems, mutate, session],
   );
 
   return {

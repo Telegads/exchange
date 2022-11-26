@@ -4,7 +4,7 @@ export type UpdateCartArg = { userId: string; channelIds: { id: string }[] };
 
 export const cartRepository = {
   getCart(userId: string) {
-    return prisma.cart.findFirst({
+    return prisma.cart.findUnique({
       where: {
         userId: userId,
       },
