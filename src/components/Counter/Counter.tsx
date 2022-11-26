@@ -26,12 +26,14 @@ const getKey = (category: string | undefined, search: string | undefined) => {
 export const Counter: FC<CounterProps> = ({ ssrCount }) => {
   const router = useRouter();
 
-  const { data } = useSWR(getKey(router.query.category as string, router.query.search as string), fetcher);
+  const { data } = useSWR<number>(getKey(router.query.category as string, router.query.search as string), fetcher);
+
+  const count = data ?? ssrCount;
 
   return (
     <div className={style.content_channels}>
       <p className={style.content_channels_text}>Каналы:</p>
-      <p className={style.content_channels_number}>{data ?? ssrCount}</p>
+      <p className={style.content_channels_number}>{count.toLocaleString('ru-RU')}</p>
     </div>
   );
 };
