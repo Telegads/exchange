@@ -40,6 +40,7 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         <Search />
         <CategorySelect categories={categories} />
         <FilterRangeRange fieldName="Подписчики" parameterName="subscriptionsCount" />
+        <FilterRangeRange fieldName="Просмотры" parameterName="views" />
       </div>
     </div>
   );

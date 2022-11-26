@@ -23,6 +23,12 @@ type Filter = {
         max?: number | undefined;
       }
     | undefined;
+  viewsCount?:
+    | {
+        min?: number | undefined;
+        max?: number | undefined;
+      }
+    | undefined;
 };
 
 export type GetChannelArgs = Pagination & Filter;
@@ -36,6 +42,7 @@ export const channelRepository = {
     category,
     sort,
     subscriptionsCount,
+    viewsCount,
     pageSize = DEFAULT_PAGE_SIZE,
     pageNumber = 0,
   }: GetChannelArgs) {
@@ -52,6 +59,15 @@ export const channelRepository = {
         ? {
             lte: subscriptionsCount?.max,
             gte: subscriptionsCount?.min,
+          }
+        : undefined,
+    };
+
+    const viewsCondition: Prisma.ChannelFindManyArgs['where'] = {
+      views: viewsCount
+        ? {
+            lte: viewsCount?.max,
+            gte: viewsCount?.min,
           }
         : undefined,
     };
@@ -73,6 +89,7 @@ export const channelRepository = {
         ...searchCondition,
         ...subscriptionsCondition,
         ...categoryCondition,
+        ...viewsCondition,
       },
       ...sorting,
     });
