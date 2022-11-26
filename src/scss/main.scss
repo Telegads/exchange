@@ -1,9 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
-@import 'fonts';
-@import 'nullstyle.scss';
+@import "./basic.scss";
 
 body {
-  font-family: 'HelvetivaNeueCyr';
   font-size: 17px;
 }
 
