@@ -20,6 +20,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const subscriptionsCountMin = getParameterFromQuery(req.query, 'subscriptionsCountMin');
   const subscriptionsCountMax = getParameterFromQuery(req.query, 'subscriptionsCountMax');
 
+  const viewsMin = getParameterFromQuery(req.query, 'viewsMin');
+  const viewsMax = getParameterFromQuery(req.query, 'viewsMax');
+
   try {
     const channels = await channelRepository.getChannelsByFilterWithSort({
       pageNumber: page,
@@ -35,6 +38,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           ? {
               max: subscriptionsCountMax ? Number(subscriptionsCountMax) : undefined,
               min: subscriptionsCountMin ? Number(subscriptionsCountMin) : undefined,
+            }
+          : undefined,
+      viewsCount:
+        viewsMin || viewsMax
+          ? {
+              max: viewsMax ? Number(viewsMax) : undefined,
+              min: viewsMin ? Number(viewsMin) : undefined,
             }
           : undefined,
     });
