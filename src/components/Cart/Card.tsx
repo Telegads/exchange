@@ -1,28 +1,46 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { Portal } from 'react-portal';
+import axios from 'axios';
+import fileDownload from 'js-file-download';
+import { Col, Container, Row, Stack } from 'react-bootstrap';
 
 import { Button } from '../Button/Button';
+import { useSentry } from '../../hooks/useSentry';
 
 import { useCartContext } from './context/CartContext';
 import style from './Cart.module.scss';
 
 export const Cart: FC = () => {
-  const cartContext = useCartContext();
+  const { cartValue, clearCart } = useCartContext();
+  const captureToSentry = useSentry();
 
-  const channelsCount = useMemo(
-    () => cartContext?.cartValue?.cartItems?.length || 0,
-    [cartContext?.cartValue?.cartItems?.length],
-  );
+  const channelsCount = useMemo(() => cartValue?.cartItems?.length || 0, [cartValue?.cartItems?.length]);
   const channelsSubscribersCount = useMemo(
-    () => cartContext?.cartValue?.cartItems?.reduce((prev, cur) => prev + (cur.subscribers || 0), 0),
-    [cartContext?.cartValue],
+    () => cartValue?.cartItems?.reduce((prev, cur) => prev + (cur.subscribers || 0), 0),
+    [cartValue],
   );
   const channelsViewsCount = useMemo(
-    () => cartContext?.cartValue?.cartItems?.reduce((prev, cur) => prev + (cur.views || 0), 0),
-    [cartContext?.cartValue],
+    () => cartValue?.cartItems?.reduce((prev, cur) => prev + (cur.views || 0), 0),
+    [cartValue],
   );
 
-  const handleDownloadListButtonClick = useCallback(() => ({}), []);
+  const handleDownloadListButtonClick = useCallback(async () => {
+    try {
+      const response = await axios.get('/api/cart/downloadCart');
+
+      fileDownload(response.data, `cart-${new Date(Date.now()).toISOString()}.csv`);
+    } catch (error) {
+      captureToSentry(error);
+    }
+  }, [captureToSentry]);
+
+  const handleClearCartButtonClick = useCallback(async () => {
+    try {
+      clearCart();
+    } catch (error) {
+      captureToSentry(error);
+    }
+  }, [captureToSentry, clearCart]);
 
   if (channelsCount === 0) {
     return null;
@@ -31,25 +49,37 @@ export const Cart: FC = () => {
   return (
     <Portal>
       <div className={style.content__basket}>
-        <div className={style.basket__selected}>
-          <p className={style.basket__subtitle}>Выбрано каналов:</p>
-          <p className={style.basket__number}>{channelsCount}</p>
-        </div>
-        {/* <div className="basket__sum">
-        <p className="basket__subtitle">На сумму:</p>
-        <p className="basket__number">1 440р</p>
-      </div> */}
-        <div className={style.basket__subscribers}>
-          <p className={style.basket__subtitle}>Подписчики:</p>
-          <p className={style.basket__number}>{channelsSubscribersCount?.toLocaleString('ru-RU')}</p>
-        </div>
-        <div className={style.basket__views}>
-          <p className={style.basket__subtitle}>Просмотры:</p>
-          <p className={style.basket__number}>{channelsViewsCount?.toLocaleString('ru-RU')}</p>
-        </div>
-        <Button onClick={handleDownloadListButtonClick} type="ghost">
-          Скачать список каналов
-        </Button>
+        <Container>
+          <Row>
+            <Col>
+              <Stack direction="horizontal" gap={5}>
+                <div className={style.stats}>
+                  <p className={style.basket__subtitle}>Выбрано каналов:</p>
+                  <p className={style.basket__number}>{channelsCount}</p>
+                </div>
+
+                <div className={style.stats}>
+                  <p className={style.basket__subtitle}>Подписчики:</p>
+                  <p className={style.basket__number}>{channelsSubscribersCount?.toLocaleString('ru-RU')}</p>
+                </div>
+                <div className={style.stats}>
+                  <p className={style.basket__subtitle}>Просмотры:</p>
+                  <p className={style.basket__number}>{channelsViewsCount?.toLocaleString('ru-RU')}</p>
+                </div>
+              </Stack>
+            </Col>
+            <Col xs lg="6">
+              <Stack direction="horizontal" gap={3}>
+                <Button onClick={handleDownloadListButtonClick} type="primary">
+                  Скачать корзину в csv
+                </Button>
+                <Button onClick={handleClearCartButtonClick} type="inverted">
+                  Очистить корзину
+                </Button>
+              </Stack>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </Portal>
   );

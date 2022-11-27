@@ -19,6 +19,8 @@ import { categoryRepository } from '../repositories/categoryRepository';
 import { CartContextProvider } from '../components/Cart/context/CartContext';
 import { Cart } from '../components/Cart/Card';
 import { useGetCartValue } from '../components/Cart/hooks/useGetCartValue';
+import { useSentry } from '../hooks/useSentry';
+import { captureException } from '../core/sentry';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
@@ -28,38 +30,51 @@ export type ChannelWithTagsAndFormats = Channel & {
 const PAGE_SIZE = 50;
 
 export async function getServerSideProps(context: NextPageContext) {
-  const searchString = getParameterFromQuery(context.query, 'search');
-  const filterCategory = getParameterFromQuery(context.query, 'category');
+  try {
+    const searchString = getParameterFromQuery(context.query, 'search');
+    const filterCategory = getParameterFromQuery(context.query, 'category');
 
-  const sortType = getParameterFromQuery(context.query, 'sort_type');
-  const sortDirection = getParameterFromQuery(context.query, 'sort_dir');
+    const sortType = getParameterFromQuery(context.query, 'sort_type');
+    const sortDirection = getParameterFromQuery(context.query, 'sort_dir');
 
-  const channels = await channelRepository.getChannelsByFilterWithSort({
-    pageNumber: 0,
-    pageSize: PAGE_SIZE,
-    category: filterCategory,
-    searchString: searchString,
-    sort: {
-      direction: sortDirection,
-      type: sortType,
-    },
-  });
-  const categories = await categoryRepository.getAllCategories();
-
-  const { _count: channelsCount } = await channelRepository.countAll();
-
-  return {
-    props: {
-      ssr: {
-        channels: channels.map((channel) => ({
-          ...channel,
-          lastUpdateDateTime: '',
-        })),
-        channelsCount: channelsCount.id,
-        categories,
+    const channels = await channelRepository.getChannelsByFilterWithSort({
+      pageNumber: 0,
+      pageSize: PAGE_SIZE,
+      category: filterCategory,
+      searchString: searchString,
+      sort: {
+        direction: sortDirection,
+        type: sortType,
       },
-    }, // will be passed to the page component as props
-  };
+    });
+    const categories = await categoryRepository.getAllCategories();
+
+    const { _count: channelsCount } = await channelRepository.countAll();
+
+    return {
+      props: {
+        ssr: {
+          channels: channels.map((channel) => ({
+            ...channel,
+            lastUpdateDateTime: '',
+          })),
+          channelsCount: channelsCount.id,
+          categories,
+        },
+      }, // will be passed to the page component as props
+    };
+  } catch (error) {
+    captureException(error);
+    return {
+      props: {
+        ssr: {
+          channels: [],
+          channelsCount: 0,
+          categories: [],
+        },
+      },
+    };
+  }
 }
 
 const fetcher = (url: string) => axios.get<ChannelWithTagsAndFormats[]>(url).then((res) => res.data);
@@ -72,16 +87,19 @@ const Catalog: FC<{
   };
 }> = ({ ssr }) => {
   const router = useRouter();
+  const captureToSentry = useSentry();
+  const { data: session } = useSession();
 
-  const { cartValue, updateCartValue, isInCart } = useGetCartValue();
+  const { cartValue, updateCartValue, isInCart, clearCart } = useGetCartValue();
 
   const cartContextValue = useMemo(
     () => ({
       cartValue,
       updateCartValue,
       isInCart,
+      clearCart,
     }),
-    [cartValue, isInCart, updateCartValue],
+    [cartValue, clearCart, isInCart, updateCartValue],
   );
 
   const getKey = useCallback(
@@ -100,7 +118,12 @@ const Catalog: FC<{
     [router],
   );
 
-  const { data, size, setSize } = useSWRInfinite(getKey, fetcher);
+  const { data, size, setSize, error } = useSWRInfinite(getKey, fetcher);
+
+  if (error) {
+    captureToSentry(error);
+  }
+
   const channels = data?.map((chunk) => chunk).flat() ?? ssr.channels;
 
   const isEmpty = data?.[0]?.length === 0;
@@ -109,8 +132,6 @@ const Catalog: FC<{
   const loadMore = useCallback(() => {
     setSize(size + 1);
   }, [setSize, size]);
-
-  const { data: session } = useSession();
 
   return (
     <CartContextProvider value={cartContextValue}>

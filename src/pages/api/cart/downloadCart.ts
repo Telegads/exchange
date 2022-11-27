@@ -1,12 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
+import { Parser } from 'json2csv';
 
-import { handleApiError } from '../../../helpers/handleApiError';
 import { cartRepository } from '../../../repositories/cartRepository';
 import { options } from '../auth/[...nextauth]';
+import { handleApiError } from '../../../helpers/handleApiError';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
+    const parser = new Parser();
     const session = await unstable_getServerSession(req, res, options);
 
     if (!session) {
@@ -16,7 +18,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const cart = await cartRepository.getCart(session?.user.id as string);
 
-    res.json(cart);
+    const csvCart = parser.parse(cart?.cartItems || []);
+    res.send(csvCart);
   } catch (error) {
     handleApiError(res, error);
   }

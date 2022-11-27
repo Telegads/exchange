@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { unstable_getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 
+import { handleApiError } from '../../../helpers/handleApiError';
 import { cartRepository, UpdateCartArg } from '../../../repositories/cartRepository';
 import { userRepository } from '../../../repositories/userRepository';
-import { options } from '../auth/[...nextauth]';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const channels = req.body.channels as UpdateCartArg['channelIds'];
-    const session = await unstable_getServerSession(req, res, options);
+    const { data: session } = useSession();
 
     if (req.method !== 'POST') {
       throw new Error('only POST methods allowed');
@@ -45,11 +45,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     res.json(updatedCart);
   } catch (error) {
-    res.status(500);
-    if (error instanceof Error) {
-      res.send(error.message);
-    }
-    res.send('internalError');
-    console.log(error);
+    handleApiError(res, error);
   }
 }
