@@ -33,13 +33,7 @@ RUN adduser -S nextjs -u 1001
 RUN apk update && apk add curl
 
 WORKDIR /app
-COPY --from=build --chown=nextjs:nodejs /app/package.json /app/package-lock.json ./
-COPY --from=build --chown=nextjs:nodejs /app/node_modules ./node_modules
-COPY --from=build --chown=nextjs:nodejs /app/public ./public
-COPY --from=build --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=build --chown=nextjs:nodejs /app/prisma ./prisma
-COPY --from=build --chown=nextjs:nodejs /app/.bin/app_run.sh ./app_run.sh
-COPY --from=build --chown=nextjs:nodejs /app/src ./src
+COPY --from=build --chown=nextjs:nodejs /app ./
 
 USER nextjs
 
