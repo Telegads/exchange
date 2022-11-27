@@ -73,15 +73,16 @@ const Catalog: FC<{
 }> = ({ ssr }) => {
   const router = useRouter();
 
-  const { cartValue, updateCartValue, isInCart } = useGetCartValue();
+  const { cartValue, updateCartValue, isInCart, clearCart } = useGetCartValue();
 
   const cartContextValue = useMemo(
     () => ({
       cartValue,
       updateCartValue,
       isInCart,
+      clearCart,
     }),
-    [cartValue, isInCart, updateCartValue],
+    [cartValue, clearCart, isInCart, updateCartValue],
   );
 
   const getKey = useCallback(

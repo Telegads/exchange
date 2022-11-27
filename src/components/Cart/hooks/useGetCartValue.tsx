@@ -46,9 +46,18 @@ export const useGetCartValue = () => {
     [data?.cartItems, mutate, session],
   );
 
+  const clearCart = () => {
+    axios
+      .post<UpdateCartResult, any, { channels: UpdateCartArg['channelIds'] }>('/api/cart/updateCart', {
+        channels: [],
+      })
+      .then(() => mutate());
+  };
+
   return {
     cartValue: data,
     updateCartValue,
     isInCart,
+    clearCart,
   };
 };
