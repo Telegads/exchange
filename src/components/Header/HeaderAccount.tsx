@@ -3,15 +3,15 @@ import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import React, { FC, useCallback } from 'react';
 
-import { Button } from '../../../Button/Button';
+import { Button } from '../Button/Button';
 
-import styles from './accountButton.module.scss';
+import styles from './headerAccount.module.scss';
 
 type HeaderAccountProps = {
   session: Session | null;
 };
 
-export const AccountButton: FC<HeaderAccountProps> = ({ session }) => {
+export const HeaderAccount: FC<HeaderAccountProps> = ({ session }) => {
   const handleSingOutClick = useCallback(() => signOut(), []);
 
   return (

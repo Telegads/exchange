@@ -5,8 +5,6 @@ import useSWRInfinite from 'swr/infinite';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import { useSession } from 'next-auth/react';
-import { useTranslation } from 'react-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { ChannelRow } from '../components/ChannelRow/ChannelRow';
 import { Sorting } from '../components/Sorting/Sorting';
@@ -55,7 +53,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        ...(await serverSideTranslations(context.locale ?? 'en', ['common'])),
         ssr: {
           channels: channels.map((channel) => ({
             ...channel,
@@ -92,7 +89,6 @@ const Catalog: FC<{
   const router = useRouter();
   const captureToSentry = useSentry();
   const { data: session } = useSession();
-  const { t } = useTranslation('common');
 
   const { cartValue, updateCartValue, isInCart, clearCart } = useGetCartValue();
 
@@ -150,7 +146,7 @@ const Catalog: FC<{
             <div className={style.content__display_no}>
               <div className={style.content__wrapper}>
                 <div className={style.content__header}>
-                  <h1>{t('catalog.header')}</h1>
+                  <h1>Каталог Telegram-каналов</h1>
                   <Counter ssrCount={ssr.channelsCount} />
                 </div>
                 <Sorting />
@@ -163,7 +159,7 @@ const Catalog: FC<{
               {!isReachingEnd && (
                 <div className={style.loadMore}>
                   <Button onClick={loadMore} type="primary">
-                    {t('catalog.loadmore')}
+                    Load more
                   </Button>
                 </div>
               )}

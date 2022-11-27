@@ -2,7 +2,6 @@ import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import '../scss/main.scss';
 import React from 'react';
-import { appWithTranslation } from 'next-i18next';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -12,4 +11,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default appWithTranslation(App);
+export default App;

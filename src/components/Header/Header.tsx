@@ -2,10 +2,10 @@
 import React, { FC } from 'react';
 import { Session } from 'next-auth';
 
-import { AccountButton } from './components/AccountButton/AccountButton';
-import { LanguageSelector } from './components/LanguageSelector/LanguageSelector';
-import { Menu } from './components/Menu/Menu';
-import { Logo } from './components/Logo/Logo';
+import { HeaderAccount } from './HeaderAccount';
+import { LanguageSelector } from './LanguageSelector';
+import { HeaderMenu } from './HeaderMenu';
+import { Logo } from './Logo';
 import styles from './header.module.scss';
 
 type HeaderProps = {
@@ -19,8 +19,8 @@ const Header: FC<HeaderProps> = ({ session }) => {
       <div className={styles.header__container}>
         <Logo />
         <LanguageSelector />
-        <Menu />
-        <AccountButton session={session} />
+        <HeaderMenu />
+        <HeaderAccount session={session} />
       </div>
     </header>
   );

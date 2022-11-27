@@ -18,6 +18,8 @@ type SortOption = {
 type SortButtonProps = SortOption & { selectedSortType: string | undefined; sortDirection: string };
 
 const SortButton: FC<SortButtonProps> = ({ action, name, sortDirection, sortType, selectedSortType }) => {
+  console.log(`/img/icons/sort_${sortDirection}.svg`);
+
   return (
     <Button type="link" onClick={action} className={style.sort_button}>
       <div className={style.sorting_text}>{name} </div>
