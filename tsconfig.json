@@ -41,7 +41,9 @@
     "src",
     "types",
     ".eslintrc.js",
-    "prisma"
+    "prisma",
+    "next-i18next.config.js",
+    "next.config.js"
   ],
   "exclude": [
     "node_modules"

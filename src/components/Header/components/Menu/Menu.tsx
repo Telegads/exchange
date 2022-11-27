@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import React from 'react';
 
-import styles from './headerMenu.module.scss';
+import styles from './Menu.module.scss';
 
-export const HeaderMenu = () => {
+export const Menu = () => {
   return (
     <nav>
       <div className={styles.header__menu}>

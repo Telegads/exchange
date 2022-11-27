@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // This file sets a custom webpack configuration to use your Next.js app
 // with Sentry.
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
@@ -5,9 +6,11 @@
 
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const { i18n } = require('./next-i18next.config');
+
 const moduleExports = {
   // Your existing module.exports
-
+  i18n,
   sentry: {
     // Use `hidden-source-map` rather than `source-map` as the Webpack `devtool`
     // for client-side builds. (This will be the default starting in
