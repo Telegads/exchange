@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useCallback } from 'react';
 import useSWR from 'swr';
 
+import { useSentry } from '../../../hooks/useSentry';
 import { cartRepository, UpdateCartArg } from '../../../repositories/cartRepository';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -14,6 +15,7 @@ type UpdateCartResult = Awaited<ReturnType<typeof cartRepository.updateCart>>;
 export const useGetCartValue = () => {
   const { data, mutate } = useSWR<GetCartResult>('/api/cart/getCart', fetcher);
   const { data: session } = useSession();
+  const captureToSentry = useSentry();
 
   const isInCart = useCallback(
     (channelId: Channel['id']) =>
@@ -41,18 +43,24 @@ export const useGetCartValue = () => {
         .post<UpdateCartResult, any, { channels: UpdateCartArg['channelIds'] }>('/api/cart/updateCart', {
           channels: newCartValue.map((ch) => ({ id: ch.id })),
         })
-        .then(() => mutate());
+        .then(() => mutate())
+        .catch((error) => {
+          captureToSentry(error);
+        });
     },
-    [data?.cartItems, mutate, session],
+    [captureToSentry, data?.cartItems, mutate, session],
   );
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     axios
       .post<UpdateCartResult, any, { channels: UpdateCartArg['channelIds'] }>('/api/cart/updateCart', {
         channels: [],
       })
-      .then(() => mutate());
-  };
+      .then(() => mutate())
+      .catch((error) => {
+        captureToSentry(error);
+      });
+  }, [captureToSentry, mutate]);
 
   return {
     cartValue: data,

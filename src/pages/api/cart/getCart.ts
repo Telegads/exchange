@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 
+import { handleApiError } from '../../../helpers/handleApiError';
 import { cartRepository } from '../../../repositories/cartRepository';
 import { options } from '../auth/[...nextauth]';
 
@@ -17,7 +18,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     res.json(cart);
   } catch (error) {
-    res.status(500).send(error);
-    console.log(error);
+    handleApiError(res, error);
   }
 }

@@ -29,9 +29,8 @@ export const Cart: FC = () => {
       const response = await axios.get('/api/cart/downloadCart');
 
       fileDownload(response.data, `cart-${new Date(Date.now()).toISOString()}.csv`);
-      captureToSentry('test');
     } catch (error) {
-      console.log(error);
+      captureToSentry(error);
     }
   }, [captureToSentry]);
 
@@ -39,9 +38,9 @@ export const Cart: FC = () => {
     try {
       clearCart();
     } catch (error) {
-      console.log(error);
+      captureToSentry(error);
     }
-  }, [clearCart]);
+  }, [captureToSentry, clearCart]);
 
   if (channelsCount === 0) {
     return null;

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import useSWR from 'swr';
 
+import { useSentry } from '../../hooks/useSentry';
 import style from '../../scss/catalog.module.scss';
 
 type CounterProps = {
@@ -19,8 +20,13 @@ const getKey = (routerQuery: Record<string, string>) => {
 
 export const Counter: FC<CounterProps> = ({ ssrCount }) => {
   const router = useRouter();
+  const captureToSentry = useSentry();
 
-  const { data } = useSWR<number>(getKey(router.query as Record<string, string>), fetcher);
+  const { data, error } = useSWR<number>(getKey(router.query as Record<string, string>), fetcher);
+
+  if (error) {
+    captureToSentry(error);
+  }
 
   const count = data ?? ssrCount;
 
