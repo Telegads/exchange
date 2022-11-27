@@ -34,6 +34,7 @@ RUN apk update && apk add curl
 
 WORKDIR /app
 COPY --from=build --chown=nextjs:nodejs /app ./
+COPY --from=build --chown=nextjs:nodejs /app/.bin/app_run.sh ./app_run.sh
 
 USER nextjs
 
