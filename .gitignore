@@ -3,6 +3,8 @@ node_modules/
 .DS_STORE
 .env
 
+.idea
+
 /postgres/
 
 /seed_data/
