@@ -2,17 +2,12 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Session } from 'next-auth';
+import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import Layout from '../components/Layout';
 import style from '../scss/index.module.scss';
-
-// export const getStaticProps: GetStaticProps = async () => {
-//   // const channels = await prisma.channel.findMany();
-//   // return {
-//   //   props: { channels },
-//   //   revalidate: 10,
-//   // };
-// };
+import Layout from '../components/Layout';
 
 type Props = {
   channels: any[];
@@ -20,8 +15,13 @@ type Props = {
 };
 
 const Blog: React.FC<Props> = ({ session }) => {
+  const { t } = useTranslation('index');
+
   return (
     <div className={style.index_body}>
+      <Head>
+        <title>{t('index.title')} - Telegads</title>
+      </Head>
       <Layout session={session}>
         <section className={style.advertising}>
           <div className={style.container}>
@@ -181,13 +181,14 @@ const Blog: React.FC<Props> = ({ session }) => {
 
 export default Blog;
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { req } = ctx;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req } = context;
 
   const session = await getSession({ req });
 
   return {
     props: {
+      ...(await serverSideTranslations(context.locale ?? 'en', ['index'])),
       session: await session,
     },
   };

@@ -1,7 +1,8 @@
 {
   "catalog": {
     "header": "Каталог Telegram-каналов",
-    "loadmore": "Загрузить еще"
+    "loadmore": "Загрузить еще",
+    "title": "Каталог"
   },
   "cart": {
     "onAddToCartChannelErrorMessage": "Для добавления канала в корзину, авторизуйтесь"
