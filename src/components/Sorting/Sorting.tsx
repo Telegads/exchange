@@ -37,7 +37,7 @@ export const Sorting = () => {
   const router = useRouter();
 
   const selectedSortType = getParameterFromQuery(router.query, 'sort_type');
-  const sortDirection = (getParameterFromQuery(router.query, 'sort_dir') as SortDirection) === 'asc' ? 'desc' : 'asc';
+  const sortDirection = getParameterFromQuery(router.query, 'sort_dir') as SortDirection;
 
   const handleSortButtonClick = useCallback(
     (selectedSort) => {
@@ -45,7 +45,7 @@ export const Sorting = () => {
         query: {
           ...router.query,
           sort_type: selectedSort,
-          sort_dir: sortDirection,
+          sort_dir: sortDirection === 'asc' ? 'desc' : 'asc',
         },
       });
     },

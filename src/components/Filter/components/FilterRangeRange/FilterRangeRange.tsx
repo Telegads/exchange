@@ -8,18 +8,19 @@ import RangeInput from '../../../RangeInput/RangeInput';
 type FilterRangeProps = {
   parameterName: string;
   fieldName: string;
+  maxAllowedValue: number;
 };
 
-export const FilterRangeRange: FC<FilterRangeProps> = ({ parameterName, fieldName }) => {
+export const FilterRangeRange: FC<FilterRangeProps> = ({ parameterName, fieldName, maxAllowedValue }) => {
   const router = useRouter();
   const initialMin = getParameterFromQuery(router.query, `${parameterName}Min`);
   const initialMax = getParameterFromQuery(router.query, `${parameterName}Max`);
 
-  const [min, setMin] = useState(initialMin ? Number(initialMin) : undefined);
-  const [max, setMax] = useState(initialMax ? Number(initialMax) : undefined);
+  const [min, setMin] = useState<number | undefined>(initialMin ? Number(initialMin) : 0);
+  const [max, setMax] = useState<number | undefined>(initialMax ? Number(initialMax) : maxAllowedValue);
 
-  const minDebounced = useDebounce(min);
-  const maxDebounced = useDebounce(max);
+  const minDebounced = useDebounce(min, 1000);
+  const maxDebounced = useDebounce(max, 1000);
 
   const handleRangeChange = useCallback(
     (parameter: string, value: number | undefined) => {
@@ -44,6 +45,7 @@ export const FilterRangeRange: FC<FilterRangeProps> = ({ parameterName, fieldNam
         minValue={min}
         maxValue={max}
         fieldName={fieldName}
+        maxAllowedValue={maxAllowedValue}
       />
     </>
   );
