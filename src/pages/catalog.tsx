@@ -26,7 +26,7 @@ import { captureException } from '../core/sentry';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
-  category: Category;
+  category: Category | null;
 };
 
 const PAGE_SIZE = 50;
@@ -53,16 +53,19 @@ export async function getServerSideProps(context: NextPageContext) {
 
     const { _count: channelsCount } = await channelRepository.countAll();
 
+    const { _max: allowedMax } = await channelRepository.getMaxAllowedFiltersValue();
+
     return {
       props: {
         ...(await serverSideTranslations(context.locale ?? 'en', ['common'])),
         ssr: {
           channels: channels.map((channel) => ({
             ...channel,
-            lastUpdateDateTime: '',
+            lastUpdateDateTime: channel.lastUpdateDateTime.toISOString(),
           })),
           channelsCount: channelsCount.id,
           categories,
+          filterAllowedMax: allowedMax,
         },
       }, // will be passed to the page component as props
     };
@@ -80,15 +83,11 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 }
 
+type CatalogProps = Awaited<ReturnType<typeof getServerSideProps>>;
+
 const fetcher = (url: string) => axios.get<ChannelWithTagsAndFormats[]>(url).then((res) => res.data);
 
-const Catalog: FC<{
-  ssr: {
-    channels: ChannelWithTagsAndFormats[];
-    channelsCount: number;
-    categories: Category[];
-  };
-}> = ({ ssr }) => {
+const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
   const router = useRouter();
   const captureToSentry = useSentry();
   const { data: session } = useSession();
@@ -144,7 +143,11 @@ const Catalog: FC<{
         {/* <Navigation /> */}
         <div className={style.wrapper}>
           {/* <div className={style.line_navbar}></div> */}
-          <Filter categories={ssr.categories} />
+          <Filter
+            categories={ssr.categories}
+            maxSubscribers={ssr.filterAllowedMax?.subscribers || 0}
+            maxViews={ssr.filterAllowedMax?.views || 0}
+          />
           <div className={style.line_filter}></div>
           <div className={style.content}>
             <div className={style.content__display_no}>
@@ -156,9 +159,17 @@ const Catalog: FC<{
                 <Sorting />
               </div>
               <div className={style.catalog_rows}>
-                {channels.map((channel) => (
-                  <ChannelRow channelInfo={channel} key={channel.id} />
-                ))}
+                {channels.map((channel) => {
+                  // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+                  const info = {
+                    ...channel,
+                    lastUpdateDateTime:
+                      typeof channel.lastUpdateDateTime === 'string'
+                        ? new Date(Date.parse(channel.lastUpdateDateTime))
+                        : channel.lastUpdateDateTime,
+                  };
+                  return <ChannelRow channelInfo={info} key={channel.id} />;
+                })}
               </div>
               {!isReachingEnd && (
                 <div className={style.loadMore}>

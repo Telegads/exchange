@@ -10,9 +10,11 @@ import { FilterRangeRange } from './components/FilterRangeRange/FilterRangeRange
 
 type FilterProps = {
   categories: Category[];
+  maxSubscribers: number;
+  maxViews: number;
 };
 
-export const Filter: FC<FilterProps> = ({ categories }) => {
+export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }) => {
   const router = useRouter();
 
   const handleFilterClear = useCallback(() => {
@@ -39,8 +41,8 @@ export const Filter: FC<FilterProps> = ({ categories }) => {
         </div>
         <Search />
         <CategorySelect categories={categories} />
-        <FilterRangeRange fieldName="Подписчики" parameterName="subscriptionsCount" />
-        <FilterRangeRange fieldName="Просмотры" parameterName="views" />
+        <FilterRangeRange maxAllowedValue={maxSubscribers} fieldName="Подписчики" parameterName="subscriptionsCount" />
+        <FilterRangeRange maxAllowedValue={maxViews} fieldName="Просмотры" parameterName="views" />
       </div>
     </div>
   );

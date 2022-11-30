@@ -37,6 +37,14 @@ export const channelRepository = {
   getAllChannels() {
     return prisma.channel.findMany();
   },
+  getMaxAllowedFiltersValue() {
+    return prisma.channel.aggregate({
+      _max: {
+        subscribers: true,
+        views: true,
+      },
+    });
+  },
   getChannelsByFilterWithSort({
     searchString,
     category,

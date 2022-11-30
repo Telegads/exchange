@@ -1,0 +1,31 @@
+
+.range {
+  display: flex;
+  align-items: center;
+}
+
+.thumb {
+  height: 25px;
+  line-height: 25px;
+  width: 25px;
+  background-color: #7044CC;
+  border-radius: 50%;
+  cursor: grab;
+}
+
+.track {
+  height: 2px;
+
+  
+  &-0 {
+    background-color: #dcdcdc;
+  }
+  
+  &-2 {
+    background-color: #dcdcdc;
+  }
+
+  &-1 {
+    background-color: #7044cc;
+  }
+}
