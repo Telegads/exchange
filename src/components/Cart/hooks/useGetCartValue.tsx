@@ -3,9 +3,11 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useCallback } from 'react';
 import useSWR from 'swr';
+import { useTranslation } from 'react-i18next';
 
 import { useSentry } from '../../../hooks/useSentry';
 import { cartRepository, UpdateCartArg } from '../../../repositories/cartRepository';
+import { useUserNotification } from '../../../hooks/useUserNotification';
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -16,6 +18,8 @@ export const useGetCartValue = () => {
   const { data, mutate } = useSWR<GetCartResult>('/api/cart/getCart', fetcher);
   const { data: session } = useSession();
   const captureToSentry = useSentry();
+  const { notify } = useUserNotification();
+  const { t } = useTranslation('common');
 
   const isInCart = useCallback(
     (channelId: Channel['id']) =>
@@ -36,6 +40,7 @@ export const useGetCartValue = () => {
       }
 
       if (!session) {
+        notify(t('cart.onAddToCartChannelErrorMessage'), 'error');
         return;
       }
 
@@ -48,7 +53,7 @@ export const useGetCartValue = () => {
           captureToSentry(error);
         });
     },
-    [captureToSentry, data?.cartItems, mutate, session],
+    [captureToSentry, data?.cartItems, mutate, session, t],
   );
 
   const clearCart = useCallback(() => {

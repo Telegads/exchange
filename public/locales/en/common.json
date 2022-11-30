@@ -2,5 +2,8 @@
   "catalog": {
     "header": "Telegram channels catalog",
     "loadmore": "Load more"
+  },
+  "cart": {
+    "onAddToCartChannelErrorMessage": "To add a channel to the shopping cart, plz log in"
   }
 }
