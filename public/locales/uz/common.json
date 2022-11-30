@@ -1,7 +1,8 @@
 {
   "catalog": {
     "header": "Telegram kanallari katalogi",
-    "loadmore": "Ko'proq yuklang"
+    "loadmore": "Ko'proq yuklang",
+    "title": "Katalogi"
   },
   "cart": {
     "onAddToCartChannelErrorMessage": "Саватга канал қўшиш учун тизимга киринг"

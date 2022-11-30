@@ -7,6 +7,7 @@ import { NextPageContext } from 'next';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Head from 'next/head';
 
 import { ChannelRow } from '../components/ChannelRow/ChannelRow';
 import { Sorting } from '../components/Sorting/Sorting';
@@ -139,6 +140,9 @@ const Catalog: FC<{
 
   return (
     <CartContextProvider value={cartContextValue}>
+      <Head>
+        <title>{t('catalog.title')} - Telegads</title>
+      </Head>
       <Layout session={session}>
         <div className={style.line}></div>
         {/* <Navigation /> */}
