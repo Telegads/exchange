@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start:bg-task": "ts-node ./src/update-channels/start-background-task.ts",
+    "start:bg-task": "ts-node ./src/backgroundTasks/start.ts",
     "start": "concurrently \"npm run start:bg-task\"  \"next start\" ",
     "db:run": "docker-compose up -d --build",
     "image:build": "docker build -t peteranikitin/telegads-exchange:latest  . ",
