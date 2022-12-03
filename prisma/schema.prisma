@@ -11,25 +11,28 @@ datasource db {
 }
 
 model Channel {
-  id                 String    @id @default(cuid())
-  name               String
-  description        String?
-  avatar             String?
-  url                String    @unique
-  isArchived         Boolean
-  isBlogger          Boolean
-  subscribers        Int?
-  er                 Int?
-  malePercent        Int?
-  views              Int?
-  cpv                Int?
-  postPrice          Float?
-  formats            Format[]
-  categoryId         String?
-  category           Category? @relation(fields: [categoryId], references: [id])
-  lastUpdateDateTime DateTime  @default(now()) @updatedAt
-  Cart               Cart?     @relation(fields: [cartId], references: [id])
-  cartId             String?
+  id                     String    @id @default(cuid())
+  name                   String
+  description            String?
+  avatar                 String?
+  url                    String    @unique
+  isArchived             Boolean
+  isBlogger              Boolean
+  subscribers            Int?
+  er                     Int?
+  malePercent            Int?
+  views                  Int?
+  cpv                    Int?
+  postPrice              Float?
+  formats                Format[]
+  categoryId             String?
+  category               Category? @relation(fields: [categoryId], references: [id])
+  lastUpdateDateTime     DateTime  @default(now()) @updatedAt
+  Cart                   Cart?     @relation(fields: [cartId], references: [id])
+  cartId                 String?
+  postsLast30days        Int?
+  viewsLast30days        Int?
+  lastUpdateFromTelegram DateTime?
 }
 
 model Category {
@@ -109,6 +112,6 @@ model BackgroundTask {
 model Cart {
   id        String    @id @default(cuid())
   user      User      @relation(fields: [userId], references: [id])
-  userId    String    @map("user_id") @unique
+  userId    String    @unique @map("user_id")
   cartItems Channel[]
 }

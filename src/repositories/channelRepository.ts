@@ -151,8 +151,19 @@ export const channelRepository = {
   getChannelsToUpdate(limit: number) {
     return prisma.channel.findMany({
       take: limit,
-      orderBy: {
-        lastUpdateDateTime: 'asc',
+      where: {
+        isArchived: false,
+        lastUpdateFromTelegram: null,
+      },
+    });
+  },
+  archiveChannel(url: string) {
+    return prisma.channel.update({
+      where: {
+        url,
+      },
+      data: {
+        isArchived: true,
       },
     });
   },
