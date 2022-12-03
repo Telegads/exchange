@@ -29,4 +29,4 @@ jobs:
 
     - name: apply
       run: |
-       helmfile apply -f .deploy/helmfile/helmfile.yaml --environment production
+       helmfile apply -f ./deploy/helmfile/helmfile.yaml --environment production
