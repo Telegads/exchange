@@ -1,52 +1,65 @@
 import path from 'path';
 
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import csv from 'csvtojson';
 
-const csvFilePath = '../seed_data/TelegAds-data-seed.csv';
+import prisma from '../src/core/prisma';
+
+const getNumberOrUndefined = (value: string | undefined | null) => {
+  try {
+    return value ? Number(value) : undefined;
+  } catch (error) {
+    return undefined;
+  }
+};
 
 async function main() {
-  console.log(path.resolve(__dirname, csvFilePath));
+  const categoriesFilePath = path.resolve(__dirname, './seed_data/Categories.csv');
+  const channelsFilePath = path.resolve(__dirname, './seed_data/Channels.csv');
 
-  // const channels = await csv().fromFile(path.resolve(__dirname, csvFilePath));
+  const categories = await csv().fromFile(categoriesFilePath);
 
-  // for await (const channel of channels) {
-  //   // console.log(channel);
+  for await (const { id, name } of categories) {
+    prisma.category.upsert({
+      where: { id },
+      update: {},
+      create: {
+        id,
+        name,
+      },
+    });
+  }
 
-  //   await prisma.channel.upsert({
-  //     where: {
-  //       url: channel.url,
-  //     },
-  //     update: {},
-  //     create: {
-  //       isArchived: channel.isArchived === "FALSE",
-  //       isBlogger: channel.isBlogger === "FALSE",
-  //       name: channel.name,
-  //       url: channel.url,
-  //       avatar: channel.avatar,
-  //       category: {
-  //         connectOrCreate: {
-  //           where: {
-  //             id: channel.categoryId,
-  //           },
-  //           create: {
-  //             name: channel.categories,
-  //             id: channel.categoryId,
-  //           },
-  //         },
-  //       },
-  //       cpv: getNumberOrUndefined(channel.cpv),
-  //       description: channel.description,
-  //       er: getNumberOrUndefined(channel.er),
-  //       malePercent: getNumberOrUndefined(channel.malePercent),
-  //       postPrice: getNumberOrUndefined(channel.postPrice),
-  //       subscribers: getNumberOrUndefined(channel.subscribers),
-  //       views: getNumberOrUndefined(channel.views),
-  //     },
-  //   });
-  // }
+  const channels = await csv().fromFile(channelsFilePath);
 
-  // console.log("done ", channels.length);
+  for await (const channel of channels) {
+    await prisma.channel.upsert({
+      where: {
+        url: channel.url,
+      },
+      update: {},
+      create: {
+        isArchived: channel.isArchived === 'FALSE',
+        isBlogger: channel.isBlogger === 'FALSE',
+        name: channel.name,
+        url: channel.url,
+        avatar: channel.avatar,
+        category: {
+          connect: {
+            id: channel.categoryId,
+          },
+        },
+        cpv: getNumberOrUndefined(channel.cpv),
+        description: channel.description,
+        er: getNumberOrUndefined(channel.er),
+        malePercent: getNumberOrUndefined(channel.malePercent),
+        postPrice: getNumberOrUndefined(channel.postPrice),
+        subscribers: getNumberOrUndefined(channel.subscribers),
+        views: getNumberOrUndefined(channel.views),
+      },
+    });
+  }
+
+  console.log(`Update ${categories.length} categories and ${channels.length} channels`);
 }
 
 main()
