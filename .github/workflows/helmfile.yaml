@@ -1,0 +1,32 @@
+name: Deploy
+
+on:  
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Setup helmfile
+      uses: mamezou-tech/setup-helmfile@v1.2.0
+
+    - name: Test
+      run: |
+        helmfile --version
+        helm version
+        kubectl version --client
+
+    - name: Set Kubernetes Context
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    - name: apply
+      run: |
+       helmfile apply -f .deploy/helmfile/helmfile.yaml --environment production

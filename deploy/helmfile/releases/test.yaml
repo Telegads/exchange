@@ -1,0 +1,8 @@
+
+releases:
+  - name: test-{{ .Environment.Name }}
+    namespace: test-{{ .Environment.Name }}
+    chart: charts/test
+    version: 0.0.1
+    values:
+      - values/{{ .Environment.Name }}/test.yaml
