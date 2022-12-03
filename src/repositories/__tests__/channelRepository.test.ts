@@ -23,6 +23,9 @@ describe('channelRepository', () => {
           categoryId: '2',
           lastUpdateDateTime: new Date(Date.parse('11-11-2011')),
           cartId: '1',
+          lastUpdateFromTelegram: null,
+          postsLast30days: null,
+          viewsLast30days: null,
         },
         {
           id: 'cl8powt1d0014bqe5k2u32ir1',
@@ -42,6 +45,9 @@ describe('channelRepository', () => {
           categoryId: '3',
           lastUpdateDateTime: new Date(Date.parse('11-11-2011')),
           cartId: '2',
+          lastUpdateFromTelegram: null,
+          postsLast30days: null,
+          viewsLast30days: null,
         },
       ]);
 
