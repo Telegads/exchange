@@ -1,7 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { Category, Channel, Format } from '@prisma/client';
-import axios from 'axios';
-import useSWRInfinite from 'swr/infinite';
+import { SWRInfiniteKeyLoader } from 'swr/infinite';
 import { useRouter } from 'next/router';
 import { NextPageContext } from 'next';
 import { useSession } from 'next-auth/react';
@@ -24,6 +23,8 @@ import { Cart } from '../components/Cart/Card';
 import { useGetCartValue } from '../components/Cart/hooks/useGetCartValue';
 import { useSentry } from '../hooks/useSentry';
 import { captureException } from '../core/sentry';
+import { useGetChannels } from '../hooks/useGetChannels';
+import Loading from '../components/Loader/Loading';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats: Format[];
@@ -86,8 +87,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
 type CatalogProps = Awaited<ReturnType<typeof getServerSideProps>>;
 
-const fetcher = (url: string) => axios.get<ChannelWithTagsAndFormats[]>(url).then((res) => res.data);
-
 const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
   const router = useRouter();
   const captureToSentry = useSentry();
@@ -106,7 +105,7 @@ const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
     [cartValue, clearCart, isInCart, updateCartValue],
   );
 
-  const getKey = useCallback(
+  const getKey: SWRInfiniteKeyLoader = useCallback(
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null;
 
@@ -114,7 +113,7 @@ const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
       searchParams.set('limit', PAGE_SIZE.toFixed());
 
       if (pageIndex) {
-        searchParams.set('page', pageIndex);
+        searchParams.set('page', String(pageIndex));
       }
 
       return `/api/channels/getChannels?${searchParams.toString()}`;
@@ -122,7 +121,7 @@ const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
     [router],
   );
 
-  const { data, size, setSize, error } = useSWRInfinite(getKey, fetcher);
+  const { data, size, setSize, error, isLoading } = useGetChannels(getKey);
 
   if (error) {
     captureToSentry(error);
@@ -163,19 +162,23 @@ const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
                 <Sorting />
               </div>
               <div className={style.catalog_rows}>
-                {channels.map((channel) => {
-                  // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-                  const info = {
-                    ...channel,
-                    lastUpdateDateTime:
-                      typeof channel.lastUpdateDateTime === 'string'
-                        ? new Date(Date.parse(channel.lastUpdateDateTime))
-                        : channel.lastUpdateDateTime,
-                  };
-                  return <ChannelRow channelInfo={info} key={channel.id} />;
-                })}
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  channels.map((channel) => {
+                    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+                    const info = {
+                      ...channel,
+                      lastUpdateDateTime:
+                        typeof channel.lastUpdateDateTime === 'string'
+                          ? new Date(Date.parse(channel.lastUpdateDateTime))
+                          : channel.lastUpdateDateTime,
+                    };
+                    return <ChannelRow channelInfo={info} key={channel.id} />;
+                  })
+                )}
               </div>
-              {!isReachingEnd && (
+              {!isReachingEnd && !isLoading && (
                 <div className={style.loadMore}>
                   <Button onClick={loadMore} type="primary">
                     {t('catalog.loadmore')}
