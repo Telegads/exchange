@@ -27,7 +27,7 @@ export const CategorySelect: FC<CategorySelectProps> = ({ categories }) => {
 
   return (
     <div className={style.filter__select}>
-      <select tabIndex={0} name="items" onChange={handleCategoryChange} defaultValue={category}>
+      <select onChange={handleCategoryChange} value={category ? category : 'all'}>
         <option value="all">Все тематики</option>
         {categories.map((cat) =>
           cat.id === '' ? (

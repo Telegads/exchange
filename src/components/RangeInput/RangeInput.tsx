@@ -68,7 +68,7 @@ const RangeInput: FC<RangeInputProps> = ({
       />
       <Row>
         <Form.Group as={Col}>
-          <Form.Control type="number" placeholder="max" value={minValue} onChange={handleMinValueChange} />
+          <Form.Control type="number" placeholder="min" value={minValue} onChange={handleMinValueChange} />
         </Form.Group>
 
         <Form.Group as={Col}>

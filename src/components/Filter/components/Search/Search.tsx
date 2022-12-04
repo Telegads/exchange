@@ -13,12 +13,14 @@ export const Search = () => {
   const debouncedSearchValue = useDebounce(searchInput);
 
   useEffect(() => {
-    router.push({
-      query: {
-        ...router.query,
-        search: debouncedSearchValue,
-      },
-    });
+    if (debouncedSearchValue) {
+      router.push({
+        query: {
+          ...router.query,
+          search: debouncedSearchValue,
+        },
+      });
+    }
   }, [debouncedSearchValue]);
 
   const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
