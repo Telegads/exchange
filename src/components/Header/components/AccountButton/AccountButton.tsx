@@ -8,7 +8,7 @@ import { Button } from '../../../Button/Button';
 import styles from './accountButton.module.scss';
 
 type HeaderAccountProps = {
-  session: Session | null;
+  session?: Session | null;
 };
 
 export const AccountButton: FC<HeaderAccountProps> = ({ session }) => {

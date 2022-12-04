@@ -28,15 +28,15 @@ export const useGetCartValue = () => {
   );
 
   const updateCartValue = useCallback(
-    (newChannel: Channel) => {
-      let newCartValue: Channel[] = [];
+    (channelId: string) => {
+      let newCartValue: (Channel | { id: string })[] = [];
 
-      if (data?.cartItems && data.cartItems.find((cartLine) => cartLine.id === newChannel.id)) {
-        newCartValue = data?.cartItems.filter((cartLine) => cartLine.id !== newChannel.id);
+      if (data?.cartItems && data.cartItems.find((cartLine) => cartLine.id === channelId)) {
+        newCartValue = data?.cartItems.filter((cartLine) => cartLine.id !== channelId);
       } else if (data?.cartItems) {
-        newCartValue = [...data.cartItems, newChannel];
+        newCartValue = [...data.cartItems, { id: channelId }];
       } else {
-        newCartValue = [newChannel];
+        newCartValue = [{ id: channelId }];
       }
 
       if (!session) {
@@ -53,7 +53,7 @@ export const useGetCartValue = () => {
           captureToSentry(error);
         });
     },
-    [captureToSentry, data?.cartItems, mutate, session, t],
+    [captureToSentry, data?.cartItems, mutate, notify, session, t],
   );
 
   const clearCart = useCallback(() => {

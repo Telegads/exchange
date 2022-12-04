@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Category, Channel, Format } from '@prisma/client';
 import { SWRInfiniteKeyLoader } from 'swr/infinite';
 import { useRouter } from 'next/router';
-import { NextPageContext } from 'next';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useSession } from 'next-auth/react';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -27,13 +27,13 @@ import { useGetChannels } from '../hooks/useGetChannels';
 import Loading from '../components/Loader/Loading';
 
 export type ChannelWithTagsAndFormats = Channel & {
-  formats: Format[];
-  category: Category | null;
+  formats?: Format[];
+  category?: Category | null;
 };
 
 const PAGE_SIZE = 50;
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const searchString = getParameterFromQuery(context.query, 'search');
     const filterCategory = getParameterFromQuery(context.query, 'category');
@@ -61,15 +61,12 @@ export async function getServerSideProps(context: NextPageContext) {
       props: {
         ...(await serverSideTranslations(context.locale ?? 'en', ['common'])),
         ssr: {
-          channels: channels.map((channel) => ({
-            ...channel,
-            lastUpdateDateTime: channel.lastUpdateDateTime.toISOString(),
-          })),
+          channels: channels,
           channelsCount: channelsCount.id,
           categories,
           filterAllowedMax: allowedMax,
         },
-      }, // will be passed to the page component as props
+      },
     };
   } catch (error) {
     captureException(error);
@@ -85,9 +82,10 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 }
 
-type CatalogProps = Awaited<ReturnType<typeof getServerSideProps>>;
+type CatalogProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+export type FetchChannelsByFilterResult = ReturnType<typeof channelRepository.getChannelsByFilterWithSort>;
 
-const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
+const Catalog = ({ ssr }: CatalogProps) => {
   const router = useRouter();
   const captureToSentry = useSentry();
   const { data: session } = useSession();
@@ -165,17 +163,20 @@ const Catalog: FC<CatalogProps['props']> = ({ ssr }) => {
                 {isLoading ? (
                   <Loading />
                 ) : (
-                  channels.map((channel) => {
-                    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-                    const info = {
-                      ...channel,
-                      lastUpdateDateTime:
-                        typeof channel.lastUpdateDateTime === 'string'
-                          ? new Date(Date.parse(channel.lastUpdateDateTime))
-                          : channel.lastUpdateDateTime,
-                    };
-                    return <ChannelRow channelInfo={info} key={channel.id} />;
-                  })
+                  channels.map((channel) => (
+                    <ChannelRow
+                      id={channel.id}
+                      name={channel.name}
+                      avatar={channel.avatar}
+                      category={channel.category?.name}
+                      description={channel.description}
+                      er={channel.er}
+                      malePercent={channel.malePercent}
+                      subscribers={channel.subscribers}
+                      views={channel.views}
+                      key={channel.id}
+                    />
+                  ))
                 )}
               </div>
               {!isReachingEnd && !isLoading && (
