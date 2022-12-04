@@ -1,1 +1,3 @@
 nodePort: 30008
+host: telegads.uz
+replicas: 1

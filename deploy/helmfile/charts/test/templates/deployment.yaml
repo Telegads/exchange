@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: exchange-{{.Environment.Name}}
+
+  labels:
+    app: exchange
+
+spec:
+  replicas: {{ .Values.replicas }}
+
+  selector:
+    matchLabels:
+      app: exchange-{{.Environment.Name}}
+
+  template:
+    metadata:
+      labels:
+        app: exchange-{{.Environment.Name}}
+
+    spec:
+      containers:
+        - name: telegads-exchange
+
+          image: peteranikitin/telegads-exchange:latest
+
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.database_url }}
+            - name: NEXTAUTH_URL
+              value: {{ .Valuers.NEXTAUTH_URL_ARG }}
+            - name: NEXT_PUBLIC_NEXTAUTH_URL
+              value: {{ .Valuers.NEXT_PUBLIC_NEXTAUTH_URLARG }}
+            - name: NEXTAUTH_SECRET
+              value: {{ .Valuers.NEXTAUTH_SECRET_ARG }}
+            - name: API_AUTH_SECRET
+              value: {{ .Valuers.API_AUTH_SECRET_ARG }}
+            - name: GOOGLE_CLIENT_ID
+              value: {{ .Valuers.GOOGLE_AUTH_ID_ARG }}
+            - name: GOOGLE_CLIENT_SECRET
+              value: {{ .Valuers.GOOGLE_AUTH_SECRET_ARG }}
+            - name: TG_CONNECTOR_URL
+              value: {{ .Valuers.TG_CONNECTOR_URL_ARG }}
+
+          ports:
+            - containerPort: 3000

@@ -1,1 +1,3 @@
 nodePort: 30009
+host: staging.telegads.uz
+replicas: 1
