@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { FC, useCallback } from 'react';
 
 import style from '../../scss/catalog.module.scss';
+import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
 
 import { CategorySelect } from './components/CategorySelect/CategorySelect';
 import { Search } from './components/Search/Search';
@@ -17,13 +18,22 @@ type FilterProps = {
 export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }) => {
   const router = useRouter();
 
+  const selectedSortType = getParameterFromQuery(router.query, 'sort_type');
+  const sortDirection = getParameterFromQuery(router.query, 'sort_dir');
+
+  const newQuery: { sort_type?: string; sort_dir?: string } = {};
+
+  if (selectedSortType !== undefined) {
+    newQuery.sort_type = selectedSortType;
+  }
+
+  if (sortDirection !== undefined) {
+    newQuery.sort_dir = sortDirection;
+  }
+
   const handleFilterClear = useCallback(() => {
     router.push({
-      query: {
-        ...router.query,
-        search: undefined,
-        category: undefined,
-      },
+      query: newQuery,
     });
   }, [router]);
 
