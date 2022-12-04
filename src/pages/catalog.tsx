@@ -83,7 +83,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 type CatalogProps = InferGetServerSidePropsType<typeof getServerSideProps>;
-export type FetchChannelsByFilterResult = ReturnType<typeof channelRepository.getChannelsByFilterWithSort>;
 
 const Catalog = ({ ssr }: CatalogProps) => {
   const router = useRouter();
