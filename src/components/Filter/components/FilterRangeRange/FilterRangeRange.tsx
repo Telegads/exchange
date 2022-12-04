@@ -13,23 +13,34 @@ type FilterRangeProps = {
 
 export const FilterRangeRange: FC<FilterRangeProps> = ({ parameterName, fieldName, maxAllowedValue }) => {
   const router = useRouter();
-  const initialMin = getParameterFromQuery(router.query, `${parameterName}Min`);
-  const initialMax = getParameterFromQuery(router.query, `${parameterName}Max`);
+  const minInQuery = getParameterFromQuery(router.query, `${parameterName}Min`);
+  const maxInQuery = getParameterFromQuery(router.query, `${parameterName}Max`);
 
-  const [min, setMin] = useState<number | undefined>(initialMin ? Number(initialMin) : 0);
-  const [max, setMax] = useState<number | undefined>(initialMax ? Number(initialMax) : maxAllowedValue);
+  const [min, setMin] = useState<number | undefined>(minInQuery ? Number(minInQuery) : undefined);
+  const [max, setMax] = useState<number | undefined>(maxInQuery ? Number(maxInQuery) : undefined);
 
   const minDebounced = useDebounce(min, 1000);
   const maxDebounced = useDebounce(max, 1000);
 
+  useEffect(() => {
+    if (minInQuery === undefined) {
+      setMin(undefined);
+    }
+    if (maxInQuery === undefined) {
+      setMax(undefined);
+    }
+  }, [maxInQuery, minInQuery]);
+
   const handleRangeChange = useCallback(
     (parameter: string, value: number | undefined) => {
-      router.push({
-        query: {
-          ...router.query,
-          [parameter]: value,
-        },
-      });
+      if (value) {
+        router.push({
+          query: {
+            ...router.query,
+            [parameter]: value,
+          },
+        });
+      }
     },
     [router],
   );
