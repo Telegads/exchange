@@ -8,6 +8,18 @@ export type Sort = {
   direction: string | undefined;
 };
 
+export const CHANNEL_FIELDS = {
+  avatar: true,
+  category: true,
+  description: true,
+  name: true,
+  subscribers: true,
+  views: true,
+  id: true,
+  er: true,
+  malePercent: true,
+};
+
 type Pagination = {
   pageSize: number | undefined;
   pageNumber: number | undefined;
@@ -89,10 +101,6 @@ export const channelRepository = {
     return prisma.channel.findMany({
       take: pageSize,
       skip: pageNumber * pageSize,
-      include: {
-        formats: true,
-        category: true,
-      },
       where: {
         ...searchCondition,
         ...subscriptionsCondition,
@@ -100,6 +108,7 @@ export const channelRepository = {
         ...viewsCondition,
       },
       ...sorting,
+      select: CHANNEL_FIELDS,
     });
   },
   updateChannel(channel: Partial<Channel>) {

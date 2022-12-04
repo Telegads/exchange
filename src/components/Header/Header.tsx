@@ -9,7 +9,7 @@ import { Logo } from './components/Logo/Logo';
 import styles from './header.module.scss';
 
 type HeaderProps = {
-  session: Session | null;
+  session?: Session | null;
 };
 
 const Header: FC<HeaderProps> = ({ session }) => {

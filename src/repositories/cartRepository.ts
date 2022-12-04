@@ -1,5 +1,7 @@
 import prisma from '../core/prisma';
 
+import { CHANNEL_FIELDS } from './channelRepository';
+
 export type UpdateCartArg = { userId: string; channelIds: { id: string }[] };
 
 export const cartRepository = {
@@ -9,7 +11,9 @@ export const cartRepository = {
         userId: userId,
       },
       include: {
-        cartItems: true,
+        cartItems: {
+          select: CHANNEL_FIELDS,
+        },
       },
     });
   },

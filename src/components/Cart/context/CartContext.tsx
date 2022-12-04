@@ -1,11 +1,10 @@
-import { Channel } from '@prisma/client';
 import React, { createContext, FC, useContext } from 'react';
 
 import { GetCartResult } from '../hooks/useGetCartValue';
 
 type CartContextValueType = {
-  updateCartValue: (newChannel: Channel) => void;
-  isInCart: (channelId: Channel['id']) => boolean;
+  updateCartValue: (channelId: string) => void;
+  isInCart: (channelId: string) => boolean;
   cartValue: GetCartResult | undefined;
   clearCart: () => void;
 };

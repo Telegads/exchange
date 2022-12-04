@@ -6,7 +6,7 @@ import style from '../scss/index.module.scss';
 import Header from './Header/Header';
 
 type Props = {
-  session: Session | null;
+  session?: Session | null;
 };
 
 const Layout: React.FC<Props> = ({ children, session }) => (
