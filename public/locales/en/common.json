@@ -5,6 +5,10 @@
     "title": "Catalog"
   },
   "cart": {
-    "onAddToCartChannelErrorMessage": "To add a channel to the shopping cart, plz log in"
+    "onAddToCartChannelErrorMessage": "To add a channel to the shopping cart, please, log in"
+  },
+  "filter": {
+    "header": "Filters",
+    "button": "Clear all"
   }
 }

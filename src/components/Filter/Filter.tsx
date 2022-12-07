@@ -1,6 +1,7 @@
 import { Category } from '@prisma/client';
 import { useRouter } from 'next/router';
 import React, { FC, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import style from '../../scss/catalog.module.scss';
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
@@ -17,6 +18,7 @@ type FilterProps = {
 
 export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }) => {
   const router = useRouter();
+  const { t } = useTranslation('common');
 
   const selectedSortType = getParameterFromQuery(router.query, 'sort_type');
   const sortDirection = getParameterFromQuery(router.query, 'sort_dir');
@@ -44,9 +46,9 @@ export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }
           <img src="/img/icons/close.svg" alt="" />
         </div>
         <div className={style.filter__reset}>
-          <p>Фильтр</p>
+          <p>{t('filter.header')}</p>
           <button type="reset" onClick={handleFilterClear}>
-            Очистить все
+            {t('filter.button')}
           </button>
         </div>
         <Search />
