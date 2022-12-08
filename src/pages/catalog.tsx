@@ -3,14 +3,13 @@ import { Category, Channel, Format } from '@prisma/client';
 import { SWRInfiniteKeyLoader } from 'swr/infinite';
 import { useRouter } from 'next/router';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import { useSession } from 'next-auth/react';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 
 import { ChannelRow } from '../components/ChannelRow/ChannelRow';
 import { Sorting } from '../components/Sorting/Sorting';
-import Layout from '../components/Layout';
+import Layout from '../components/Layout/Layout';
 import { Filter } from '../components/Filter/Filter';
 import style from '../scss/catalog.module.scss';
 import { Button } from '../components/Button/Button';
@@ -19,12 +18,12 @@ import { channelRepository } from '../repositories/channelRepository';
 import { getParameterFromQuery } from '../utils/getParameterFromQuery';
 import { categoryRepository } from '../repositories/categoryRepository';
 import { CartContextProvider } from '../components/Cart/context/CartContext';
-import { Cart } from '../components/Cart/Card';
+import { FloatingCart } from '../components/Cart/FloatingCart';
 import { useGetCartValue } from '../components/Cart/hooks/useGetCartValue';
 import { useSentry } from '../hooks/useSentry';
 import { captureException } from '../core/sentry';
-import { useGetChannels } from '../hooks/useGetChannels';
 import Loading from '../components/Loader/Loading';
+import { useGetChannels } from '../hooks/useGetChannels';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats?: Format[];
@@ -87,10 +86,9 @@ type CatalogProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 const Catalog = ({ ssr }: CatalogProps) => {
   const router = useRouter();
   const captureToSentry = useSentry();
-  const { data: session } = useSession();
   const { t } = useTranslation('common');
 
-  const { cartValue, updateCartValue, isInCart, clearCart } = useGetCartValue();
+  const { cartValue, updateCartValue, isInCart, clearCart, subscribersCount, viewsCount } = useGetCartValue();
 
   const cartContextValue = useMemo(
     () => ({
@@ -98,8 +96,10 @@ const Catalog = ({ ssr }: CatalogProps) => {
       updateCartValue,
       isInCart,
       clearCart,
+      subscribersCount,
+      viewsCount,
     }),
-    [cartValue, clearCart, isInCart, updateCartValue],
+    [cartValue, clearCart, isInCart, subscribersCount, updateCartValue, viewsCount],
   );
 
   const getKey: SWRInfiniteKeyLoader = useCallback(
@@ -138,9 +138,7 @@ const Catalog = ({ ssr }: CatalogProps) => {
       <Head>
         <title>{t('catalog.title')} - Telegads</title>
       </Head>
-      <Layout session={session}>
-        <div className={style.line}></div>
-        {/* <Navigation /> */}
+      <Layout>
         <div className={style.wrapper}>
           {/* <div className={style.line_navbar}></div> */}
           <Filter
@@ -180,7 +178,7 @@ const Catalog = ({ ssr }: CatalogProps) => {
               </div>
               {!isReachingEnd && !isLoading && (
                 <div className={style.loadMore}>
-                  <Button onClick={loadMore} type="primary">
+                  <Button onClick={loadMore} variant="primary">
                     {t('catalog.loadmore')}
                   </Button>
                 </div>
@@ -188,7 +186,7 @@ const Catalog = ({ ssr }: CatalogProps) => {
             </div>
           </div>
         </div>
-        <Cart />
+        <FloatingCart />
       </Layout>
     </CartContextProvider>
   );

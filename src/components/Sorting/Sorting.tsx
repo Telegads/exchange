@@ -19,7 +19,7 @@ type SortButtonProps = SortOption & { selectedSortType: string | undefined; sort
 
 const SortButton: FC<SortButtonProps> = ({ action, name, sortDirection, sortType, selectedSortType }) => {
   return (
-    <Button type="link" onClick={action} className={style.sort_button}>
+    <Button variant="link" onClick={action} className={style.sort_button}>
       <div className={style.sorting_text}>{name} </div>
       {selectedSortType === sortType && (
         <img

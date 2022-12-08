@@ -118,7 +118,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
 
         <Button
           onClick={handleCartButtonClick}
-          type={isInCart(id) ? 'inverted' : 'primary'}
+          variant={isInCart(id) ? 'inverted' : 'primary'}
           fillHeight
           rounded="square"
           className={channelRowStyle.channelRow__cartButton}

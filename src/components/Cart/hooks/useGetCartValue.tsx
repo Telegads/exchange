@@ -1,7 +1,7 @@
 import { Channel } from '@prisma/client';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import { useTranslation } from 'react-i18next';
 
@@ -67,10 +67,21 @@ export const useGetCartValue = () => {
       });
   }, [captureToSentry, mutate]);
 
+  const subscribersCount = useMemo(
+    () => data?.cartItems?.reduce((prev, cur) => prev + (cur.subscribers || 0), 0),
+    [data?.cartItems],
+  );
+  const viewsCount = useMemo(
+    () => data?.cartItems?.reduce((prev, cur) => prev + (cur.views || 0), 0),
+    [data?.cartItems],
+  );
+
   return {
     cartValue: data,
     updateCartValue,
     isInCart,
     clearCart,
+    subscribersCount,
+    viewsCount,
   };
 };

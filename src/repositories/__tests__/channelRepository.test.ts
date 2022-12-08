@@ -26,6 +26,7 @@ describe('channelRepository', () => {
           lastUpdateFromTelegram: null,
           postsLast30days: null,
           viewsLast30days: null,
+          campaignId: null,
         },
         {
           id: 'cl8powt1d0014bqe5k2u32ir1',
@@ -48,6 +49,7 @@ describe('channelRepository', () => {
           lastUpdateFromTelegram: null,
           postsLast30days: null,
           viewsLast30days: null,
+          campaignId: null,
         },
       ]);
 

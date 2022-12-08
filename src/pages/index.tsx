@@ -1,20 +1,23 @@
-import React from 'react';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import { Session } from 'next-auth';
+import React, { FC } from 'react';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import style from '../scss/index.module.scss';
-import Layout from '../components/Layout';
+import { LayoutIndex } from '../components/Layout/LayoutIndex';
 
-type Props = {
-  channels: any[];
-  session: Session;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(context.locale ?? 'en', ['index'])),
+    },
+  };
 };
 
-const Blog: React.FC<Props> = ({ session }) => {
+type MainPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const MainPage: FC<MainPageProps> = () => {
   const { t } = useTranslation('index');
 
   return (
@@ -22,7 +25,7 @@ const Blog: React.FC<Props> = ({ session }) => {
       <Head>
         <title>{t('index.title')} - Telegads</title>
       </Head>
-      <Layout session={session}>
+      <LayoutIndex>
         <section className={style.advertising}>
           <div className={style.container}>
             <div className={style.advertising__title}>
@@ -172,22 +175,9 @@ const Blog: React.FC<Props> = ({ session }) => {
             </div>
           </div>
         </section>
-      </Layout>
+      </LayoutIndex>
     </div>
   );
 };
 
-export default Blog;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-
-  const session = await getSession({ req });
-
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale ?? 'en', ['index'])),
-      session: await session,
-    },
-  };
-};
+export default MainPage;
