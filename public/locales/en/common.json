@@ -9,6 +9,10 @@
   },
   "filter": {
     "header": "Filters",
-    "button": "Clear all"
+    "button": "Clear all",
+    "searchHolder": "Search",
+    "categories": "All categories",
+    "rangeSubscribers": "Subscribers",
+    "rangeViews": "Views"
   }
 }

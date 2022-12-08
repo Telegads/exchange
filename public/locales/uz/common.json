@@ -9,7 +9,11 @@
   },
   "filter": {
     "header": "Filtrlar",
-    "button": "Filtrlarni o’chirish"
+    "button": "Filtrlarni o’chirish",
+    "searchHolder": "Qidiruv",
+    "categories": "Hamma e'lonlar",
+    "rangeSubscribers": "Obunachilar",
+    "rangeViews": "Qarashlar"
   }
 }
 

@@ -53,8 +53,12 @@ export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }
         </div>
         <Search />
         <CategorySelect categories={categories} />
-        <FilterRangeRange maxAllowedValue={maxSubscribers} fieldName="Подписчики" parameterName="subscriptionsCount" />
-        <FilterRangeRange maxAllowedValue={maxViews} fieldName="Просмотры" parameterName="views" />
+        <FilterRangeRange
+          maxAllowedValue={maxSubscribers}
+          fieldName={t('filter.rangeSubscribers')}
+          parameterName="subscriptionsCount"
+        />
+        <FilterRangeRange maxAllowedValue={maxViews} fieldName={t('filter.rangeViews')} parameterName="views" />
       </div>
     </div>
   );

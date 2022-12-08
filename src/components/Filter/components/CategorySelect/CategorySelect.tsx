@@ -1,6 +1,7 @@
 import { Category } from '@prisma/client';
 import { useRouter } from 'next/router';
 import React, { FC, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import style from './categorySelect.module.scss';
 
@@ -10,6 +11,7 @@ type CategorySelectProps = {
 
 export const CategorySelect: FC<CategorySelectProps> = ({ categories }) => {
   const router = useRouter();
+  const { t } = useTranslation('common');
 
   const category = router.query.category;
 
@@ -28,11 +30,11 @@ export const CategorySelect: FC<CategorySelectProps> = ({ categories }) => {
   return (
     <div className={style.filter__select}>
       <select onChange={handleCategoryChange} value={category ? category : 'all'}>
-        <option value="all">Все тематики</option>
+        <option value="all">{t('filter.categories')}</option>
         {categories.map((cat) =>
           cat.id === '' ? (
             <option value="" key="empty">
-              Без тематики
+              {t('filter.categories')}
             </option>
           ) : (
             <option value={cat.id} key={cat.id}>

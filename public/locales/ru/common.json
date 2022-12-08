@@ -9,6 +9,10 @@
   },
   "filter": {
     "header": "Фильтры",
-    "button": "Очистить всё"
+    "button": "Очистить всё",
+    "searchHolder": "Поиск",
+    "categories": "Все категории",
+    "rangeSubscribers": "Подписчики",
+    "rangeViews": "Просмотры"
   }
 }
