@@ -1,20 +1,18 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { Session } from 'next-auth';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import style from '../scss/index.module.scss';
-import Layout from '../components/Layout';
+import Layout from '../components/Layout/Layout';
 
 type Props = {
   channels: any[];
-  session: Session;
 };
 
-const Blog: React.FC<Props> = ({ session }) => {
+const Blog: React.FC<Props> = () => {
   const { t } = useTranslation('index');
 
   return (
@@ -22,7 +20,7 @@ const Blog: React.FC<Props> = ({ session }) => {
       <Head>
         <title>{t('index.title')} - Telegads</title>
       </Head>
-      <Layout session={session}>
+      <Layout>
         <section className={style.advertising}>
           <div className={style.container}>
             <div className={style.advertising__title}>
