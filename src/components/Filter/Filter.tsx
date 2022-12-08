@@ -4,6 +4,7 @@ import React, { FC, useCallback } from 'react';
 
 import style from '../../scss/catalog.module.scss';
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
+import { Button } from '../Button/Button';
 
 import { CategorySelect } from './components/CategorySelect/CategorySelect';
 import { Search } from './components/Search/Search';
@@ -45,9 +46,9 @@ export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }
         </div>
         <div className={style.filter__reset}>
           <p>Фильтр</p>
-          <button type="reset" onClick={handleFilterClear}>
+          <Button variant="link" size="sm" onClick={handleFilterClear}>
             Очистить все
-          </button>
+          </Button>
         </div>
         <Search />
         <CategorySelect categories={categories} />
