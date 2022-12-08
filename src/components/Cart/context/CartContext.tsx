@@ -7,6 +7,8 @@ type CartContextValueType = {
   isInCart: (channelId: string) => boolean;
   cartValue: GetCartResult | undefined;
   clearCart: () => void;
+  subscribersCount: number | undefined;
+  viewsCount: number | undefined;
 };
 
 export const CartContext = createContext<CartContextValueType>({
@@ -18,6 +20,8 @@ export const CartContext = createContext<CartContextValueType>({
   updateCartValue: () => {},
   clearCart: () => {},
   isInCart: () => false,
+  subscribersCount: 0,
+  viewsCount: 0,
 });
 
 export const useCartContext = () => useContext(CartContext);

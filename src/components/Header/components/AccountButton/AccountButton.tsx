@@ -1,18 +1,14 @@
-import { Session } from 'next-auth';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React, { FC, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import { Button } from '../../../Button/Button';
 
 import styles from './accountButton.module.scss';
 
-type HeaderAccountProps = {
-  session?: Session | null;
-};
-
-export const AccountButton: FC<HeaderAccountProps> = ({ session }) => {
+export const AccountButton = () => {
   const handleSingOutClick = useCallback(() => signOut(), []);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -25,7 +21,7 @@ export const AccountButton: FC<HeaderAccountProps> = ({ session }) => {
         </div>
       )}
       {session && (
-        <Button onClick={handleSingOutClick} type={'primary'} rounded="rounded" size="lg">
+        <Button onClick={handleSingOutClick} variant="primary" rounded="rounded" size="lg">
           <div className={styles.accountButtonText}>
             <span>{session.user?.name}</span>
             <img src="/img/icons/adduser.svg" alt="" />

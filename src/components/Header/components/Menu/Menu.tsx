@@ -9,9 +9,7 @@ export const Menu = () => {
       <div className={styles.header__menu}>
         <ul>
           <li>
-            <Link href="/catalog">
-              <a href="catalog.html">Каталог</a>
-            </Link>
+            <Link href="/catalog">Каталог</Link>
           </li>
         </ul>
       </div>

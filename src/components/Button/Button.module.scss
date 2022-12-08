@@ -1,7 +1,6 @@
 .btn {
   text-transform: uppercase;
   font-weight: 500;
-  color: #fff;
   line-height: 1;
   transition: 150ms;
   transition-timing-function: ease-in-out;
@@ -11,6 +10,7 @@
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+  justify-content: center;
   display: flex;
   align-items: center;
 }
