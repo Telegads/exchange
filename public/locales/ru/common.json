@@ -9,6 +9,14 @@
     }
   },
   "cart": {
-    "onAddToCartChannelErrorMessage": "Для добавления канала в корзину, авторизуйтесь"
+    "onAddToCartChannelErrorMessage": "Для добавления канала в корзину, пожалуйста, авторизуйтесь"
+  },
+  "filter": {
+    "header": "Фильтры",
+    "button": "Очистить всё",
+    "searchHolder": "Поиск",
+    "categories": "Все категории",
+    "rangeSubscribers": "Подписчики",
+    "rangeViews": "Просмотры"
   }
 }
