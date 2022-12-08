@@ -1,13 +1,14 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useRouter } from 'next/router';
-import { BsFillCartPlusFill, BsFillCartDashFill } from 'react-icons/bs';
+import { BsFillCartDashFill, BsFillCartPlusFill } from 'react-icons/bs';
 
 import { Button } from '../Button/Button';
 import style from '../../scss/catalog.module.scss';
 import { useCartContext } from '../Cart/context/CartContext';
 
 import channelRowStyle from './channelRow.module.scss';
+import { Description } from './components/Description/Description';
 
 type ChannelRowProps = {
   name: string;
@@ -61,15 +62,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
             </div>
           )}
 
-          <p>
-            <Highlighter
-              highlightClassName="YourHighlightClass"
-              className={channelRowStyle.channelRow__description}
-              searchWords={searchWords}
-              autoEscape={true}
-              textToHighlight={description || ''}
-            />
-          </p>
+          <Description text={description || ''} />
         </div>
       </div>
       <div className={style.card__border}>

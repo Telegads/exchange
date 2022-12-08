@@ -2,7 +2,11 @@
   "catalog": {
     "header": "Telegram kanallari katalogi",
     "loadmore": "Ko'proq yuklang",
-    "title": "Katalogi"
+    "title": "Katalogi",
+    "channelCard": {
+      "hideButton": "bekitish",
+      "showButton": "ko'rsatish"
+    }
   },
   "cart": {
     "onAddToCartChannelErrorMessage": "Kanali savatiga qushish uchun iltimos tizimga kiring"
