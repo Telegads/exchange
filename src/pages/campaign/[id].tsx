@@ -6,6 +6,7 @@ import { Badge, ButtonGroup, Col, Container, Form, Image, Row } from 'react-boot
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import { campaignRepository, UpdateCampaignArgs } from '../../repositories/campaignRepository';
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
@@ -66,6 +67,8 @@ type Inputs = {
 };
 
 const CampaignEditor = ({ campaign, status }: CampaignEditorProps) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -119,11 +122,12 @@ const CampaignEditor = ({ campaign, status }: CampaignEditorProps) => {
           channels: campaign.channels.map((channel) => ({ id: channel.id })),
         });
         notify('ok', 'success');
+        router.push('/campaign');
       } catch (error) {
         notify('not ok', 'error');
       }
     },
-    [campaign?.channels, campaign?.id, notify],
+    [campaign?.channels, campaign?.id, notify, router],
   );
 
   if (status === 'not found') {
