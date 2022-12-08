@@ -29,9 +29,7 @@ const MainPage: FC<MainPageProps> = () => {
         <section className={style.advertising}>
           <div className={style.container}>
             <div className={style.advertising__title}>
-              <h1>
-                Эффективная реклама <br /> в Telegram
-              </h1>
+              <h1>{t('index.title')}</h1>
               <p className={style.text}>
                 Мы помогаем найти целевую аудиторию в Telegram и запускать эффективные рекламные кампании
               </p>

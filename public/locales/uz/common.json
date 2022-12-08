@@ -5,7 +5,15 @@
     "title": "Katalogi"
   },
   "cart": {
-    "onAddToCartChannelErrorMessage": "Саватга канал қўшиш учун тизимга киринг"
+    "onAddToCartChannelErrorMessage": "Kanali savatiga qushish uchun iltimos tizimga kiring"
+  },
+  "filter": {
+    "header": "Filtrlar",
+    "button": "Filtrlarni o’chirish",
+    "searchHolder": "Qidiruv",
+    "categories": "Hamma e'lonlar",
+    "rangeSubscribers": "Obunachilar",
+    "rangeViews": "Qarashlar"
   }
 }
 

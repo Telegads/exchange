@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import useDebounce from '../../../../hooks/useDebounce';
 
@@ -7,6 +8,7 @@ import style from './search.module.scss';
 
 export const Search = () => {
   const router = useRouter();
+  const { t } = useTranslation('common');
 
   const [searchInput, setSearchInput] = useState(router.query.search);
 
@@ -29,7 +31,12 @@ export const Search = () => {
 
   return (
     <div className={style.filter__search}>
-      <input type="search" placeholder="Поиск" value={searchInput} onChange={handleSearchChange} />
+      <input
+        type="search"
+        placeholder={t('filter.searchHolder') || undefined}
+        value={searchInput}
+        onChange={handleSearchChange}
+      />
       <button type="submit">
         <img src="/img/icons/search.svg" alt="" />
       </button>
