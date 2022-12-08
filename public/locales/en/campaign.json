@@ -1,0 +1,16 @@
+{
+  "check": {
+    "step": "1 / 3 confirm channels",
+    "header": "Check your channel selection",
+    "addChannelsButton": "Add channels"
+  },
+  "edit": {
+    "header": "Edit post content",
+
+    "postImage": "Image",
+    "postText": "Text of post",
+    
+    "saveDraft": "Save as draft",
+    "saveForModeration": "Save and send to moderation"
+  }
+}
