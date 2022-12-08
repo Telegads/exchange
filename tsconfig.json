@@ -37,14 +37,6 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "include": [
-    "src",
-    "types",
-    ".eslintrc.js",
-    "prisma",
-    "next-i18next.config.js",
-    "next.config.js"
-  ],
   "exclude": [
     "node_modules"
   ],
@@ -52,5 +44,11 @@
     "compilerOptions": {
       "module": "CommonJS"
     }
-  }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js"
+  ]
 }
