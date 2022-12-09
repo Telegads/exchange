@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import style from '../../scss/catalog.module.scss';
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
-import { Button } from '../Button/Button';
 
 import { CategorySelect } from './components/CategorySelect/CategorySelect';
 import { Search } from './components/Search/Search';
