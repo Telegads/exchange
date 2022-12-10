@@ -1,5 +1,46 @@
 {
   "index": {
-    "title": "Samarali reklama Telegramda"
+    "title": "Samarali reklama Telegramda",
+    "subtitle": "Biz Telegramda maqsadli auditoriyani topishga va samarali reklama kampaniyalarini boshlashga yordam beramiz",
+    "startbtn": "Endi ro'yxatdan"
+  },
+  "advantage": {
+    "newcustomers": "birjada yangi foydalanuvchilar",
+    "countchannels": "qo'lda tasdiqlangan kanallar",
+    "countorders": "muvaffaqiyatli amalga oshirilgan buyurtmalar"
+  },
+  "partners": {
+    "title": "Ular bizga ishonishadi"
+  },
+  "howitworks": {
+    "stageone": {
+      "title": "Hisobni ro'yxatdan o'tkazish",
+      "description": "Tezkor ro'yxatdan o'ting hisobni faollashtirish uchun",
+      "textbtn": "ro'yxatdan o'tish"
+    },
+    "stagetwo": {
+      "title": "Kanallar katalogi",
+      "description": "Katalogdan tegishli kanallarni tanlang"
+    },
+    "stagethree": {
+      "title": "Balansni to'ldiring",
+      "description": "Balansni qulay tarzda to'ldiring:",
+      "paylist": "Visa/MasterCard/Uzcard/Humo, Click, Payme"
+    }
+  },
+  "startworking": {
+    "title": "Biz bilan ishlashni boshlang",
+    "leftcircle": {
+      "title": "Reklama beruvchilar",
+      "description": "Telegram-da samarali reklama orqali biznesingizni targ'ib qiling"
+    },
+    "rightcircle": {
+      "title": "Administratorlar",
+      "description": "Kanallaringiz va guruhlaringizga reklama joylashtirish orqali pul ishlang"
+    },
+    "bottomcircle": {
+      "title": "Agentliklarga",
+      "description": "Telegram-bu sizning mijozlaringiz uchun yangi marketing kanali"
+    }
   }
 }
