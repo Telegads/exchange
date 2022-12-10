@@ -17,8 +17,7 @@ export const Description: FC<DescriptionProps> = ({ text }) => {
   const searchWords = useMemo(() => [router.query.search as string], [router.query.search]);
   const isHiddenTextExists = text.length - MAX_PREVIEW_LENGTH >= MIN_HIDDEN_TEXT_LENGTH;
   const visibleText = text.slice(0, MAX_PREVIEW_LENGTH).trim();
-  const maxPreviewLength = MAX_PREVIEW_LENGTH;
-  const hiddenText = useMemo(() => getHiddenText(text, maxPreviewLength), [text]);
+  const hiddenText = useMemo(() => getHiddenText(text, MAX_PREVIEW_LENGTH), [text]);
 
   const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState<boolean>(Boolean(searchWords[0]) && hiddenText.includes(searchWords[0]));
