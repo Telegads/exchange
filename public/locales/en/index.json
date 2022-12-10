@@ -1,5 +1,46 @@
 {
   "index": {
-    "title": "Effective Advertising in Telegram"
+    "title": "Effective Advertising in Telegram",
+    "subtitle": "We help you find your target audience in Telegram and launch effective advertising campaigns",
+    "startbtn": "Register now"
+  },
+  "advantage": {
+    "newcustomers": "new users",
+    "countchannels": "channels checked manually",
+    "countorders": "successfully completed orders"
+  },
+  "partners": {
+    "title": "They trust us"
+  },
+  "howitworks": {
+    "stageone": {
+      "title": "Register an account",
+      "description": "Go through a quick registration to activate your account",
+      "textbtn": "registration"
+    },
+    "stagetwo": {
+      "title": "Channel catalog",
+      "description": "Select the appropriate channels in the catalog"
+    },
+    "stagethree": {
+      "title": "Top up your balance",
+      "description": "Top up your balance in a convenient way:",
+      "paylist": "Visa/MasterCard/Uzcard/Humo, Click, Payme"
+    }
+  },
+  "startworking": {
+    "title": "Start working with us",
+    "leftcircle": {
+      "title": "Advertisers",
+      "description": "Promote your business with effective advertising in Telegram"
+    },
+    "rightcircle": {
+      "title": "Administrators",
+      "description": "Earn money by placing ads in your channels and groups"
+    },
+    "bottomcircle": {
+      "title": "Agencies",
+      "description": "Telegram is a new marketing channel for your customers"
+    }
   }
 }
