@@ -4,9 +4,9 @@ describe('ChannelRow', () => {
   describe('getHiddenText', () => {
     const testCases = [
       {
-        text: 'This text should be cut to the word - test',
-        expected: 'test',
-        maxlenght: 38,
+        text: 'This "text" should be cut to the word - test..',
+        expected: ' test..',
+        maxlenght: 40,
       },
       {
         text: 'This text should be cut to nothingt',
