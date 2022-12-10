@@ -19,7 +19,7 @@ async function main() {
   const categories = await csv().fromFile(categoriesFilePath);
 
   for await (const { id, name } of categories) {
-    prisma.category.upsert({
+    await prisma.category.upsert({
       where: { id },
       update: {},
       create: {
