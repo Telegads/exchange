@@ -1,8 +1,11 @@
 {
+  "headmenu": {
+    "catalog": "Katalog"
+  },
   "catalog": {
     "header": "Telegram kanallari katalogi",
     "loadmore": "Ko'proq yuklang",
-    "title": "Katalogi",
+    "title": "Katalog",
     "channelCard": {
       "hideButton": "bekitish",
       "showButton": "ko'rsatish"
