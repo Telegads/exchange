@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ['build/', 'lib/', 'node_modules/', 'typings/'],
+  ignorePatterns: ['build/', 'lib/', 'node_modules/', 'typings/', '.eslintrc.js'],
   env: {
     browser: true,
     es2021: true,

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Notification" ADD COLUMN     "sendingDateTime" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

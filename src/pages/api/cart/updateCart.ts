@@ -3,7 +3,7 @@ import { unstable_getServerSession } from 'next-auth';
 
 import { handleApiError } from '../../../helpers/handleApiError';
 import { cartRepository, UpdateCartArg } from '../../../repositories/cartRepository';
-import { userRepository } from '../../../repositories/userRepository';
+import { getUserById } from '../../../features/users/repository/';
 import { options } from '../auth/[...nextauth]';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -33,7 +33,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error('Session user was not provided');
     }
 
-    const user = userRepository.getUserById(session?.user.id);
+    const user = getUserById(session?.user.id);
 
     if (!user) {
       throw new Error('Unknown user');
