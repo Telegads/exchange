@@ -2,14 +2,36 @@ import { NextApiHandler } from 'next';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 import prisma from '../../../core/prisma';
+import { authUserByToken } from '../../../features/users/services/authUserByToken';
 
 export const options: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    }),
+    CredentialsProvider({
+      id: 'telegram-bot-token',
+      name: 'Auth with token from Telegram Bot',
+      async authorize(credentials) {
+        if (!credentials?.token) {
+          return null;
+        }
+
+        const authResponse = await authUserByToken({ token: credentials.token });
+
+        if (authResponse.status === 'notFound') {
+          return null;
+        }
+
+        return authResponse.user;
+      },
+      credentials: {
+        token: { label: 'Bot token' },
+      },
     }),
   ],
   session: { strategy: 'jwt' },
