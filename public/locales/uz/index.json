@@ -42,5 +42,27 @@
       "title": "Agentliklarga",
       "description": "Telegram-bu sizning mijozlaringiz uchun yangi marketing kanali"
     }
+  },
+  "registration": {
+    "title": "Ro'yxatdan o'tish",
+    "description": "Bir necha marta bosish bilan hisob yarating",
+    "textbtn": "Hisob yaratish"
+  },
+  "questions": {
+    "title": "Savollaringiz bormi?",
+    "subtitle": "Bizga elektron pochta orqali xabar yuboring va tez orada sizga javob bering",
+    "sendtovk": "VK-da yozing",
+    "sendtofb": "Facebook-da yozish",
+    "sendtotg": "Telegram-da yozish"
+  },
+  "footer": {
+    "title": "Navigatsiya",
+    "subtitle": "Biz bilan aloqa",
+    "menu": {
+      "catalog": "Kanallar katalogi",
+      "advertisers": "Reklama beruvchilar",
+      "administrators": "Administratorlar",
+      "agencies": "Agentliklarga"
+    }
   }
 }

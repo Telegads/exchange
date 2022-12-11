@@ -2,10 +2,10 @@
 
 .footer {
   &__wrapper {
-    margin-top: 194px;
+    margin: 194px 112px 0 23px;
 
     @include respondTo(1330px) {
-      margin: 890px 0 42px;
+      margin: 890px 112px 0 23px;
     }
     @include respondTo(767px) {
       margin: 500px 0 100px;
@@ -15,6 +15,10 @@
     a {
       font-size: 17px;
       color: #677488;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
     li {
       margin-bottom: 42px;
@@ -36,9 +40,8 @@
       font-weight: 300;
       font-size: 45px;
       line-height: 34px;
-      color: #7044cc;
-      padding-bottom: 1px;
-      border-bottom: 2px solid #7044cc;
+      text-decoration: underline;
+      color: #7044CC;
 
       @include respondTo(767px) {
         font-size: 25px;
@@ -46,11 +49,13 @@
     }
   }
   &__line {
+    margin-left: 23px;
+    margin-right: 20px;
     height: 1px;
-    background: #cecece;
+    background: #CECECE;
   }
   &__copyright {
-    margin: 82px 0 23px;
+    margin: 82px 20px 0 23px;
     padding-bottom: 178px;
 
     p {
