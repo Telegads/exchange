@@ -42,5 +42,27 @@
       "title": "Agencies",
       "description": "Telegram is a new marketing channel for your customers"
     }
+  },
+  "registration": {
+    "title": "Registration",
+    "description": "Create an account in a couple of clicks",
+    "textbtn": "Create an account"
+  },
+  "questions": {
+    "title": "Any questions?",
+    "subtitle": "Write to us and we will answer you soon",
+    "sendtovk": "Write to VK",
+    "sendtofb": "Write to Facebook",
+    "sendtotg": "Write to Telegram"
+  },
+  "footer": {
+    "title": "Navigation",
+    "subtitle": "Contact us",
+    "menu": {
+      "catalog": "Channel catalog",
+      "advertisers": "Advertisers",
+      "administrators": "Administrators",
+      "agencies": "Agencies"
+    }
   }
 }

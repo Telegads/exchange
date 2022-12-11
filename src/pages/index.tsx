@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import style from '../scss/index.module.scss';
 import { LayoutIndex } from '../components/Layout/LayoutIndex';
+import Footer from '../components/Footer/Footer';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
@@ -31,10 +32,7 @@ const MainPage: FC<MainPageProps> = () => {
             <div className={style.advertising__title}>
               <h1>{t('index.title')}</h1>
               <p className={style.text}>{t('index.subtitle')}</p>
-              <a
-                href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit"
-                className={style.advertising__btn}
-              >
+              <a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">
                 {t('index.startbtn')}
               </a>
             </div>
@@ -173,6 +171,47 @@ const MainPage: FC<MainPageProps> = () => {
             </div>
           </div>
         </section>
+        <section className={style.registration}>
+          <div className={style.container}>
+            <div className={style.registration__wrapper}>
+              <div className={style.registation__title}>
+                <h4>{t('registration.title')}</h4>
+              </div>
+              <div className={style.registation__subtitle}>
+                <p>{t('registration.description')}</p>
+                <a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">
+                  {t('registration.textbtn')}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className={style.questions}>
+          <div className={style.questions__wrapper}>
+            <div className={style.questions__title}>
+              <h4>{t('questions.title')}</h4>
+              <p>{t('questions.subtitle')}</p>
+            </div>
+            <div className={style.questions__social_media}>
+              <div className={`${style.questions__vk} ${style.questions__item}`}>
+                <a href="https://vk.com" target="_blank" rel="noreferrer">
+                  {t('questions.sendtovk')}
+                </a>
+              </div>
+              <div className={`${style.questions__facebook} ${style.questions__item}`}>
+                <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
+                  {t('questions.sendtofb')}
+                </a>
+              </div>
+              <div className={`${style.questions__telegram} ${style.questions__item}`}>
+                <a href="https://t.me/telegadsuz" target="_blank" rel="noreferrer">
+                  {t('questions.sendtotg')}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <Footer />
       </LayoutIndex>
     </div>
   );

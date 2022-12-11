@@ -42,5 +42,27 @@
       "title": "Агентствам",
       "description": "Telegram – новый маркетинговый канал для ваших клиентов"
     }
+  },
+  "registration": {
+    "title": "Регистрация",
+    "description": "Создайте аккаунт всего за пару кликов",
+    "textbtn": "Создать аккаунт"
+  },
+  "questions": {
+    "title": "Возникли вопросы?",
+    "subtitle": "Напишите нам и ответим Вам в ближайшее время",
+    "sendtovk": "Написать в VK",
+    "sendtofb": "Написать в Facebook",
+    "sendtotg": "Написать в Telegram"
+  },
+  "footer": {
+    "title": "Навигация",
+    "subtitle": "Связь с нами",
+    "menu": {
+      "catalog": "Каталог каналов",
+      "advertisers": "Рекламодателям",
+      "administrators": "Администраторам",
+      "agencies": "Агентствам"
+    }
   }
 }

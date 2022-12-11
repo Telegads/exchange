@@ -1,51 +1,52 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import style from './Footer.module.scss';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation('index');
+
   return (
     <Container as="footer">
       <Row className={`justify-content-md-between flex-column flex-md-row ${style.footer__wrapper}`}>
         <Col className={`mb-5 mb-md-0 ${style.footer__navigation}`}>
-          <p className={style.footer__subtitle}>Навигация</p>
+          <p className={style.footer__subtitle}>{t('footer.title')}</p>
 
           <Row className="flex-column">
             <Col className="mb-5">
-              <a href="catalog.html">Каталог каналов</a>
+              <a href="/catalog">{t('footer.menu.catalog')}</a>
             </Col>
             <Col className="mb-5">
               <a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">
-                Рекламодателям
+                {t('footer.menu.advertisers')}
               </a>
             </Col>
             <Col className="mb-5">
               <a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">
-                Администраторам
+                {t('footer.menu.administrators')}
               </a>
             </Col>
             <Col className="mb-5">
-              <a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">Агентствам</a>
-            </Col>
-            <Col className="mb-5">
-              <a href="#1">Реферальная программа</a>
-            </Col>
-            <Col className="mb-5">
-              <a href="#1">Статьи</a>
+              <a href="https://docs.google.com/forms/d/1aV4RXuysmTOLIc-9rDN75zIrc94mkw4jV5br6HY-pxM/edit">
+                {t('footer.menu.agencies')}
+              </a>
             </Col>
           </Row>
         </Col>
 
         <Col className={style.footer__contacts} xs="auto">
-          <p className={style.footer__subtitle}>Связь с нами</p>
-          <a href="mailto:support@adgram.io">support@adgram.io</a>
+          <p className={style.footer__subtitle}>{t('footer.subtitle')}</p>
+          <a href="https://t.me/telegadsuz" target="_blank" rel="noreferrer">
+            @telegadsuz
+          </a>
         </Col>
       </Row>
 
       <div className={style.footer__line}></div>
       <Row className={`justify-content-between ${style.footer__copyright}`}>
         <Col xs="auto">
-          <p className={style.footer__copy}>©TYelegards 2022</p>
+          <p className={style.footer__copy}>©TelegADS 2022</p>
         </Col>
         <Col xs="auto">
           <a href="https://telegads.uz">
