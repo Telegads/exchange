@@ -11,7 +11,7 @@ import Footer from '../components/Footer/Footer';
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale ?? 'en', ['index'])),
+      ...(await serverSideTranslations(context.locale ?? 'en', ['index', 'common'])),
     },
   };
 };
