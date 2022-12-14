@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Stack, Row, Col } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import Image from 'next/image';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { Button } from '../Button/Button';
 
 import { useCartContext } from './context/CartContext';
+import style from './VerticalCart.module.scss';
 
 type CreateCampaingBody = { channels: { id: string }[] };
 
@@ -31,22 +32,22 @@ export const VerticalCart = () => {
 
   return (
     <Stack gap={5}>
-      <Row>
-        <Col>Каналы</Col>
-        <Col>{cartValue?.cartItems.length}</Col>
+      <Row className={style.row}>
+        <Col className={style.propertyName}>Каналы</Col>
+        <Col className={style.propertyValue}>{cartValue?.cartItems.length}</Col>
       </Row>
-      <Row>
-        <Col>Подписчики</Col>
-        <Col>{subscribersCount?.toLocaleString('ru-RU')}</Col>
+      <Row className={style.row}>
+        <Col className={style.propertyName}>Подписчики</Col>
+        <Col className={style.propertyValue}>{subscribersCount?.toLocaleString('ru-RU')}</Col>
       </Row>
-      <Row>
-        <Col>Просмотры</Col>
-        <Col>{subscribersCount?.toLocaleString('ru-RU')}</Col>
+      <Row className={style.row}>
+        <Col className={style.propertyName}>Просмотры</Col>
+        <Col className={style.propertyValue}>{subscribersCount?.toLocaleString('ru-RU')}</Col>
       </Row>
       <hr />
-      <Row>
-        <Col>Сумма</Col>
-        <Col>Будет рассчитана позже</Col>
+      <Row className={style.row}>
+        <Col className={style.totalName}>Сумма</Col>
+        <Col className={style.totalValue}>Будет рассчитана позже</Col>
       </Row>
       <Button onClick={createCampaign} variant="primary">
         Продолжить

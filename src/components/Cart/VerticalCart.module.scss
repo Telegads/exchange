@@ -1,0 +1,33 @@
+.row {
+  align-items: center;
+}
+
+.property {
+  &Name {
+    color: #000;
+  }
+
+  &Value {
+    color: #7044cc;
+  }
+
+  &Name, &Value {
+    font-size: 15px;
+    font-weight: 500;
+  }
+}
+
+.total {
+  &Name {
+    color: #000;
+  }
+
+  &Value {
+    color: #7044cc;
+  }
+
+  &Name, &Value {
+    font-size: 25px;
+    font-weight: 500;
+  }
+}
