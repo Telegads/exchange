@@ -30,15 +30,13 @@ export const AccountButton = () => {
           className={`${styles.header__btn_reg} ${styles.header__btn_none}`}
           onClick={togglePopup}
         >
-          <a href="#1">Вход</a>
+          <a href="#auth">Вход</a>
           <img src="/img/icons/adduser.svg" alt="" />
         </Button>
       )}
-      {isOpen && (
-        <Popup handleClose={togglePopup}>
-          <SignIn />
-        </Popup>
-      )}
+      <Popup open={isOpen} handleClose={togglePopup}>
+        <SignIn />
+      </Popup>
     </>
   );
 };

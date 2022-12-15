@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Alert, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
+import { CgArrowRight } from 'react-icons/cg';
 
 import { Button } from '../Button/Button';
 import { useUserNotification } from '../../hooks/useUserNotification';
@@ -58,6 +59,7 @@ export default function SignIn() {
         </Form.Group>
         <Button variant="primary" type="submit" className={style.signin__btn}>
           Далее
+          <CgArrowRight size={20} />
         </Button>
       </Form>
       <br />
