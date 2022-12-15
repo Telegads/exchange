@@ -1,12 +1,101 @@
-.cartColumn {
-  min-height: 100vh;
-  position: relative;
+.row {
+  justify-content: space-between;
 }
 
-.stickySidebar {
-  position: sticky;
-  top: 100px;
-  margin-top: 100px;
+.nav {
+  flex: 0 0 80px;
+  border-right: 1px solid #DCDCDC;
+}
+
+.cart {
+  &Items {
+    flex-shrink: 1;
+    flex-basis: 950px;
+    max-width: 950px;
+    margin: 0 20px;
+    padding: 30px 0;
+  }
+
+  &Column {
+    position: relative;
+    flex-shrink: 1;
+    flex-basis: 380px;
+    max-width: 380px;
+    min-height: 100vh;
+    border-left: 1px solid #DCDCDC;
+    padding: 45px 60px 45px 45px;
+  }
+}
+
+.steps {
+  font-size: 15px;
+  color: #7044CC;
+  font-weight: 500;
+}
+
+.headWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.title {
+  color: #000;
+  margin-bottom: 0;
+}
+
+.edit {
+  &Button {
+    background-color: transparent;
+  }
+
+  &Icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.draft {
+  color: #9B9B9B;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  background-color: #F2F2F2;
+}
+
+.addChannelButton {
+  margin-left: auto;
+
+  & img {
+    margin-left: 15px;
+  }
+
+  &:hover {
+    color: #7044CC;
+    background-color: #fff;
+  }
+}
+
+.titleEditContainer {
+  display: flex;
+  gap: 10px;
+  margin-right: 15px;
+}
+
+.sticky {
+  &Sidebar {
+    position: sticky;
+    top: 100px;
+    margin-top: 100px;
+  }
+
+  &Cart {
+    position: sticky;
+    top: 174px;
+    margin-top: 174px;
+  }
 }
 
 .image {

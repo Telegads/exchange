@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import React, { useMemo } from 'react';
-import { Col, Container, Row, Stack } from 'react-bootstrap';
+import { Col, Row, Stack } from 'react-bootstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'react-i18next';
 
@@ -55,45 +55,47 @@ const Check = () => {
     <Layout>
       <CartContextProvider value={cartContextValue}>
         <Progress position={33} />
-        <Container>
-          <Row>
-            <Col md={9}>
-              <p>{t('check.step')}</p>
-              <Row>
-                <Col>
-                  <h1>{t('check.header')}</h1>
-                </Col>
-                <Col>
-                  <Button href="/catalog" variant="inverted">
-                    {t('check.addChannelsButton')}
-                  </Button>
-                </Col>
-              </Row>
-
-              <Stack gap={3}>
-                {cartValue?.cartItems.map((cartItem) => (
-                  <ChannelRow
-                    id={cartItem.id}
-                    name={cartItem.name}
-                    avatar={cartItem.avatar}
-                    category={cartItem.category?.name}
-                    description={cartItem.description}
-                    er={cartItem.er}
-                    subscribers={cartItem.subscribers}
-                    malePercent={cartItem.malePercent}
-                    views={cartItem.views}
-                    key={cartItem.id}
-                  />
-                ))}
-              </Stack>
-            </Col>
-            <Col className={style.cartColumn}>
-              <div className={style.stickyCart}>
-                <VerticalCart />
+        <Row className={style.row}>
+          <Col className={style.nav}></Col>
+          <Col className={style.cartItems}>
+            <p className={style.steps}>{t('check.step')}</p>
+            <div className={style.headWrapper}>
+              <div className={style.titleEditContainer}>
+                <h1 className={style.title}>{t('check.header')}</h1>
+                <button className={style.editButton}>
+                  <img className={style.editIcon} src="/img/icons/edit.svg" alt="edit" />
+                </button>
               </div>
-            </Col>
-          </Row>
-        </Container>
+              <div className={style.draft}>Черновик</div>
+              <Button className={style.addChannelButton} href="/catalog" variant="outline-primary">
+                {t('check.addChannelsButton')}
+                <img src="/img/icons/plus.svg" alt="add channel" />
+              </Button>
+            </div>
+
+            <Stack gap={3}>
+              {cartValue?.cartItems.map((cartItem) => (
+                <ChannelRow
+                  id={cartItem.id}
+                  name={cartItem.name}
+                  avatar={cartItem.avatar}
+                  category={cartItem.category?.name}
+                  description={cartItem.description}
+                  er={cartItem.er}
+                  subscribers={cartItem.subscribers}
+                  malePercent={cartItem.malePercent}
+                  views={cartItem.views}
+                  key={cartItem.id}
+                />
+              ))}
+            </Stack>
+          </Col>
+          <Col className={style.cartColumn}>
+            <div className={style.stickyCart}>
+              <VerticalCart />
+            </div>
+          </Col>
+        </Row>
       </CartContextProvider>
     </Layout>
   );
