@@ -4,6 +4,8 @@
 FROM node:16-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
+
+
 RUN npm i
 
 # END DEPS IMAGE
@@ -18,7 +20,9 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN_ARG
 ENV DATABASE_URL=$DATABASE_URL
-RUN npx prisma generate
+RUN apk update \
+  && apk add openssl1.1-compat
+RUN npm run prisma-generate
 RUN npm run build
 
 # END BUILD IMAGE

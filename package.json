@@ -8,7 +8,7 @@
     "start:bg-task": "ts-node ./src/backgroundTasks/start.ts",
     "start": "concurrently \"npm run start:bg-task\"  \"next start\" ",
     "db:run": "docker-compose up -d --build",
-    "image:build": "docker build -t peteranikitin/telegads-exchange:latest  . ",
+    "image:build": "docker build -f ./deploy/Dockerfile -t peteranikitin/telegads-exchange:latest  . ",
     "image:push": "docker push peteranikitin/telegads-exchange:latest   ",
     "release": "npm run image:build && npm run image:push",
     "precommit-hook": "npm run check-types && lint-staged",
