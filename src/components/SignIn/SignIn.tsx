@@ -3,6 +3,7 @@ import { Alert, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
 import { CgArrowRight } from 'react-icons/cg';
+import { FcGoogle } from 'react-icons/fc';
 
 import { Button } from '../Button/Button';
 import { useUserNotification } from '../../hooks/useUserNotification';
@@ -57,13 +58,16 @@ export default function SignIn() {
             className={style.signin__control}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" className={style.signin__btn}>
+        <Button variant="primary" type="submit" size="lg" className={style.signin__btn}>
           Далее
           <CgArrowRight size={20} />
         </Button>
       </Form>
       <br />
-      <a href="/api/auth/signin">Пока бот не работает - Авторизация через Google</a>
+      <Button variant="outline-primary" type="button" size="lg" className={style.signin__btn} href="/api/auth/signin">
+        <FcGoogle size={20} />
+        Авторизация
+      </Button>
     </>
   );
 }
