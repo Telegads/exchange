@@ -2,10 +2,13 @@ import React, { useCallback } from 'react';
 import { Alert, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
+import { CgArrowRight } from 'react-icons/cg';
+import { FcGoogle } from 'react-icons/fc';
 
-import { Button } from '../components/Button/Button';
-import { useUserNotification } from '../hooks/useUserNotification';
-import Layout from '../components/Layout/Layout';
+import { Button } from '../Button/Button';
+import { useUserNotification } from '../../hooks/useUserNotification';
+
+import style from './signin.module.scss';
 
 type TokenInputFormType = {
   token: string;
@@ -38,23 +41,33 @@ export default function SignIn() {
   );
 
   return (
-    <Layout>
-      <h1>Авторизация через тг бота!</h1>
-      <a href="https://t.me/telegads_official_bot">
+    <>
+      <h1 className={style.signin__title}>Вход</h1>
+      <a href="https://t.me/telegads_official_bot" target="_blank" rel="noreferrer">
         Для авторизации напишите боту, он пришлет код, который надо вставить ниже
       </a>
-
+      <br />
       <Form onSubmit={handleSubmit(handleTokenSubmit)}>
         {errors.token && <Alert variant="danger">{errors.token.message}</Alert>}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Код от бота</Form.Label>
-          <Form.Control type="text" placeholder="Токен от бота" {...register('token')} />
-          <Form.Text className="text-muted">Введите код, который прислал бот.</Form.Text>
+          <Form.Control
+            type="text"
+            placeholder="Введите код, который прислал бот"
+            {...register('token')}
+            className={style.signin__control}
+          />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
+        <Button variant="primary" type="submit" size="lg" className={style.signin__btn}>
+          Далее
+          <CgArrowRight size={20} />
         </Button>
       </Form>
-    </Layout>
+      <br />
+      <Button variant="outline-primary" type="button" size="lg" className={style.signin__btn} href="/api/auth/signin">
+        <FcGoogle size={20} />
+        Авторизация
+      </Button>
+    </>
   );
 }

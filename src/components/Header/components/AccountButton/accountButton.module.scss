@@ -13,23 +13,12 @@
   align-items: center;
   justify-content: center;
   position: relative;
-
-  a {
-    text-decoration: none;
-  }
-
-  a,
-  p {
-    color: #fff;
-    font-weight: 500;
-    font-size: 15px;
-    text-transform: uppercase;
-    transition: all 0.3s ease-in 0s;
-  }
-
-  p {
-    margin: 0 8px;
-  }
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in 0s;
 
   img {
     margin-left: 14px;
