@@ -35,6 +35,7 @@ ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 RUN apk update && apk add curl
+RUN apk update && apk add openssl1.1-compat
 
 WORKDIR /app
 COPY --from=build --chown=nextjs:nodejs /app ./
