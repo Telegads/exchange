@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { BsXCircleFill } from 'react-icons/bs';
 
 import style from './popup.module.scss';
 
@@ -13,7 +14,13 @@ export const Popup: FC<PopupProps> = ({ open, handleClose, children }) => {
       {open && (
         <div className={style.popup}>
           <div className={style.popup__container}>
-            <button type="reset" className={style.popup__close} onClick={handleClose}></button>
+            <BsXCircleFill
+              type="reset"
+              size={30}
+              color={'#EBEDF2'}
+              className={style.popup__close}
+              onClick={handleClose}
+            ></BsXCircleFill>
             {children}
           </div>
         </div>

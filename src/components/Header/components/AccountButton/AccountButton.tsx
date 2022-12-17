@@ -8,9 +8,9 @@ import SignIn from '../../../SignIn/SignIn';
 import styles from './accountButton.module.scss';
 
 export const AccountButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
 
-  const togglePopup = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+  const togglePopup = useCallback(() => setIsOpenPopup(!isOpenPopup), [isOpenPopup]);
 
   const handleSingOutClick = useCallback(() => signOut(), []);
   const { data: session } = useSession();
@@ -30,11 +30,11 @@ export const AccountButton = () => {
           className={`${styles.header__btn_reg} ${styles.header__btn_none}`}
           onClick={togglePopup}
         >
-          <a href="#auth">Вход</a>
+          Вход
           <img src="/img/icons/adduser.svg" alt="" />
         </Button>
       )}
-      <Popup open={isOpen} handleClose={togglePopup}>
+      <Popup open={isOpenPopup} handleClose={togglePopup}>
         <SignIn />
       </Popup>
     </>
