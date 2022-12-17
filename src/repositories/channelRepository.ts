@@ -18,6 +18,7 @@ export const CHANNEL_FIELDS = {
   id: true,
   er: true,
   malePercent: true,
+  url: true,
 };
 
 type Pagination = {

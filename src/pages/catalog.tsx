@@ -172,6 +172,7 @@ const Catalog = ({ ssr }: CatalogProps) => {
                       subscribers={channel.subscribers}
                       views={channel.views}
                       key={channel.id}
+                      url={channel.url}
                     />
                   ))
                 )}
