@@ -20,6 +20,7 @@ type ChannelRowProps = {
   category?: string | null;
   id: string;
   subscribers?: number | null;
+  url?: string;
 };
 
 export const ChannelRow: FC<ChannelRowProps> = ({
@@ -32,6 +33,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
   malePercent,
   views,
   id,
+  url,
 }) => {
   const router = useRouter();
   const { updateCartValue, isInCart } = useCartContext();
@@ -49,12 +51,14 @@ export const ChannelRow: FC<ChannelRowProps> = ({
         <div className={style.content__logo}>{avatar && <img src={avatar} alt="" />}</div>
         <div className={style.content__title}>
           <p>
-            <Highlighter
-              highlightClassName="YourHighlightClass"
-              searchWords={searchWords}
-              autoEscape={true}
-              textToHighlight={name}
-            />
+            <a href={url} target="_blank" rel="noreferrer">
+              <Highlighter
+                highlightClassName="YourHighlightClass"
+                searchWords={searchWords}
+                autoEscape={true}
+                textToHighlight={name}
+              />
+            </a>
           </p>
           {category !== '' && (
             <div className={style.title__options}>
