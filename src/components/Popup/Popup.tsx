@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Modal } from 'react-bootstrap';
 import { BsXCircleFill } from 'react-icons/bs';
 
 import style from './popup.module.scss';
@@ -12,7 +13,7 @@ export const Popup: FC<PopupProps> = ({ open, handleClose, children }) => {
   return (
     <>
       {open && (
-        <div className={style.popup}>
+        <Modal show={open} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
           <div className={style.popup__container}>
             <BsXCircleFill
               type="reset"
@@ -23,7 +24,7 @@ export const Popup: FC<PopupProps> = ({ open, handleClose, children }) => {
             ></BsXCircleFill>
             {children}
           </div>
-        </div>
+        </Modal>
       )}
     </>
   );
