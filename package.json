@@ -19,7 +19,8 @@
     "test-dev": "jest --watch --coverage",
     "prepare": "husky install",
     "prisma-generate": "prisma generate",
-    "postinstall": "npm run prisma-generate"
+    "postinstall": "npm run prisma-generate",
+    "prisma-migrate": "prisma migrate deploy"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [
