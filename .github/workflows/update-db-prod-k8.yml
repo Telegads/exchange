@@ -21,7 +21,7 @@ jobs:
       - name: set secrets
         uses: DamianReeves/write-file-action@master
         with:
-          path: ./deploy/db/values/staging/db.yaml
+          path: ./deploy/db/values/production/db.yaml
           contents: |
             auth:
               username: telegads-prod
@@ -31,7 +31,7 @@ jobs:
           write-mode: append
 
       - name: print values
-        run: cat ./deploy/db/values/staging/db.yaml
+        run: cat ./deploy/db/values/production/db.yaml
       
       - name: print chart
         run: |
