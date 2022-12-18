@@ -1,8 +1,15 @@
-global:
-  postgresql:
-    auth:
-      username: "test"
-      password: "test1234!"
-      postgresPassword: "test1234!"
+# documentation
+# https://github.dev/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
+
+volumePermissions:
+  enabled: true
+
+primary:
+  persistence:
+    enabled: true
+    existingClaim: "db-production"
+
+capacity:
+  storage: 2Gi
 
 env: production
