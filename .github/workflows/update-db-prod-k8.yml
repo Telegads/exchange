@@ -1,4 +1,4 @@
-name: update-db-prod
+name: Update DB - production - k8
 
 on: workflow_dispatch
 

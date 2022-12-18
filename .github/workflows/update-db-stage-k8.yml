@@ -1,4 +1,4 @@
-name: update-db-stage
+name: Update DB - staging - k8
 
 on: workflow_dispatch
 
