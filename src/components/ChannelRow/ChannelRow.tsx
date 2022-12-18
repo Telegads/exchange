@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useMemo } from 'react';
-import Highlighter from 'react-highlight-words';
 import { useRouter } from 'next/router';
+import React, { FC, useCallback, useMemo, useState } from 'react';
+import Highlighter from 'react-highlight-words';
 import { BsFillCartDashFill, BsFillCartPlusFill } from 'react-icons/bs';
 
-import { Button } from '../Button/Button';
 import style from '../../scss/catalog.module.scss';
+import { Button } from '../Button/Button';
 import { useCartContext } from '../Cart/context/CartContext';
 
 import channelRowStyle from './channelRow.module.scss';
@@ -42,6 +42,9 @@ export const ChannelRow: FC<ChannelRowProps> = ({
 
   const handleCartButtonClick = useCallback(() => updateCartValue(id), [id, updateCartValue]);
 
+  const [activeClassStat, setActiveStat] = useState(true);
+  const toggleStats = useCallback(() => setActiveStat(!activeClassStat), [activeClassStat]);
+
   return (
     <div
       className={`${isInCart(id) && style.card__wrapper_selected}
@@ -69,10 +72,14 @@ export const ChannelRow: FC<ChannelRowProps> = ({
           <Description text={description || ''} />
         </div>
       </div>
-      <div className={style.card__border}>
+      <div className={`${activeClassStat ? style.card__border : `${style.card__border} ${style.card__border_active}`}`}>
         <div className={style.border__line}></div>
       </div>
-      <div className={style.card__statistics}>
+      <div
+        className={`${
+          activeClassStat ? style.card__statistics : `${style.card__statistics} ${style.card__statistics_active}`
+        }`}
+      >
         <div className={style.statistics__subscribers}>
           <p className={style.subscribers__title}>Подписчики:</p>
           <p className={style.subscribers__number}>{subscribers ? subscribers?.toLocaleString('ru-RU') : '–'}</p>
@@ -99,14 +106,24 @@ export const ChannelRow: FC<ChannelRowProps> = ({
         </div>
       </div>
       <div className={style.card__btn_mb}>
-        <div className={style.btn_mb__wrapper}>
-          <div>
+        <div
+          className={`${
+            activeClassStat ? style.btn_mb__wrapper : `${style.btn_mb__wrapper} ${style.btn_mb__wrapper_active}`
+          }`}
+        >
+          <div role="button" tabIndex={0} onClick={toggleStats} onKeyDown={toggleStats}>
             <p className={style.btn_mb__text}>Показать больше</p>
             <img src="/img/icons/arrow.svg" alt="" />
           </div>
         </div>
       </div>
-      <div className={style.card__wrapper_fil_buy}>
+      <div
+        className={
+          isInCart(id)
+            ? style.card__wrapper_fil_buy
+            : `${style.card__wrapper_fil_buy} ${style.card__wrapper_fil_buy_active}`
+        }
+      >
         <div className={style.card__filter}>
           <p className={style.filter__sum}>
             Цена <br /> по запросу
