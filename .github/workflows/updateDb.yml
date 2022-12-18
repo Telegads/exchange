@@ -1,4 +1,4 @@
-name: update_database_containers
+name: Update DB - images
 
 on: workflow_dispatch
 
