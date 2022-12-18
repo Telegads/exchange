@@ -1,0 +1,15 @@
+# documentation
+# https://github.dev/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
+
+volumePermissions:
+  enabled: true
+
+primary:
+  persistence:
+    enabled: true
+    existingClaim: "db-staging"
+
+capacity:
+  storage: 2Gi
+
+env: staging

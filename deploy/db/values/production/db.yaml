@@ -1,0 +1,8 @@
+global:
+  postgresql:
+    auth:
+      username: "test"
+      password: "test1234!"
+      postgresPassword: "test1234!"
+
+env: production

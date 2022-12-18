@@ -1,0 +1,6 @@
+host: staging.nikitin-petr.ru
+
+replicas: 1
+
+env: staging
+
