@@ -43,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     return {
       props: {
-        ...(await serverSideTranslations(context.locale ?? 'en', ['campaign'])),
+        ...(await serverSideTranslations(context.locale ?? 'en', ['campaign', 'common'])),
         status: 'found',
         campaign,
       } as const,
