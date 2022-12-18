@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { _count: channelsCount } = await channelRepository.countAll();
     const { _count: usersCount } = await indexRepository.countAllUsers();
-    const { _count: campaignsCount } = await indexRepository.countAllUsers();
+    const { _count: campaignsCount } = await indexRepository.countAllCampaigns();
 
     return {
       props: {
