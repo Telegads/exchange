@@ -6,8 +6,6 @@ metadata:
   name: exchange-{{ .Values.env }}
   labels:
     app: exchange-{{ .Values.env }}
-  annotations:
-    deploy-date: {{ .Values.release_date_time_utc }}
 
 spec:
   replicas: {{ .Values.replicas }}
@@ -18,6 +16,8 @@ spec:
     metadata:
       labels:
         app: exchange-{{ .Values.env }}
+      annotations:
+        deploy-date: {{ .Values.release_date_time_utc }}
     spec:
       containers:
         - name: telegads-exchange
