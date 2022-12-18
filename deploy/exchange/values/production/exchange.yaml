@@ -1,0 +1,5 @@
+host: prod.nikitin-petr.ru
+
+replicas: 1
+
+env: production
