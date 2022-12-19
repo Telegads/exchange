@@ -22,6 +22,10 @@
     "rangeSubscribers": "Подписчики",
     "rangeViews": "Просмотры"
   },
+  "statistics": {
+    "subscribers": "Подписчики",
+    "views": "Просмотры"
+  },
   "channels": {
     "title": "Каналы"
   },

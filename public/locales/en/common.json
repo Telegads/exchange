@@ -22,6 +22,10 @@
     "rangeSubscribers": "Subscribers",
     "rangeViews": "Views"
   },
+  "statistics": {
+    "subscribers": "Subscribers",
+    "views": "Views"
+  },
   "channels": {
     "title": "Channels"
   },

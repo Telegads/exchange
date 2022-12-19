@@ -22,6 +22,10 @@
     "rangeSubscribers": "Obunachilar",
     "rangeViews": "Qarashlar"
   },
+  "statistics": {
+    "subscribers": "Abonentlar",
+    "views": "Ko'rishlar"
+  },
   "channels": {
     "title": "Kanallar"
   },
