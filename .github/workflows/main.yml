@@ -1,4 +1,4 @@
-name: deploy-to-staging
+name: Build & deploy to staging
 
 on:
   push:
@@ -6,8 +6,33 @@ on:
       - main
 
 jobs:
+  checking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: prepear nodjs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      
+      - name: install deps
+        run: npm ci
+        
+      - name: run type check
+        run: npm run check-types
+        
+      - name: run scripts check
+        run: npm run check-scripts
+
+      - name: run tests
+        run: npm run test
+
+
   build:
     runs-on: ubuntu-latest
+    needs: checking
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -56,7 +81,6 @@ jobs:
             NEXTAUTH_URL_ARG=https://telegads.uz/api/auth
             NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
             API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_PROD}}
-            SENTRY_AUTH_TOKEN_ARG=${{secrets.SENTRY_AUTH_TOKEN}}
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
             GOOGLE_AUTH_ID_ARG=${{secrets.GOOGLE_AUTH_ID_PROD}}
             GOOGLE_AUTH_SECRET_ARG=${{secrets.GOOGLE_AUTH_SECRET_PROD}}
@@ -72,3 +96,42 @@ jobs:
           username: ci
           password: ${{ secrets.SSH_CI_PASS }}
           script: docker compose -f /telegads-stage/docker-compose.stage.yml pull && docker compose -f /telegads-stage/docker-compose.stage.yml up --force-recreate --build -d
+
+  deploy-k8:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get current time
+        uses: josStorer/get-current-time@v2.0.2
+        id: current-time
+        with:
+          format: YYYY-MM-DD HH:mm
+
+      - name: Setup helmfile
+        uses: mamezou-tech/setup-helmfile@v1.2.0
+
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: set secrets to exchange
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: ./deploy/exchange/values/staging/exchange.yaml
+          contents: |
+            DATABASE_URL: postgresql://telegads-staging:${{secrets.DB_PASS_STAGE}}@db-staging-postgresql:5432/exchange?schema=public
+            NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET_ARG}}
+            API_AUTH_SECRET: ${{secrets.API_AUTH_SECRET_STAGE}}
+            GOOGLE_AUTH_ID: ${{secrets.GOOGLE_AUTH_ID_STAGE}}
+            GOOGLE_AUTH_SECRET: ${{secrets.GOOGLE_AUTH_SECRET_STAGE}}
+            release_date_time_utc: ${{steps.current-time.outputs.formattedTime}}
+          write-mode: append
+
+      - name: apply staging
+        run: |
+          helmfile apply -f ./deploy/exchange/helmfile.yaml --environment staging

@@ -25,5 +25,12 @@
   "statistics": {
     "subscribers": "Subscribers",
     "views": "Views"
+  },
+  "channels": {
+    "title": "Channels"
+  },
+  "sidebar": {
+    "catalog": "Catalog",
+    "campaign": "My campaigns"
   }
 }

@@ -25,5 +25,12 @@
   "statistics": {
     "subscribers": "Подписчики",
     "views": "Просмотры"
+  },
+  "channels": {
+    "title": "Каналы"
+  },
+  "sidebar": {
+    "catalog": "Каталог",
+    "campaign": "Мои кампании"
   }
 }

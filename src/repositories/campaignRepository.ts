@@ -18,6 +18,13 @@ export type UpdateCampaignArgs = {
 };
 
 export const campaignRepository = {
+  countAllCampaigns() {
+    return prisma.campaign.aggregate({
+      _count: {
+        id: true,
+      },
+    });
+  },
   createNewCampaign({ channels, userId }: CreateNewCampaignArgs) {
     console.log('createNewCampaign', userId);
 

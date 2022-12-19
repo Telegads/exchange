@@ -25,6 +25,13 @@
   "statistics": {
     "subscribers": "Abonentlar",
     "views": "Ko'rishlar"
+  },
+  "channels": {
+    "title": "Kanallar"
+  },
+  "sidebar": {
+    "catalog": "Katalog",
+    "campaign": "Mening kampaniyalarim"
   }
 }
 

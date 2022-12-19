@@ -1,0 +1,42 @@
+name: Update DB - production - k8
+
+on: workflow_dispatch
+
+jobs:
+  update-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup helmfile
+        uses: mamezou-tech/setup-helmfile@v1.2.0
+
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: set secrets
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: ./deploy/db/values/production/db.yaml
+          contents: |
+            auth:
+              username: telegads-prod
+              password: ${{ secrets.DB_PASS_PROD }}
+              postgresPassword: ${{ secrets.DB_PASS_PROD }}
+              database: exchange
+          write-mode: append
+
+      - name: print values
+        run: cat ./deploy/db/values/production/db.yaml
+      
+      - name: print chart
+        run: |
+          helmfile template -f ./deploy/db/helmfile.yaml --environment production
+
+      - name: sync release
+        run: |
+          helmfile sync -f ./deploy/db/helmfile.yaml --environment production
