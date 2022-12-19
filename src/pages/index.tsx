@@ -8,13 +8,14 @@ import style from '../scss/index.module.scss';
 import { LayoutIndex } from '../components/Layout/LayoutIndex';
 import Footer from '../components/Footer/Footer';
 import { channelRepository } from '../repositories/channelRepository';
-import { indexRepository } from '../repositories/indexRepository';
+import { userRepository } from '../repositories/userRepository';
+import { campaignRepository } from '../repositories/campaignRepository';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { _count: channelsCount } = await channelRepository.countAll();
-    const { _count: usersCount } = await indexRepository.countAllUsers();
-    const { _count: campaignsCount } = await indexRepository.countAllCampaigns();
+    const { _count: usersCount } = await userRepository.countAllUsers();
+    const { _count: campaignsCount } = await campaignRepository.countAllCampaigns();
 
     return {
       props: {
