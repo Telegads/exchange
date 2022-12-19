@@ -3,11 +3,10 @@ import React, { FC, useCallback, useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { BsFillCartDashFill, BsFillCartPlusFill } from 'react-icons/bs';
 
-import style from '../../scss/catalog.module.scss';
 import { Button } from '../Button/Button';
 import { useCartContext } from '../Cart/context/CartContext';
 
-import channelRowStyle from './channelRow.module.scss';
+import style from './channelRow.module.scss';
 import { Description } from './components/Description/Description';
 
 type ChannelRowProps = {
@@ -72,49 +71,44 @@ export const ChannelRow: FC<ChannelRowProps> = ({
           <Description text={description || ''} />
         </div>
       </div>
-      <div className={`${activeClassStat ? style.card__border : `${style.card__border} ${style.card__border_active}`}`}>
-        <div className={style.border__line}></div>
-      </div>
       <div
         className={`${
-          activeClassStat ? style.card__statistics : `${style.card__statistics} ${style.card__statistics_active}`
+          activeClassStat
+            ? style.card__statistics_wrapper
+            : `${style.card__statistics_wrapper} ${style.card__statistics_wrapper_active}`
         }`}
       >
-        <div className={style.statistics__subscribers}>
-          <p className={style.subscribers__title}>Подписчики:</p>
-          <p className={style.subscribers__number}>{subscribers ? subscribers?.toLocaleString('ru-RU') : '–'}</p>
+        <div className={style.card__statistics}>
+          <div>
+            <p className={style.subscribers__title}>Подписчики:</p>
+            <p className={style.subscribers__number}>{subscribers ? subscribers?.toLocaleString('ru-RU') : '–'}</p>
 
-          <p className={style.subscribers__er}>ER:</p>
-          <p className={style.subscribers__er_number}>{er ? `${er}%` : '–'}</p>
+            <p className={style.subscribers__er}>ER:</p>
+            <p className={style.subscribers__er_number}>{er ? `${er}%` : '–'}</p>
 
-          <div className={style.subscribers__people}>
-            <img src="/img/icons/male.svg" alt="" />
-            <p>{malePercent ? `${malePercent}%` : '–'}</p>
+            <div className={style.subscribers__people}>
+              <img src="/img/icons/male.svg" alt="" />
+              <p>{malePercent ? `${malePercent}%` : '–'}</p>
+            </div>
           </div>
-        </div>
-        <div className={style.statistics__views}>
-          <p className={style.views__title}>Просмотры:</p>
-          <p className={style.views__number}>{views ? views?.toLocaleString('ru-RU') : '–'}</p>
+          <div className={style.statistics__views}>
+            <p className={style.views__title}>Просмотры:</p>
+            <p className={style.views__number}>{views ? views?.toLocaleString('ru-RU') : '–'}</p>
 
-          {/* <p className={style.views__cpv}>CPV:</p>
+            {/* <p className={style.views__cpv}>CPV:</p>
           <p className={style.views__cpv_number}>{cpv ? `${cpv}р` : '–'}</p> */}
 
-          <div className={style.views__people}>
-            <img src="/img/icons/femal.svg" alt="" />
-            <p>{malePercent ? `${100 - malePercent}%` : '–'}</p>
+            <div className={style.views__people}>
+              <img src="/img/icons/femal.svg" alt="" />
+              <p>{malePercent ? `${100 - malePercent}%` : '–'}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={style.card__btn_mb}>
-        <div
-          className={`${
-            activeClassStat ? style.btn_mb__wrapper : `${style.btn_mb__wrapper} ${style.btn_mb__wrapper_active}`
-          }`}
-        >
-          <div role="button" tabIndex={0} onClick={toggleStats} onKeyDown={toggleStats}>
-            <p className={style.btn_mb__text}>Показать больше</p>
+        <div className={style.card__btn_mb}>
+          <Button onClick={toggleStats} variant="link" className={style.btn_mb__wrapper}>
+            Показать больше &nbsp;
             <img src="/img/icons/arrow.svg" alt="" />
-          </div>
+          </Button>
         </div>
       </div>
       <div
@@ -135,7 +129,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
           variant={isInCart(id) ? 'inverted' : 'primary'}
           fillHeight
           rounded="square"
-          className={channelRowStyle.channelRow__cartButton}
+          className={style.channelRow__cartButton}
         >
           {isInCart(id) ? <BsFillCartDashFill size={20} /> : <BsFillCartPlusFill size={20} />}
         </Button>
