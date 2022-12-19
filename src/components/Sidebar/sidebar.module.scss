@@ -1,0 +1,125 @@
+.navbar {
+    position: fixed;
+    padding: 109px 33px 0 0;
+    flex-direction: column;
+}
+
+.line_navbar {
+    position: static;
+    width: 1px;
+    min-height: 100%;
+    border-left: 1px solid #dcdcdc;
+    margin-left: 80px;
+  }
+  
+  @media (max-width: 760px) {
+    .line_navbar {
+      display: none;
+    }
+  }
+
+@media (max-width: 760px) {
+    .navbar {
+        display: none;
+        position: relative;
+    }
+
+    .hover_left_line span  {
+        visibility: visible;
+        background: none;
+        border: none;
+        position: absolute;
+        padding: 14px;
+        width: 138px;
+        height: 43px;
+        font-weight: 500;
+        font-size: 15px;
+        color: #000;
+        text-align: left;
+        margin-top: -13px;
+        margin-left: 60px;
+        opacity: 1;
+        box-shadow: none;
+    }
+    .hover_left_line span::before {
+        border: none;
+    }
+}
+
+
+.navbar ul > li {
+    margin-bottom: 20px;
+    padding-left: 100%;
+    margin-left: -100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    transition: 150ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 150ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.navbar a {
+    padding: 10px;
+    margin: -10px;
+}
+
+.navbar a:hover .hover__img {
+    stroke: #7044CC;
+}
+
+.navbar ul > li:hover {
+    border-left:5px solid #650DF0;
+}
+
+.navbar a svg .hover__img {
+    transition: 20ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 20ms;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+.tooltip {
+    visibility: hidden;
+    background: #fff;
+    border: 1px solid #7044CC;
+    position: absolute;
+    padding: 14px;
+    height: 43px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 15px;
+    color: #000;
+    text-align: center;
+    margin-top: -13px;
+    margin-left: 60px;
+    opacity: 0;
+    box-shadow: 0px 0px 44px rgba(0, 0, 0, 0.2);
+    transition: 0.55s opacity, 0.55s visibility;
+    white-space: nowrap;
+}
+
+.tooltip::before, .tooltip::after {
+    content: '';
+    border: solid transparent;
+    position: absolute;
+    right: 100%;
+    top: 16px;
+}
+
+.tooltip::before {
+    border-right-color: #7044CC;
+    border-width: 5px;
+}
+
+.navbar a:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip::after {
+    border-right-color: #fff;
+    border-width: 5px;
+    margin-right: -1px;
+}

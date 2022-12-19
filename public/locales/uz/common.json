@@ -21,6 +21,10 @@
     "categories": "Hamma e'lonlar",
     "rangeSubscribers": "Obunachilar",
     "rangeViews": "Qarashlar"
+  },
+  "sidebar": {
+    "catalog": "Katalog",
+    "campaign": "Mening kampaniyalarim"
   }
 }
 
