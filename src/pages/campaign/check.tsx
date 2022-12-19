@@ -56,8 +56,7 @@ const Check = () => {
       <CartContextProvider value={cartContextValue}>
         <Progress position={33} />
         <Row className={style.row}>
-          <Col className={style.nav}></Col>
-          <Col className={style.cartItems}>
+          <Col md={9} className={style.cartItems}>
             <p className={style.steps}>{t('check.step')}</p>
             <div className={style.headWrapper}>
               <div className={style.titleEditContainer}>

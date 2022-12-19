@@ -6,7 +6,7 @@ import { Sidebar } from '../Sidebar/Sidebar';
 import layoutStyle from './layout.module.scss';
 
 const Layout: FC = ({ children }) => (
-  <div>
+  <>
     <Header />
     <div className={layoutStyle.line}></div>
 
@@ -14,7 +14,7 @@ const Layout: FC = ({ children }) => (
       <Sidebar />
       {children}
     </div>
-  </div>
+  </>
 );
 
 export default Layout;
