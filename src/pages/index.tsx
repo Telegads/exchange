@@ -7,18 +7,42 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import style from '../scss/index.module.scss';
 import { LayoutIndex } from '../components/Layout/LayoutIndex';
 import Footer from '../components/Footer/Footer';
+import { channelRepository } from '../repositories/channelRepository';
+import { userRepository } from '../repositories/userRepository';
+import { campaignRepository } from '../repositories/campaignRepository';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale ?? 'en', ['index', 'common'])),
-    },
-  };
+  try {
+    const { _count: channelsCount } = await channelRepository.countAll();
+    const { _count: usersCount } = await userRepository.countAllUsers();
+    const { _count: campaignsCount } = await campaignRepository.countAllCampaigns();
+
+    return {
+      props: {
+        ...(await serverSideTranslations(context.locale ?? 'en', ['index', 'common'])),
+        ssr: {
+          channelsCount: channelsCount.id,
+          usersCount: usersCount.id,
+          campaignsCount: campaignsCount.id,
+        },
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ssr: {
+          channelsCount: 0,
+          usersCount: 0,
+          campaignsCount: 0,
+        },
+      },
+    };
+  }
 };
 
 type MainPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const MainPage: FC<MainPageProps> = () => {
+const MainPage: FC<MainPageProps> = ({ ssr }) => {
   const { t } = useTranslation('index');
 
   return (
@@ -38,15 +62,15 @@ const MainPage: FC<MainPageProps> = () => {
             </div>
             <div className={style.advantage}>
               <div className={`${style.advantage__user} ${style.advantage__item}`}>
-                <p className={style.advantage__namber}>207 228</p>
+                <p className={style.advantage__namber}>{ssr.usersCount}</p>
                 <p className={style.advantage__text}>{t('advantage.newcustomers')}</p>
               </div>
               <div className={`${style.advantage__channel} ${style.advantage__item}`}>
-                <p className={style.advantage__namber}>7 754</p>
+                <p className={style.advantage__namber}>{ssr.channelsCount}</p>
                 <p className={style.advantage__text}>{t('advantage.countchannels')}</p>
               </div>
               <div className={`${style.advantage__orders} ${style.advantage__item}`}>
-                <p className={style.advantage__namber}>460 482</p>
+                <p className={style.advantage__namber}>{ssr.campaignsCount}</p>
                 <p className={style.advantage__text}>{t('advantage.countorders')}</p>
               </div>
             </div>

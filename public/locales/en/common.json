@@ -22,6 +22,9 @@
     "rangeSubscribers": "Subscribers",
     "rangeViews": "Views"
   },
+  "channels": {
+    "title": "Channels"
+  },
   "sidebar": {
     "catalog": "Catalog",
     "campaign": "My campaigns"

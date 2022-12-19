@@ -22,6 +22,9 @@
     "rangeSubscribers": "Подписчики",
     "rangeViews": "Просмотры"
   },
+  "channels": {
+    "title": "Каналы"
+  },
   "sidebar": {
     "catalog": "Каталог",
     "campaign": "Мои кампании"
