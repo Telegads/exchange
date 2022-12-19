@@ -5,10 +5,9 @@ import styles from './languageSelector.module.scss';
 
 type LanguageSelectorProps = {
   className?: string;
-  className2?: string;
 };
 
-export const LanguageSelector: FC<LanguageSelectorProps> = ({ className, className2 }) => {
+export const LanguageSelector: FC<LanguageSelectorProps> = ({ className }) => {
   const router = useRouter();
 
   const changeToRu = useCallback(() => {
@@ -27,8 +26,8 @@ export const LanguageSelector: FC<LanguageSelectorProps> = ({ className, classNa
   }, [router]);
 
   return (
-    <div className={`${styles.header__language} ${className2}`}>
-      <div className={`${styles.header__language_active} ${styles.header__language_none} ${className}`}>
+    <div className={`${styles.header__language} ${className}`}>
+      <div className={`${styles.header__language_active} ${styles.header__language_none}`}>
         {router.locale?.toUpperCase()}
       </div>
       <div className={styles.header__language_btn}>

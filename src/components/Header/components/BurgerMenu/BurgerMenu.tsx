@@ -28,9 +28,7 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ variant }) => {
         <div className={style.burder__wrapper}>
           <div className={style.burger__header}>
             <Logo />
-            <div className={style.burger__cross}>
-              <BsXCircleFill type="reset" size={30} color={'#EBEDF2'} onClick={toggleBurger}></BsXCircleFill>
-            </div>
+            <BsXCircleFill type="reset" size={30} className={style.burger__button_close} onClick={toggleBurger} />
           </div>
           <div className={style.burger__menu}>
             <ul>
@@ -39,7 +37,7 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({ variant }) => {
               </li>
             </ul>
           </div>
-          <LanguageSelector className={style.header__language_burgermenu} className2={style.burger__language} />
+          <LanguageSelector className={style.burger__language} />
           <AccountButton className={`${style.header__btn__burgermenu} ${style.burger__bnt}`} />
         </div>
       </div>

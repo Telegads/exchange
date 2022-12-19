@@ -2,16 +2,16 @@
   display: none;
 }
 
-.header__language_burgermenu {
-  display: block !important;
-}
-
 .header__btn__burgermenu {
   display: block !important;
 }
 
 .burger__language {
   margin: 58px 0 74px 20px;
+}
+
+.burger__language .header__language_active {
+  display: block !important;
 }
 
 @media (max-width: 1100px) {
@@ -66,6 +66,10 @@
   .burger__header {
     display: flex;
     justify-content: space-between;
+  }
+
+  .burger__button_close {
+    color: #EBEDF2;
   }
 
   .burger__menu {
