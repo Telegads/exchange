@@ -27,10 +27,9 @@ jobs:
       - name: set secrets to exchange
         uses: DamianReeves/write-file-action@master
         with:
-          path: ./deploy/exchange/values/staging/exchange.yaml
+          path: ./deploy/exchange/values/production/exchange.yaml
           contents: |
-            DATABASE_URL: postgresql://telegads-staging:${{secrets.DB_PASS_PROD}}@db-staging-postgresql:5432/exchange?schema=public
-            NEXTAUTH_URL: https://staging.telegads.uz/api/auth
+            DATABASE_URL: postgresql://telegads-prod:${{secrets.DB_PASS_PROD}}@db-production-postgresql:5432/exchange?schema=public
             NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET_ARG}}
             API_AUTH_SECRET: ${{secrets.API_AUTH_SECRET_PROD}}
             GOOGLE_AUTH_ID: ${{secrets.GOOGLE_AUTH_ID_PROD}}

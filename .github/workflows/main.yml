@@ -125,7 +125,6 @@ jobs:
           path: ./deploy/exchange/values/staging/exchange.yaml
           contents: |
             DATABASE_URL: postgresql://telegads-staging:${{secrets.DB_PASS_STAGE}}@db-staging-postgresql:5432/exchange?schema=public
-            NEXTAUTH_URL: https://staging.telegads.uz/api/auth
             NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET_ARG}}
             API_AUTH_SECRET: ${{secrets.API_AUTH_SECRET_STAGE}}
             GOOGLE_AUTH_ID: ${{secrets.GOOGLE_AUTH_ID_STAGE}}

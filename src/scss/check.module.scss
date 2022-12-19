@@ -1,35 +1,22 @@
 .row {
-  justify-content: space-between;
-}
-
-.nav {
-  flex: 0 0 80px;
-  border-right: 1px solid #DCDCDC;
+  padding: 0 20px;
 }
 
 .cart {
   &Items {
-    flex-shrink: 1;
-    flex-basis: 950px;
-    max-width: 950px;
-    margin: 0 20px;
-    padding: 30px 0;
+    padding: 30px 20px;
   }
 
   &Column {
     position: relative;
-    flex-shrink: 1;
-    flex-basis: 380px;
-    max-width: 380px;
-    min-height: 100vh;
-    border-left: 1px solid #DCDCDC;
-    padding: 45px 60px 45px 45px;
+    border-left: 1px solid #dcdcdc;
+    padding: 45px 45px 45px 45px;
   }
 }
 
 .steps {
   font-size: 15px;
-  color: #7044CC;
+  color: #7044cc;
   font-weight: 500;
 }
 
@@ -56,13 +43,13 @@
 }
 
 .draft {
-  color: #9B9B9B;
+  color: #9b9b9b;
   padding: 10px 25px;
   border-radius: 50px;
   font-size: 15px;
   font-weight: 500;
   line-height: 1;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 .addChannelButton {
@@ -73,7 +60,7 @@
   }
 
   &:hover {
-    color: #7044CC;
+    color: #7044cc;
     background-color: #fff;
   }
 }
@@ -93,8 +80,8 @@
 
   &Cart {
     position: sticky;
-    top: 174px;
-    margin-top: 174px;
+    top: 45px;
+    margin-top: 45px;
   }
 }
 

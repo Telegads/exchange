@@ -24,6 +24,10 @@
   },
   "channels": {
     "title": "Kanallar"
+  },
+  "sidebar": {
+    "catalog": "Katalog",
+    "campaign": "Mening kampaniyalarim"
   }
 }
 
