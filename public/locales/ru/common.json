@@ -21,5 +21,9 @@
     "categories": "Все категории",
     "rangeSubscribers": "Подписчики",
     "rangeViews": "Просмотры"
+  },
+  "sidebar": {
+    "catalog": "Каталог",
+    "campaign": "Мои кампании"
   }
 }

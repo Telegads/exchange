@@ -139,52 +139,49 @@ const Catalog = ({ ssr }: CatalogProps) => {
         <title>{t('catalog.title')} - Telegads</title>
       </Head>
       <Layout>
-        <div className={style.wrapper}>
-          {/* <div className={style.line_navbar}></div> */}
-          <Filter
-            categories={ssr.categories}
-            maxSubscribers={ssr.filterAllowedMax?.subscribers || 0}
-            maxViews={ssr.filterAllowedMax?.views || 0}
-          />
-          <div className={style.line_filter}></div>
-          <div className={style.content}>
-            <div className={style.content__display_no}>
-              <div className={style.content__wrapper}>
-                <div className={style.content__header}>
-                  <h1>{t('catalog.header')}</h1>
-                  <Counter ssrCount={ssr.channelsCount} />
-                </div>
-                <Sorting />
+        <Filter
+          categories={ssr.categories}
+          maxSubscribers={ssr.filterAllowedMax?.subscribers || 0}
+          maxViews={ssr.filterAllowedMax?.views || 0}
+        />
+        <div className={style.line_filter}></div>
+        <div className={style.content}>
+          <div className={style.content__display_no}>
+            <div className={style.content__wrapper}>
+              <div className={style.content__header}>
+                <h1>{t('catalog.header')}</h1>
+                <Counter ssrCount={ssr.channelsCount} />
               </div>
-              <div className={style.catalog_rows}>
-                {isLoading ? (
-                  <Loading />
-                ) : (
-                  channels.map((channel) => (
-                    <ChannelRow
-                      id={channel.id}
-                      name={channel.name}
-                      avatar={channel.avatar}
-                      category={channel.category?.name}
-                      description={channel.description}
-                      er={channel.er}
-                      malePercent={channel.malePercent}
-                      subscribers={channel.subscribers}
-                      views={channel.views}
-                      key={channel.id}
-                      url={channel.url}
-                    />
-                  ))
-                )}
-              </div>
-              {!isReachingEnd && !isLoading && (
-                <div className={style.loadMore}>
-                  <Button onClick={loadMore} variant="primary">
-                    {t('catalog.loadmore')}
-                  </Button>
-                </div>
+              <Sorting />
+            </div>
+            <div className={style.catalog_rows}>
+              {isLoading ? (
+                <Loading />
+              ) : (
+                channels.map((channel) => (
+                  <ChannelRow
+                    id={channel.id}
+                    name={channel.name}
+                    avatar={channel.avatar}
+                    category={channel.category?.name}
+                    description={channel.description}
+                    er={channel.er}
+                    malePercent={channel.malePercent}
+                    subscribers={channel.subscribers}
+                    views={channel.views}
+                    key={channel.id}
+                    url={channel.url}
+                  />
+                ))
               )}
             </div>
+            {!isReachingEnd && !isLoading && (
+              <div className={style.loadMore}>
+                <Button onClick={loadMore} variant="primary">
+                  {t('catalog.loadmore')}
+                </Button>
+              </div>
+            )}
           </div>
         </div>
         <FloatingCart />
