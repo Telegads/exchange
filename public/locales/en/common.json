@@ -21,5 +21,8 @@
     "categories": "All categories",
     "rangeSubscribers": "Subscribers",
     "rangeViews": "Views"
+  },
+  "channels": {
+    "title": "Channels"
   }
 }
