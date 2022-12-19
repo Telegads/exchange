@@ -54,47 +54,49 @@ const Check = () => {
   return (
     <Layout>
       <CartContextProvider value={cartContextValue}>
-        <Progress position={33} />
-        <Row className={style.row}>
-          <Col md={9} className={style.cartItems}>
-            <p className={style.steps}>{t('check.step')}</p>
-            <div className={style.headWrapper}>
-              <div className={style.titleEditContainer}>
-                <h1 className={style.title}>{t('check.header')}</h1>
-                <button className={style.editButton}>
-                  <img className={style.editIcon} src="/img/icons/edit.svg" alt="edit" />
-                </button>
+        <div>
+          <Progress position={33} />
+          <Row className={style.row}>
+            <Col md={9} className={style.cartItems}>
+              <p className={style.steps}>{t('check.step')}</p>
+              <div className={style.headWrapper}>
+                <div className={style.titleEditContainer}>
+                  <h1 className={style.title}>{t('check.header')}</h1>
+                  <button className={style.editButton}>
+                    <img className={style.editIcon} src="/img/icons/edit.svg" alt="edit" />
+                  </button>
+                </div>
+                <div className={style.draft}>Черновик</div>
+                <Button className={style.addChannelButton} href="/catalog" variant="outline-primary">
+                  {t('check.addChannelsButton')}
+                  <img src="/img/icons/plus.svg" alt="add channel" />
+                </Button>
               </div>
-              <div className={style.draft}>Черновик</div>
-              <Button className={style.addChannelButton} href="/catalog" variant="outline-primary">
-                {t('check.addChannelsButton')}
-                <img src="/img/icons/plus.svg" alt="add channel" />
-              </Button>
-            </div>
 
-            <Stack gap={3}>
-              {cartValue?.cartItems.map((cartItem) => (
-                <ChannelRow
-                  id={cartItem.id}
-                  name={cartItem.name}
-                  avatar={cartItem.avatar}
-                  category={cartItem.category?.name}
-                  description={cartItem.description}
-                  er={cartItem.er}
-                  subscribers={cartItem.subscribers}
-                  malePercent={cartItem.malePercent}
-                  views={cartItem.views}
-                  key={cartItem.id}
-                />
-              ))}
-            </Stack>
-          </Col>
-          <Col className={style.cartColumn}>
-            <div className={style.stickyCart}>
-              <VerticalCart />
-            </div>
-          </Col>
-        </Row>
+              <Stack gap={3}>
+                {cartValue?.cartItems.map((cartItem) => (
+                  <ChannelRow
+                    id={cartItem.id}
+                    name={cartItem.name}
+                    avatar={cartItem.avatar}
+                    category={cartItem.category?.name}
+                    description={cartItem.description}
+                    er={cartItem.er}
+                    subscribers={cartItem.subscribers}
+                    malePercent={cartItem.malePercent}
+                    views={cartItem.views}
+                    key={cartItem.id}
+                  />
+                ))}
+              </Stack>
+            </Col>
+            <Col className={style.cartColumn}>
+              <div className={style.stickyCart}>
+                <VerticalCart />
+              </div>
+            </Col>
+          </Row>
+        </div>
       </CartContextProvider>
     </Layout>
   );
