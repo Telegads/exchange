@@ -5,6 +5,7 @@ import { LanguageSelector } from './components/LanguageSelector/LanguageSelector
 import { Menu } from './components/Menu/Menu';
 import { Logo } from './components/Logo/Logo';
 import styles from './header.module.scss';
+import { BurgerMenu } from './components/BurgerMenu/BurgerMenu';
 
 const Header: FC = () => {
   return (
@@ -15,6 +16,7 @@ const Header: FC = () => {
         <LanguageSelector />
         <Menu />
         <AccountButton />
+        <BurgerMenu />
       </div>
     </header>
   );

@@ -1,9 +1,14 @@
 import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import styles from './languageSelector.module.scss';
 
-export const LanguageSelector = () => {
+type LanguageSelectorProps = {
+  className?: string;
+  className2?: string;
+};
+
+export const LanguageSelector: FC<LanguageSelectorProps> = ({ className, className2 }) => {
   const router = useRouter();
 
   const changeToRu = useCallback(() => {
@@ -22,8 +27,8 @@ export const LanguageSelector = () => {
   }, [router]);
 
   return (
-    <div className={styles.header__language}>
-      <div className={`${styles.header__language_active} ${styles.header__language_none}`}>
+    <div className={`${styles.header__language} ${className2}`}>
+      <div className={`${styles.header__language_active} ${styles.header__language_none} ${className}`}>
         {router.locale?.toUpperCase()}
       </div>
       <div className={styles.header__language_btn}>

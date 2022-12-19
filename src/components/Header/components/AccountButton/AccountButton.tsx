@@ -1,5 +1,5 @@
 import { signOut, useSession } from 'next-auth/react';
-import React, { useCallback, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 
 import { Button } from '../../../Button/Button';
 import { Popup } from '../../../Popup/Popup';
@@ -7,7 +7,11 @@ import SignIn from '../../../SignIn/SignIn';
 
 import styles from './accountButton.module.scss';
 
-export const AccountButton = () => {
+type AccountButtonProps = {
+  className?: string;
+};
+
+export const AccountButton: FC<AccountButtonProps> = ({ className }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const togglePopup = useCallback(() => setIsOpenPopup(!isOpenPopup), [isOpenPopup]);
@@ -18,7 +22,13 @@ export const AccountButton = () => {
   return (
     <>
       {session ? (
-        <Button onClick={handleSingOutClick} variant="primary" rounded="rounded" size="lg">
+        <Button
+          onClick={handleSingOutClick}
+          variant="primary"
+          rounded="rounded"
+          size="lg"
+          className={`${styles.header__btn_none} ${className}`}
+        >
           <div className={styles.accountButtonText}>
             <span>{session.user?.name}</span>
             <img src="/img/icons/adduser.svg" alt="" />
@@ -27,7 +37,7 @@ export const AccountButton = () => {
       ) : (
         <Button
           variant="primary"
-          className={`${styles.header__btn_reg} ${styles.header__btn_none}`}
+          className={`${styles.header__btn_reg} ${styles.header__btn_none} ${className}`}
           onClick={togglePopup}
         >
           Вход
