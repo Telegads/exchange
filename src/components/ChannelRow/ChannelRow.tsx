@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { BsFillCartDashFill, BsFillCartPlusFill } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '../Button/Button';
 import { useCartContext } from '../Cart/context/CartContext';
@@ -35,6 +36,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
   url,
 }) => {
   const router = useRouter();
+  const { t } = useTranslation('common');
   const { updateCartValue, isInCart } = useCartContext();
 
   const searchWords = useMemo(() => [router.query.search as string], [router.query.search]);
@@ -80,7 +82,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
       >
         <div className={style.card__statistics}>
           <div>
-            <p className={style.subscribers__title}>Подписчики:</p>
+            <p className={style.subscribers__title}>{t('statistics.subscribers')}:</p>
             <p className={style.subscribers__number}>{subscribers ? subscribers?.toLocaleString('ru-RU') : '–'}</p>
 
             <p className={style.subscribers__er}>ER:</p>
@@ -92,7 +94,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
             </div>
           </div>
           <div className={style.statistics__views}>
-            <p className={style.views__title}>Просмотры:</p>
+            <p className={style.views__title}>{t('statistics.views')}:</p>
             <p className={style.views__number}>{views ? views?.toLocaleString('ru-RU') : '–'}</p>
 
             {/* <p className={style.views__cpv}>CPV:</p>

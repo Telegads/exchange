@@ -21,5 +21,9 @@
     "categories": "Все категории",
     "rangeSubscribers": "Подписчики",
     "rangeViews": "Просмотры"
+  },
+  "statistics": {
+    "subscribers": "Подписчики",
+    "views": "Просмотры"
   }
 }
