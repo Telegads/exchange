@@ -18,7 +18,7 @@ const Header: FC = () => {
         <LanguageSelector isBurgerOpen={isOpenBurger} />
         <Menu isBurgerOpen={isOpenBurger} />
         <AccountButton isBurgerOpen={isOpenBurger} />
-        <Burger onClick={toggleBurger} isOpen={isOpenBurger} />
+        <Burger onClick={toggleBurger} isBurgerOpen={isOpenBurger} />
       </div>
     </header>
   );
