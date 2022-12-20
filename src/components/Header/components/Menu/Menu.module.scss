@@ -46,3 +46,36 @@
     display: none;
   }
 }
+
+.burger__menu {
+  margin-top: 30px;
+}
+
+.burger__menu ul > li:nth-child(2) {
+  border-top: 1px solid #E6E6E6;
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.burger__menu ul > li:nth-child(3) {
+  border-bottom: 1px solid #E6E6E6;
+}
+
+.burger__menu ul {
+  padding-left: 0;
+}
+
+.burger__menu ul > li {
+  padding: 17px 0;
+}
+.burger__menu a {
+  color: #000;
+  font-size: 25px;
+  font-weight: 500;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.burger__menu a:hover {
+  color: #7044CC;
+  text-decoration: underline;
+}

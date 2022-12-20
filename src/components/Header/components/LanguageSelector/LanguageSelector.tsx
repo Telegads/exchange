@@ -4,10 +4,10 @@ import React, { FC, useCallback } from 'react';
 import styles from './languageSelector.module.scss';
 
 type LanguageSelectorProps = {
-  className?: string;
+  isBurgerOpen?: boolean;
 };
 
-export const LanguageSelector: FC<LanguageSelectorProps> = ({ className }) => {
+export const LanguageSelector: FC<LanguageSelectorProps> = ({ isBurgerOpen }) => {
   const router = useRouter();
 
   const changeToRu = useCallback(() => {
@@ -26,10 +26,14 @@ export const LanguageSelector: FC<LanguageSelectorProps> = ({ className }) => {
   }, [router]);
 
   return (
-    <div className={`${styles.header__language} ${className}`}>
-      <div className={`${styles.header__language_active} ${styles.header__language_none}`}>
-        {router.locale?.toUpperCase()}
-      </div>
+    <div
+      className={
+        isBurgerOpen
+          ? `${styles.header__language} ${styles.burger__language}`
+          : `${styles.header__language} ${styles.header__language_none}`
+      }
+    >
+      <div className={styles.header__language_active}>{router.locale?.toUpperCase()}</div>
       <div className={styles.header__language_btn}>
         <button onClick={changeToRu}>RU</button>
         <button onClick={changeToEn}>EN</button>

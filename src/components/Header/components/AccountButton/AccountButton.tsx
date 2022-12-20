@@ -8,10 +8,10 @@ import SignIn from '../../../SignIn/SignIn';
 import styles from './accountButton.module.scss';
 
 type AccountButtonProps = {
-  className?: string;
+  isBurgerOpen?: boolean;
 };
 
-export const AccountButton: FC<AccountButtonProps> = ({ className }) => {
+export const AccountButton: FC<AccountButtonProps> = ({ isBurgerOpen }) => {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
 
   const togglePopup = useCallback(() => setIsOpenPopup(!isOpenPopup), [isOpenPopup]);
@@ -27,7 +27,7 @@ export const AccountButton: FC<AccountButtonProps> = ({ className }) => {
           variant="primary"
           rounded="rounded"
           size="lg"
-          className={`${styles.header__btn_none} ${className}`}
+          className={isBurgerOpen ? styles.header__btn : styles.header__btn_none}
         >
           <div className={styles.accountButtonText}>
             <span>{session.user?.name}</span>
@@ -37,7 +37,7 @@ export const AccountButton: FC<AccountButtonProps> = ({ className }) => {
       ) : (
         <Button
           variant="primary"
-          className={`${styles.header__btn_reg} ${styles.header__btn_none} ${className}`}
+          className={`${styles.header__btn_reg} ${styles.header__btn_none}`}
           onClick={togglePopup}
         >
           Вход
