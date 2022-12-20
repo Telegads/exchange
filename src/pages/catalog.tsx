@@ -14,7 +14,6 @@ import { Filter } from '../components/Filter/Filter';
 import style from '../scss/catalog.module.scss';
 import { Button } from '../components/Button/Button';
 import { Counter } from '../components/Counter/Counter';
-import { channelRepository } from '../repositories/channelRepository';
 import { getParameterFromQuery } from '../utils/getParameterFromQuery';
 import { categoryRepository } from '../repositories/categoryRepository';
 import { CartContextProvider } from '../components/Cart/context/CartContext';
@@ -24,6 +23,11 @@ import { useSentry } from '../hooks/useSentry';
 import { captureException } from '../core/sentry';
 import Loading from '../components/Loader/Loading';
 import { useGetChannels } from '../hooks/useGetChannels';
+import {
+  countAllChannels,
+  getChannelsByFilterWithSort,
+  getMaxAllowedFiltersValue,
+} from '../features/channels/repository';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats?: Format[];
@@ -40,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const sortType = getParameterFromQuery(context.query, 'sort_type');
     const sortDirection = getParameterFromQuery(context.query, 'sort_dir');
 
-    const channels = await channelRepository.getChannelsByFilterWithSort({
+    const channels = await getChannelsByFilterWithSort({
       pageNumber: 0,
       pageSize: PAGE_SIZE,
       category: filterCategory,
@@ -52,9 +56,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
     const categories = await categoryRepository.getAllCategories();
 
-    const { _count: channelsCount } = await channelRepository.countAll();
+    const { _count: channelsCount } = await countAllChannels();
 
-    const { _max: allowedMax } = await channelRepository.getMaxAllowedFiltersValue();
+    const { _max: allowedMax } = await getMaxAllowedFiltersValue();
 
     return {
       props: {

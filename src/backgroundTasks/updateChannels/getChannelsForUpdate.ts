@@ -1,3 +1,3 @@
-import { channelRepository } from '../../repositories/channelRepository';
+import { getChannelsToUpdate } from '../../features/channels/repository';
 
-export const getChannelsForUpdate = (limit: number) => channelRepository.getChannelsToUpdate(limit);
+export const getChannelsForUpdate = (limit: number) => getChannelsToUpdate(limit);

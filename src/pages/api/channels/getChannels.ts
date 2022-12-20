@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { channelRepository } from '../../../repositories/channelRepository';
+import { getChannelsByFilterWithSort } from '../../../features/channels/repository';
 import { handleApiError } from '../../../helpers/handleApiError';
 import { getParameterFromQuery } from '../../../utils/getParameterFromQuery';
 
@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const viewsMax = getParameterFromQuery(req.query, 'viewsMax');
 
   try {
-    const channels = await channelRepository.getChannelsByFilterWithSort({
+    const channels = await getChannelsByFilterWithSort({
       pageNumber: page,
       pageSize: limit,
       category: filterCategory,

@@ -1,6 +1,5 @@
 import prisma from '../core/prisma';
-
-import { CHANNEL_FIELDS } from './channelRepository';
+import { CHANNEL_FIELDS } from '../features/channels/constants';
 
 export type UpdateCartArg = { userId: string; channelIds: { id: string }[] };
 

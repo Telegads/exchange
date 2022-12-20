@@ -11,11 +11,11 @@ datasource db {
 }
 
 model Channel {
-  id                     String    @id @default(cuid())
+  id                     String         @id @default(cuid())
   name                   String
   description            String?
   avatar                 String?
-  url                    String    @unique
+  url                    String         @unique
   isArchived             Boolean
   isBlogger              Boolean
   subscribers            Int?
@@ -26,15 +26,16 @@ model Channel {
   postPrice              Float?
   formats                Format[]
   categoryId             String?
-  category               Category? @relation(fields: [categoryId], references: [id])
-  lastUpdateDateTime     DateTime  @default(now()) @updatedAt
-  Cart                   Cart?     @relation(fields: [cartId], references: [id])
+  category               Category?      @relation(fields: [categoryId], references: [id])
+  lastUpdateDateTime     DateTime       @default(now()) @updatedAt
+  Cart                   Cart?          @relation(fields: [cartId], references: [id])
   cartId                 String?
   postsLast30days        Int?
   viewsLast30days        Int?
   lastUpdateFromTelegram DateTime?
-  Campaign               Campaign? @relation(fields: [campaignId], references: [id])
+  Campaign               Campaign?      @relation(fields: [campaignId], references: [id])
   campaignId             String?
+  ownedChannels          ChannelOnwer[]
 }
 
 model Category {
@@ -93,6 +94,7 @@ model User {
   Campaign       Campaign[]
   Notification   Notification[]
   TgBotAuthToken TgBotAuthToken[]
+  ChannelOnwer   ChannelOnwer[]
 }
 
 model VerificationToken {
@@ -160,4 +162,14 @@ model TgBotAuthToken {
   token    String @unique
   user     User   @relation(fields: [userTgId], references: [tgId])
   userTgId String @map("user_tg_id")
+}
+
+model ChannelOnwer {
+  ownerId   String
+  channelId String
+
+  owner   User    @relation(fields: [ownerId], references: [id])
+  channel Channel @relation(fields: [channelId], references: [id])
+
+  @@id([ownerId, channelId])
 }

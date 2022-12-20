@@ -1,7 +1,7 @@
 import { DEFAULT_PAGE_SIZE_FOR_UPDATE } from '../../constants';
 import { captureException } from '../../core/sentry';
+import { archiveChannel } from '../../features/channels/repository';
 import { backgroundTaskRepository } from '../../repositories/backgroundTaskRepository';
-import { channelRepository } from '../../repositories/channelRepository';
 
 import { getChannelsForUpdate } from './getChannelsForUpdate';
 import { getIdFromUrl } from './getIdFromUrl';
@@ -33,7 +33,7 @@ export const getChannelsFromDbAndUpdate = async (numberOfChannels = DEFAULT_PAGE
       }
 
       if (response.data === 'Channel not found') {
-        return await channelRepository.archiveChannel(channelId);
+        return await archiveChannel(channelId);
       }
       if (response.data === 'No accounts left') {
         // TODO: notify admin

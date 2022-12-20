@@ -64,7 +64,7 @@ export const ChannelRow: FC<ChannelRowProps> = ({
               />
             </a>
           </p>
-          {category !== '' && (
+          {category && (
             <div className={style.title__options}>
               <div>{category}</div>
             </div>

@@ -1,6 +1,6 @@
 import { Channel } from '@prisma/client';
 
-import { channelRepository } from '../../repositories/channelRepository';
+import { updateChannel } from '../../features/channels/repository';
 
 import { NewChannelInfo } from './getNewChannelInfo';
 
@@ -26,7 +26,7 @@ export const saveNewChannelInfo = async ({ newChannelInfo, oldChannelInfo }: Sav
       ? Math.round((viewsLast30days / postsLast30days / subscribers) * 100)
       : 0;
 
-  return channelRepository.updateChannel({
+  return updateChannel({
     name,
     subscribers,
     views: viewsLast30days,
