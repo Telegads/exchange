@@ -5,7 +5,7 @@ import { LanguageSelector } from './components/LanguageSelector/LanguageSelector
 import { Menu } from './components/Menu/Menu';
 import { Logo } from './components/Logo/Logo';
 import styles from './header.module.scss';
-import { BurgerMenu } from './components/Burger/Burger';
+import { Burger } from './components/Burger/Burger';
 
 const Header: FC = () => {
   const [isOpenBurger, setIsOpenBurger] = useState(false);
@@ -18,7 +18,7 @@ const Header: FC = () => {
         <LanguageSelector isBurgerOpen={isOpenBurger} />
         <Menu isBurgerOpen={isOpenBurger} />
         <AccountButton isBurgerOpen={isOpenBurger} />
-        <BurgerMenu onClick={toggleBurger} isOpen={isOpenBurger} />
+        <Burger onClick={toggleBurger} isOpen={isOpenBurger} />
       </div>
     </header>
   );

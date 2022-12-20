@@ -9,7 +9,7 @@ type BurgerProps = {
   isOpen: boolean;
 };
 
-export const BurgerMenu: FC<BurgerProps> = ({ isOpen, onClick }) => {
+export const Burger: FC<BurgerProps> = ({ isOpen, onClick }) => {
   return (
     <>
       <BsXCircleFill
