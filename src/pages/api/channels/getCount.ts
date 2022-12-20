@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { countByFilter } from '../../../features/channels/repository';
 import { handleApiError } from '../../../helpers/handleApiError';
-import { channelRepository } from '../../../repositories/channelRepository';
 import { getParameterFromQuery } from '../../../utils/getParameterFromQuery';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const subscriptionsCountMax = getParameterFromQuery(req.query, 'subscriptionsCountMax');
 
   try {
-    const { _count: count } = await channelRepository.countByFilter({
+    const { _count: count } = await countByFilter({
       category: getParameterFromQuery(req.query, 'category'),
       searchString: getParameterFromQuery(req.query, 'search'),
       subscriptionsCount:

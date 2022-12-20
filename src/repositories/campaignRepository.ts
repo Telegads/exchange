@@ -1,8 +1,7 @@
 import { CampaignStatus } from '@prisma/client';
 
 import prisma from '../core/prisma';
-
-import { CHANNEL_FIELDS } from './channelRepository';
+import { CHANNEL_FIELDS } from '../features/channels/constants';
 
 type CreateNewCampaignArgs = {
   channels: { id: string }[];

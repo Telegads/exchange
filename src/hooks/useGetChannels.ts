@@ -1,9 +1,9 @@
 import axios from 'axios';
 import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
 
-import { channelRepository } from '../repositories/channelRepository';
+import { getChannelsByFilterWithSort } from '../features/channels/repository';
 
-export type FetchChannelsByFilterResult = ReturnType<typeof channelRepository.getChannelsByFilterWithSort>;
+export type FetchChannelsByFilterResult = ReturnType<typeof getChannelsByFilterWithSort>;
 
 export const CatalogFetcher = (url: string) => axios.get<FetchChannelsByFilterResult>(url).then((res) => res.data);
 
