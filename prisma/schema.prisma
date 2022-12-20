@@ -35,6 +35,8 @@ model Channel {
   lastUpdateFromTelegram DateTime?
   Campaign               Campaign? @relation(fields: [campaignId], references: [id])
   campaignId             String?
+  Owner                  User?     @relation(fields: [ownerId], references: [id])
+  ownerId                String?
 }
 
 model Category {
@@ -93,6 +95,7 @@ model User {
   Campaign       Campaign[]
   Notification   Notification[]
   TgBotAuthToken TgBotAuthToken[]
+  Channel        Channel[]
 }
 
 model VerificationToken {
