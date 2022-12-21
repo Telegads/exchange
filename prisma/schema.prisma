@@ -95,19 +95,15 @@ model User {
   Notification   Notification[]
   TgBotAuthToken TgBotAuthToken[]
   ChannelOnwer   ChannelOnwer[]
-  userGroups     UserGroup[]
-}
-
-enum UserGroupName {
-  ADMINS
-  USERS
+  userGroups     UserGroup        @relation(fields: [userGroupSystemName], references: [systemName])
+  userGroupSystemName    String              @default("USERS")
 }
 
 model UserGroup {
-  id         Int            @id @default(autoincrement())
-  name       UserGroupName  @default(USERS)
-  user       User           @relation(fields: [userId], references: [id])
-  userId     String         @map("user_id")
+  id          Int            @id @default(autoincrement())
+  name        String?
+  systemName  String         @unique @default("USERS")
+  user        User[]      
 }
 
 model VerificationToken {
