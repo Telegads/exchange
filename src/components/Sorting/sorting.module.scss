@@ -1,5 +1,10 @@
 .wrapper {
-  margin: 30px 0;
+  width: 95%;
+  margin: 10px auto;
+}
+
+.sorting {
+  flex-wrap: wrap;
 }
 
 @media (max-width: 990px) {
@@ -10,19 +15,21 @@
 
 .sort_button {
   display: flex;
-  gap: 10px;
-
+  gap: 5px;
+  border-radius: 1000px;
   transition: 150ms;
   transition-timing-function: ease-in-out;
   -webkit-transition: 150ms;
   -webkit-transition-timing-function: ease-in-out;
+  text-decoration: none;
+  text-transform: none;
+  padding: 10px 15px;
+}
+
+.sort_button:hover {
+  border: 1px solid #7044cc;
 }
 
 .sorting_text {
   padding-top: 3px
-}
-
-.active {
-  border-color: #7044cc;
-  color: #7044cc;
 }

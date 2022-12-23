@@ -32,5 +32,10 @@
   "sidebar": {
     "channels": "My channels",
     "campaign": "My campaigns"
+  },
+  "sorting": {
+    "title": "Sorting",
+    "views": "Views",
+    "subscribers": "Subscribers"
   }
 }

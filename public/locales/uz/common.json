@@ -32,6 +32,11 @@
   "sidebar": {
     "channels": "Mening kanallarim",
     "campaign": "Mening kampaniyalarim"
+  },
+  "sorting": {
+    "title": "Saralash",
+    "views": "Ko'rishlar",
+    "subscribers": "Abonentlar"
   }
 }
 

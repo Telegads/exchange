@@ -32,5 +32,10 @@
   "sidebar": {
     "channels": "Mои каналы",
     "campaign": "Мои кампании"
+  },
+  "sorting": {
+    "title": "Сортировка",
+    "views": "Просмотры",
+    "subscribers": "Подписчики"
   }
 }
