@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -24,31 +21,29 @@ model Channel {
   views                  Int?
   cpv                    Int?
   postPrice              Float?
-  formats                Format[]
   categoryId             String?
-  category               Category?      @relation(fields: [categoryId], references: [id])
   lastUpdateDateTime     DateTime       @default(now()) @updatedAt
-  Cart                   Cart?          @relation(fields: [cartId], references: [id])
   cartId                 String?
+  lastUpdateFromTelegram DateTime?
   postsLast30days        Int?
   viewsLast30days        Int?
-  lastUpdateFromTelegram DateTime?
-  Campaign               Campaign?      @relation(fields: [campaignId], references: [id])
   campaignId             String?
+  Campaign               Campaign?      @relation(fields: [campaignId], references: [id])
+  Cart                   Cart?          @relation(fields: [cartId], references: [id])
+  category               Category?      @relation(fields: [categoryId], references: [id])
   ownedChannels          ChannelOnwer[]
+  formats                Format[]
 }
 
 model Category {
-  id   String @id @default(cuid())
-  name String
-
+  id       String    @id @default(cuid())
+  name     String
   channels Channel[]
 }
 
 model Format {
-  id   String @id @default(cuid())
-  name String
-
+  id       String    @id @default(cuid())
+  name     String
   channels Channel[]
 }
 
@@ -67,8 +62,7 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -82,28 +76,28 @@ model Session {
 }
 
 model User {
-  id             String           @id @default(cuid())
-  name           String?
-  email          String?          @unique
-  emailVerified  DateTime?
-  image          String?
-  tgId           String?          @unique
-  accounts       Account[]
-  sessions       Session[]
-  Cart           Cart[]
-  Campaign       Campaign[]
-  Notification   Notification[]
-  TgBotAuthToken TgBotAuthToken[]
-  ChannelOnwer   ChannelOnwer[]
-  userGroups     UserGroup        @relation(fields: [userGroupSystemName], references: [systemName])
-  userGroupSystemName    String              @default("USERS")
+  id                  String           @id @default(cuid())
+  name                String?
+  email               String?          @unique
+  emailVerified       DateTime?
+  image               String?
+  tgId                String?          @unique
+  userGroupSystemName String           @default("USERS")
+  userGroups          UserGroup        @relation(fields: [userGroupSystemName], references: [systemName])
+  accounts            Account[]
+  Campaign            Campaign[]
+  Cart                Cart?
+  ChannelOnwer        ChannelOnwer[]
+  Notification        Notification[]
+  sessions            Session[]
+  TgBotAuthToken      TgBotAuthToken[]
 }
 
 model UserGroup {
-  id          Int            @id @default(autoincrement())
-  name        String?
-  systemName  String         @unique
-  user        User[]      
+  id         Int     @id @default(autoincrement())
+  name       String?
+  systemName String  @unique
+  user       User[]
 }
 
 model VerificationToken {
@@ -115,11 +109,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum TaskStatus {
-  STARTED
-  STOPPED
-}
-
 model BackgroundTask {
   id     Int        @id @default(autoincrement())
   name   String     @unique
@@ -128,9 +117,48 @@ model BackgroundTask {
 
 model Cart {
   id        String    @id @default(cuid())
-  user      User      @relation(fields: [userId], references: [id])
   userId    String    @unique @map("user_id")
+  user      User      @relation(fields: [userId], references: [id])
   cartItems Channel[]
+}
+
+model Campaign {
+  id        String         @id @default(cuid())
+  userId    String         @map("user_id")
+  status    CampaignStatus @default(DRAFT)
+  postImage String?
+  postText  String?
+  user      User           @relation(fields: [userId], references: [id])
+  channels  Channel[]
+}
+
+model Notification {
+  id              String             @id @default(cuid())
+  text            String
+  userTgId        String             @map("user_tg_id")
+  status          NotificationStatus
+  sendingDateTime DateTime           @default(now())
+  user            User               @relation(fields: [userTgId], references: [tgId])
+}
+
+model TgBotAuthToken {
+  token    String @unique
+  userTgId String @map("user_tg_id")
+  user     User   @relation(fields: [userTgId], references: [tgId])
+}
+
+model ChannelOnwer {
+  ownerId   String
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id])
+  owner     User    @relation(fields: [ownerId], references: [id])
+
+  @@id([ownerId, channelId])
+}
+
+enum TaskStatus {
+  STARTED
+  STOPPED
 }
 
 enum CampaignStatus {
@@ -143,42 +171,7 @@ enum CampaignStatus {
   ARCHIVED
 }
 
-model Campaign {
-  id        String         @id @default(cuid())
-  user      User           @relation(fields: [userId], references: [id])
-  userId    String         @map("user_id")
-  channels  Channel[]
-  status    CampaignStatus @default(DRAFT)
-  postImage String?
-  postText  String?
-}
-
 enum NotificationStatus {
   SENT
   ERROR
-}
-
-model Notification {
-  id              String             @id @default(cuid())
-  text            String
-  user            User               @relation(fields: [userTgId], references: [tgId])
-  userTgId        String             @map("user_tg_id")
-  status          NotificationStatus
-  sendingDateTime DateTime           @default(now())
-}
-
-model TgBotAuthToken {
-  token    String @unique
-  user     User   @relation(fields: [userTgId], references: [tgId])
-  userTgId String @map("user_tg_id")
-}
-
-model ChannelOnwer {
-  ownerId   String
-  channelId String
-
-  owner   User    @relation(fields: [ownerId], references: [id])
-  channel Channel @relation(fields: [channelId], references: [id])
-
-  @@id([ownerId, channelId])
 }
