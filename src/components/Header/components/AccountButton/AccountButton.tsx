@@ -37,7 +37,9 @@ export const AccountButton: FC<AccountButtonProps> = ({ isMobileMenuOpen }) => {
       ) : (
         <Button
           variant="primary"
-          className={`${styles.header__btn_reg} ${styles.header__btn_none}`}
+          rounded="rounded"
+          size="lg"
+          className={isMobileMenuOpen ? styles.header__btn_reg : `${styles.header__btn_reg} ${styles.header__btn_none}`}
           onClick={togglePopup}
         >
           Вход
