@@ -58,3 +58,14 @@
     display: none;
   }
 }
+
+.burger__language {
+  position: absolute;
+  left: 200px;
+  top: 50px;
+}
+@media (max-width: 767px) {
+  .burger__language {
+    top: 32px;
+  }
+}

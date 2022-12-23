@@ -1,0 +1,16 @@
+.header__wrapper_burger {
+  display: none;
+}
+
+.burger__button_close {
+  color: #EBEDF2;
+  position: absolute;
+  top: 51px;
+  right: 26px;
+}
+
+@media (max-width: 1100px) {
+  .header__wrapper_burger {
+    display: block;
+  }
+}
