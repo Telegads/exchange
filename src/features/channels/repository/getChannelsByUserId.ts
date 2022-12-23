@@ -4,7 +4,7 @@ import { CHANNEL_FIELDS } from '../constants';
 export const getChannelsByUserId = (userId: string) => {
   return prisma.channel.findMany({
     where: {
-      ownedChannels: {
+      ChannelOwner: {
         some: {
           ownerId: userId,
         },

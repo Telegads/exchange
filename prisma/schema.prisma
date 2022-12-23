@@ -33,6 +33,7 @@ model Channel {
   category               Category?      @relation(fields: [categoryId], references: [id])
   ownedChannels          ChannelOnwer[]
   formats                Format[]
+  ChannelOwner           ChannelOwner[]
 }
 
 model Category {
@@ -91,6 +92,7 @@ model User {
   Notification        Notification[]
   sessions            Session[]
   TgBotAuthToken      TgBotAuthToken[]
+  ChannelOwner        ChannelOwner[]
 }
 
 model UserGroup {
@@ -148,6 +150,15 @@ model TgBotAuthToken {
 }
 
 model ChannelOnwer {
+  ownerId   String
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id])
+  owner     User    @relation(fields: [ownerId], references: [id])
+
+  @@id([ownerId, channelId])
+}
+
+model ChannelOwner {
   ownerId   String
   channelId String
   channel   Channel @relation(fields: [channelId], references: [id])
