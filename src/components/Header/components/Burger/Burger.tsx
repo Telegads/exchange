@@ -6,25 +6,20 @@ import style from './burger.module.scss';
 
 type BurgerProps = {
   onClick: () => void;
-  isBurgerOpen: boolean;
+  isMobileMenuOpen: boolean;
 };
 
-export const Burger: FC<BurgerProps> = ({ isBurgerOpen, onClick }) => {
+export const Burger: FC<BurgerProps> = ({ isMobileMenuOpen, onClick }) => {
   return (
     <>
-      <BsXCircleFill
-        type="reset"
-        size={30}
-        className={isBurgerOpen ? style.burger__button_close : style.burger__button_close_none}
-        onClick={onClick}
-      />
-      <Button
-        variant="link"
-        className={isBurgerOpen ? style.header__wrapper_burger_none : style.header__wrapper_burger}
-        onClick={onClick}
-      >
-        <img src="/img/icons/burger.svg" alt="" />
-      </Button>
+      {' '}
+      {isMobileMenuOpen ? (
+        <BsXCircleFill type="reset" size={30} className={style.burger__button_close} onClick={onClick} />
+      ) : (
+        <Button variant="link" className={style.header__wrapper_burger} onClick={onClick}>
+          <img src="/img/icons/burger.svg" alt="" />
+        </Button>
+      )}
     </>
   );
 };

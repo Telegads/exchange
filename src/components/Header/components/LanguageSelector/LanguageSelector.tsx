@@ -4,10 +4,10 @@ import React, { FC, useCallback } from 'react';
 import styles from './languageSelector.module.scss';
 
 type LanguageSelectorProps = {
-  isBurgerOpen?: boolean;
+  isMobileMenuOpen?: boolean;
 };
 
-export const LanguageSelector: FC<LanguageSelectorProps> = ({ isBurgerOpen }) => {
+export const LanguageSelector: FC<LanguageSelectorProps> = ({ isMobileMenuOpen }) => {
   const router = useRouter();
 
   const changeToRu = useCallback(() => {
@@ -28,7 +28,7 @@ export const LanguageSelector: FC<LanguageSelectorProps> = ({ isBurgerOpen }) =>
   return (
     <div
       className={
-        isBurgerOpen
+        isMobileMenuOpen
           ? `${styles.header__language} ${styles.burger__language}`
           : `${styles.header__language} ${styles.header__language_none}`
       }

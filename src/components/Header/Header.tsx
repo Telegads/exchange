@@ -8,17 +8,17 @@ import styles from './header.module.scss';
 import { Burger } from './components/Burger/Burger';
 
 const Header: FC = () => {
-  const [isOpenBurger, setIsOpenBurger] = useState(false);
-  const toggleBurger = useCallback(() => setIsOpenBurger(!isOpenBurger), [isOpenBurger]);
+  const [isMobileMenuOpen, setIsOpenBurger] = useState(false);
+  const toggleBurger = useCallback(() => setIsOpenBurger(!isMobileMenuOpen), [isMobileMenuOpen]);
 
   return (
     <header className={styles.header}>
-      <div className={`${isOpenBurger ? styles.header__container_burger : styles.header__container}`}>
+      <div className={`${isMobileMenuOpen ? styles.header__container_burger : styles.header__container}`}>
         <Logo />
-        <LanguageSelector isBurgerOpen={isOpenBurger} />
-        <Menu isBurgerOpen={isOpenBurger} />
-        <AccountButton isBurgerOpen={isOpenBurger} />
-        <Burger onClick={toggleBurger} isBurgerOpen={isOpenBurger} />
+        <LanguageSelector isMobileMenuOpen={isMobileMenuOpen} />
+        <Menu isMobileMenuOpen={isMobileMenuOpen} />
+        <AccountButton isMobileMenuOpen={isMobileMenuOpen} />
+        <Burger onClick={toggleBurger} isMobileMenuOpen={isMobileMenuOpen} />
       </div>
     </header>
   );
