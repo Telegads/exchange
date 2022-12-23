@@ -102,7 +102,7 @@ model User {
 model UserGroup {
   id          Int            @id @default(autoincrement())
   name        String?
-  systemName  String         @unique @default("USERS")
+  systemName  String         @unique
   user        User[]      
 }
 
