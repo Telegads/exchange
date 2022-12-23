@@ -13,3 +13,7 @@ capacity:
   storage: 2Gi
 
 env: staging
+
+service:
+    nodePorts:
+      postgresql: 30001
