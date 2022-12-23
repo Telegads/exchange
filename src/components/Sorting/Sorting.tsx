@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { FC, useCallback, useMemo } from 'react';
 import { Stack } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
 import { Button } from '../Button/Button';
@@ -23,8 +24,8 @@ const SortButton: FC<SortButtonProps> = ({ action, name, sortDirection, sortType
       <div className={style.sorting_text}>{name} </div>
       {selectedSortType === sortType && (
         <img
-          width={20}
-          height={20}
+          width={15}
+          height={15}
           alt={`sort direction ${sortDirection}`}
           src={`/img/icons/sort_${sortDirection}.svg`}
         />
@@ -51,23 +52,22 @@ export const Sorting = () => {
     },
     [router, sortDirection],
   );
-
+  const { t } = useTranslation('common');
   const SORTING_OPTIONS = useMemo(
     (): SortOption[] => [
-      {
-        name: 'Просмотры',
-        action: () => handleSortButtonClick('views'),
-        sortType: 'views',
-      },
       {
         name: 'ER',
         action: () => handleSortButtonClick('er'),
         sortType: 'er',
       },
       {
-        name: 'Подписчики',
+        name: t('sorting.views'),
+        action: () => handleSortButtonClick('views'),
+        sortType: 'views',
+      },
+      {
+        name: t('sorting.subscribers'),
         action: () => handleSortButtonClick('subscribers'),
-
         sortType: 'subscribers',
       },
     ],
@@ -76,8 +76,8 @@ export const Sorting = () => {
 
   return (
     <div className={style.wrapper}>
-      <Stack direction="horizontal" gap={3}>
-        <div>Сортировка: </div>
+      <Stack direction="horizontal" gap={2} className={style.sorting}>
+        <div>{t('sorting.title')}: </div>
         {SORTING_OPTIONS.map(({ name, sortType, action }) => (
           <SortButton
             key={sortType}
