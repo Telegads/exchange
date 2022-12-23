@@ -13,3 +13,7 @@ capacity:
   storage: 2Gi
 
 env: production
+
+service:
+    nodePorts:
+      postgresql: 30002
