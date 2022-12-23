@@ -10,6 +10,9 @@ CREATE TABLE "UserGroup" (
     CONSTRAINT "UserGroup_pkey" PRIMARY KEY ("id")
 );
 
+INSERT INTO "UserGroup" ("id", "name", "systemName")
+VALUES (1, 'USERS', 'USERS');
+
 -- CreateIndex
 CREATE UNIQUE INDEX "UserGroup_systemName_key" ON "UserGroup"("systemName");
 
