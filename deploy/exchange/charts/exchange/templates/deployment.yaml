@@ -50,5 +50,8 @@ spec:
             - name: TG_BOT_API_URL
               value: {{ .Values.TG_BOT_API_URL }}
 
+            - name: TG_BOT_AUTH
+              value: {{ .Values.TG_BOT_AUTH }}
+
           ports:
             - containerPort: 3000

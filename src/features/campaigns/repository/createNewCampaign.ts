@@ -6,8 +6,6 @@ export type CreateNewCampaignArgs = {
 };
 
 export const createNewCampaign = ({ channels, userId }: CreateNewCampaignArgs) => {
-  console.log('createNewCampaign', userId);
-
   return prisma.$transaction([
     prisma.campaign.create({
       data: {
