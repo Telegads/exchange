@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 
 import { HTTP_STATUS } from '../../../constants';
+import { updateCampaign } from '../../../features/campaigns/repository/updateCampaign';
 import { handleApiError } from '../../../helpers/handleApiError';
-import { campaignRepository } from '../../../repositories/campaignRepository';
 import { options } from '../auth/[...nextauth]';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -25,7 +25,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     console.log(session.user.id);
 
-    const campaign = await campaignRepository.updateCampaign({
+    const campaign = await updateCampaign({
       id: req.body.id,
       status: req.body.status,
       postText: req.body.postText,

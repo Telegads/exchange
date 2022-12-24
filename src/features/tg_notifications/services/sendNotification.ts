@@ -11,7 +11,19 @@ type Notification = {
 
 export const sendNotification = async (notification: Notification) => {
   try {
-    await axios.post<any, any, Notification>(TG_BOT_API_URL, notification);
+    await axios.post<any, any>(
+      `https://${TG_BOT_API_URL}/sendMessage`,
+      {
+        message: notification.text,
+        tgId: notification.userTgId,
+      },
+      {
+        headers: {
+          Authorization: `secret: ${process.env.TG_BOT_AUTH}`,
+        },
+      },
+    );
+
     await saveNotification({ ...notification, status: 'SENT' });
     return { status: 'SENT' };
   } catch (error) {

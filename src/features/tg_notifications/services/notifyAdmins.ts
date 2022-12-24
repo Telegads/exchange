@@ -9,6 +9,8 @@ type NotifyAdminsArg = {
 export const notifyAdmins = async ({ text }: NotifyAdminsArg) => {
   const admins = await getAdminsTgIds();
 
+  console.log(admins);
+
   for await (const adminTgId of admins) {
     if (adminTgId) await sendNotification({ text, userTgId: adminTgId });
   }
