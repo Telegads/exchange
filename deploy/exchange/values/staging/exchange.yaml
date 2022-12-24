@@ -1,4 +1,4 @@
-host: staging.nikitin-petr.ru
+host: staging.telegads.uz
 
 replicas: 1
 
