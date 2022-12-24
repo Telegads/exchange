@@ -1,4 +1,4 @@
-host: prod.nikitin-petr.ru
+host: telegads.uz
 
 replicas: 1
 
