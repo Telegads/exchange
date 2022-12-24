@@ -6,6 +6,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 import prisma from '../../../core/prisma';
 import { authUserByToken } from '../../../features/users/services/authUserByToken';
+import { getUserById } from '../../../features/users/repository';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -41,6 +42,10 @@ export const options: NextAuthOptions = {
     session: async ({ session, token }) => {
       if (session?.user) {
         session.user.id = token.uid as string;
+        if (token.uid) {
+          const user = await getUserById(token.uid as string);
+          session.user.name = user?.name;
+        }
       }
       return session;
     },

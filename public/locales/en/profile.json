@@ -1,0 +1,21 @@
+{
+  "header": "Your info",
+  "exit": "Sing Out",
+  "view": {
+    "name": "Full Name",
+    "id": "Internal ID",
+    "tgId": "Telegram ID",
+    "email": "Email"
+  },
+  "form": {
+    "header": "Edit personal data",
+    "userName": "New full name",
+    "save": "Save"
+  },
+  "save": {
+    "status": {
+      "success": "Data is saved",
+      "error": "Error while saving data"
+    }
+  }
+}
