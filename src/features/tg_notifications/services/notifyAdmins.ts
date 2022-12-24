@@ -1,3 +1,5 @@
+import { getAdminsTgIds } from '../../users/services/getAdmins';
+
 import { sendNotification } from './sendNotification';
 
 type NotifyAdminsArg = {
@@ -5,9 +7,9 @@ type NotifyAdminsArg = {
 };
 
 export const notifyAdmins = async ({ text }: NotifyAdminsArg) => {
-  const admins = ['12'];
+  const admins = await getAdminsTgIds();
 
-  for await (const admin of admins) {
-    await sendNotification({ text, userTgId: admin });
+  for await (const adminTgId of admins) {
+    if (adminTgId) await sendNotification({ text, userTgId: adminTgId });
   }
 };

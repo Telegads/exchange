@@ -4,6 +4,7 @@ import { archiveChannel } from '../../features/channels/repository';
 import { backgroundTaskRepository } from '../../repositories/backgroundTaskRepository';
 import { getIdFromUrl } from '../../features/channels/services/helpers/getIdFromUrl';
 import { getNewChannelInfo } from '../../features/channels/services/getNewChannelInfo';
+import { notifyAdmins } from '../../features/tg_notifications/services/notifyAdmins';
 
 import { getChannelsForUpdate } from './getChannelsForUpdate';
 import { saveNewChannelInfo } from './saveNewChannelInfo';
@@ -36,7 +37,7 @@ export const getChannelsFromDbAndUpdate = async (numberOfChannels = DEFAULT_PAGE
         return await archiveChannel(channelId);
       }
       if (response.data === 'No accounts left') {
-        // TODO: notify admin
+        await notifyAdmins({ text: 'No sessions left in tg connector' });
         return await backgroundTaskRepository.stopTaskByName(TASK_NAME);
       }
     } catch (error) {
