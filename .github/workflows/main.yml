@@ -54,21 +54,6 @@ jobs:
           build-args: |
             SENTRY_AUTH_TOKEN_ARG=${{secrets.SENTRY_AUTH_TOKEN}}
 
-      - name: Build and push production image
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: peteranikitin/telegads-exchange-app-prod:latest
-          file: ./deploy/Dockerfile-app-deploy
-          build-args: |
-            DATABASE_URL_ARG=postgresql://telegads-prod:${{secrets.DB_PASS_PROD}}@db:5432/exchange?schema=public
-            NEXTAUTH_URL_ARG=https://telegads.uz/api/auth
-            NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
-            API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_PROD}}
-            NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
-            GOOGLE_AUTH_ID_ARG=${{secrets.GOOGLE_AUTH_ID_PROD}}
-            GOOGLE_AUTH_SECRET_ARG=${{secrets.GOOGLE_AUTH_SECRET_PROD}}
-
   deploy-k8:
     runs-on: ubuntu-latest
     needs: build
