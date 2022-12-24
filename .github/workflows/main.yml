@@ -86,6 +86,7 @@ jobs:
             API_AUTH_SECRET: ${{secrets.API_AUTH_SECRET_STAGE}}
             GOOGLE_AUTH_ID: ${{secrets.GOOGLE_AUTH_ID_STAGE}}
             GOOGLE_AUTH_SECRET: ${{secrets.GOOGLE_AUTH_SECRET_STAGE}}
+            TG_BOT_AUTH: ${{secrets.TG_BOT_AUTH_STAGE}}
             release_date_time_utc: ${{steps.current-time.outputs.formattedTime}}
           write-mode: append
 

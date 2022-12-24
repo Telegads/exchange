@@ -22,11 +22,11 @@ export const VerticalCart = () => {
     }
 
     axios
-      .post<any, any, CreateCampaingBody>('/api/campaign/create', {
+      .post<{ campaignId: string }, any, CreateCampaingBody>('/api/campaign/create', {
         channels: cartValue?.cartItems.map((channel) => ({ id: channel.id })),
       })
       .then(({ data }) => {
-        router.push(`/campaign/${data[0].id}`);
+        router.push(`/campaign/${data.campaignId}`);
       });
   }, [cartValue?.cartItems, router]);
 

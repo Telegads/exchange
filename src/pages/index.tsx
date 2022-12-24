@@ -7,15 +7,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import style from '../scss/index.module.scss';
 import { LayoutIndex } from '../components/Layout/LayoutIndex';
 import Footer from '../components/Footer/Footer';
-import { campaignRepository } from '../repositories/campaignRepository';
 import { countAllUsers } from '../features/users/repository';
 import { countAllChannels } from '../features/channels/repository';
+import { countAllCampaigns } from '../features/campaigns/repository/countAllCampaigns';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { _count: channelsCount } = await countAllChannels();
     const { _count: usersCount } = await countAllUsers();
-    const { _count: campaignsCount } = await campaignRepository.countAllCampaigns();
+    const { _count: campaignsCount } = await countAllCampaigns();
 
     return {
       props: {

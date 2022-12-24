@@ -6,9 +6,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Container, Table } from 'react-bootstrap';
 import Link from 'next/link';
 
-import { campaignRepository } from '../../repositories/campaignRepository';
 import { options } from '../api/auth/[...nextauth]';
 import Layout from '../../components/Layout/Layout';
+import { getAllCampaignsByUser } from '../../features/campaigns/repository/getAllCampaignsByUser';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -18,7 +18,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       throw new Error('No user provided');
     }
 
-    const campaigns = await campaignRepository.getAllCampaignsByUser(session.user.id);
+    const campaigns = await getAllCampaignsByUser(session.user.id);
 
     return {
       props: {

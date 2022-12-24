@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 
 import { HTTP_STATUS } from '../../../constants';
+import { addNewCampaign } from '../../../features/campaigns/service/addNewCampaign';
 import { handleApiError } from '../../../helpers/handleApiError';
-import { campaignRepository } from '../../../repositories/campaignRepository';
 import { options } from '../auth/[...nextauth]';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -25,12 +25,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     console.log(session.user.id);
 
-    const campaign = await campaignRepository.createNewCampaign({
+    const { campaignId, status } = await addNewCampaign({
       channels: req.body.channels,
       userId: session.user.id,
     });
 
-    res.json(campaign);
+    if (status === 'error') {
+      throw new Error('Cant create campaign');
+    }
+
+    res.json({ campaignId: campaignId });
   } catch (error) {
     handleApiError(res, error);
   }

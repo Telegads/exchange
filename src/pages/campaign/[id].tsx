@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-import { campaignRepository, UpdateCampaignArgs } from '../../repositories/campaignRepository';
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
 import { options } from '../api/auth/[...nextauth]';
 import { captureException } from '../../core/sentry';
@@ -17,6 +16,8 @@ import { Progress } from '../../components/Progress/Progress';
 import style from '../../scss/check.module.scss';
 import { Button } from '../../components/Button/Button';
 import { useUserNotification } from '../../hooks/useUserNotification';
+import { getCampaignById } from '../../features/campaigns/repository/getCampaignById';
+import { UpdateCampaignArgs } from '../../features/campaigns/repository/updateCampaign';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -32,7 +33,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       throw new Error('No campaign ID provided');
     }
 
-    const campaign = await campaignRepository.getCampaignById(campaignId);
+    const campaign = await getCampaignById(campaignId);
 
     if (!campaign) {
       throw new Error('Campaign not found');
