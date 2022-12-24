@@ -11,24 +11,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: prepear nodjs
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      
+
       - name: install deps
         run: npm ci
-        
+
       - name: run type check
         run: npm run check-types
-        
+
       - name: run scripts check
         run: npm run check-scripts
 
       - name: run tests
         run: npm run test
-
 
   build:
     runs-on: ubuntu-latest
@@ -55,21 +54,6 @@ jobs:
           build-args: |
             SENTRY_AUTH_TOKEN_ARG=${{secrets.SENTRY_AUTH_TOKEN}}
 
-      - name: Build and push staging image
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: peteranikitin/telegads-exchange-app-stage:latest
-          file: ./deploy/Dockerfile-app-deploy
-          build-args: |
-            DATABASE_URL_ARG=postgresql://telegads-staging:${{secrets.DB_PASS_STAGE}}@db:5432/exchange?schema=public
-            NEXTAUTH_URL_ARG=https://staging.telegads.uz/api/auth
-            NEXT_PUBLIC_NEXTAUTH_URL_ARG=123
-            NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
-            API_AUTH_SECRET_ARG=${{secrets.API_AUTH_SECRET_STAGE}}
-            GOOGLE_AUTH_ID_ARG=${{secrets.GOOGLE_AUTH_ID_STAGE}}
-            GOOGLE_AUTH_SECRET_ARG=${{secrets.GOOGLE_AUTH_SECRET_STAGE}}
-
       - name: Build and push production image
         uses: docker/build-push-action@v3
         with:
@@ -84,18 +68,6 @@ jobs:
             NEXTAUTH_SECRET_ARG=${{secrets.NEXTAUTH_SECRET_ARG}}
             GOOGLE_AUTH_ID_ARG=${{secrets.GOOGLE_AUTH_ID_PROD}}
             GOOGLE_AUTH_SECRET_ARG=${{secrets.GOOGLE_AUTH_SECRET_PROD}}
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: deploy staging
-        uses: appleboy/ssh-action@master
-        with:
-          host: telegads.uz
-          username: ci
-          password: ${{ secrets.SSH_CI_PASS }}
-          script: docker compose -f /telegads-stage/docker-compose.stage.yml pull && docker compose -f /telegads-stage/docker-compose.stage.yml up --force-recreate --build -d
 
   deploy-k8:
     runs-on: ubuntu-latest
