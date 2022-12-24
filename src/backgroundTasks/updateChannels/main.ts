@@ -2,10 +2,10 @@ import { DEFAULT_PAGE_SIZE_FOR_UPDATE } from '../../constants';
 import { captureException } from '../../core/sentry';
 import { archiveChannel } from '../../features/channels/repository';
 import { backgroundTaskRepository } from '../../repositories/backgroundTaskRepository';
+import { getIdFromUrl } from '../../features/channels/services/helpers/getIdFromUrl';
+import { getNewChannelInfo } from '../../features/channels/services/getNewChannelInfo';
 
 import { getChannelsForUpdate } from './getChannelsForUpdate';
-import { getIdFromUrl } from './getIdFromUrl';
-import { getNewChannelInfo } from './getNewChannelInfo';
 import { saveNewChannelInfo } from './saveNewChannelInfo';
 
 const TASK_NAME = 'updateChannels';
