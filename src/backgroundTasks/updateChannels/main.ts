@@ -30,11 +30,13 @@ export const getChannelsFromDbAndUpdate = async (numberOfChannels = DEFAULT_PAGE
       const { data: response } = await getNewChannelInfo(channelId);
 
       if (response.status === 'success') {
-        return await saveNewChannelInfo({ oldChannelInfo: channel, newChannelInfo: response.data });
+        await saveNewChannelInfo({ oldChannelInfo: channel, newChannelInfo: response.data });
+        continue;
       }
 
       if (response.data === 'Channel not found') {
-        return await archiveChannel(channelId);
+        await archiveChannel(channelId);
+        continue;
       }
       if (response.data === 'No accounts left') {
         await notifyAdmins({ text: 'No sessions left in tg connector' });

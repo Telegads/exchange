@@ -3,3 +3,5 @@ host: telegads.uz
 replicas: 1
 
 env: production
+
+TG_BOT_API_URL: tg-bot.telegads.uz

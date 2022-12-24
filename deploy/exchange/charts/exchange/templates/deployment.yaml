@@ -47,5 +47,8 @@ spec:
             - name: TG_CONNECTOR_URL
               value: https://tg-connector.nikitin-petr.ru
 
+            - name: TG_BOT_API_URL
+              value: {{ .Values.TG_BOT_API_URL }}
+
           ports:
             - containerPort: 3000
