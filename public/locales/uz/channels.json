@@ -1,0 +1,23 @@
+{
+  "add": {
+    "header": "Yangi kanal qo'shing",
+    "channelUrl": {
+      "label": "Kanal TG URL manzili",
+      "description": "THE kanalga havola. Misol: https://t.me/my_awesome_channel"
+    },
+    "channelCategory": {
+      "label": "Kanal toifasi"
+    },
+    "getChannelInfoButton": "Kanal ma'lumotlarini oling",
+    "saveChannel": "Kanalni saqlash",
+    "preview": "Kanal ma'lumotlarini oldindan ko'rish",
+    "save": {
+      "success": "Kanal saqlandi",
+      "error": "Kanalni saqlab bo'lmadi"
+    }
+  },
+  "list": {
+    "header": "Kanallar",
+    "addChannel": "Yangi kanal qo'shish"
+  }
+}

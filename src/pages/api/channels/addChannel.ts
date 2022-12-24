@@ -8,7 +8,7 @@ import { addChannel, AddChannelArg } from '../../../features/channels/repository
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { channel, categoryId } = req.body.channels as AddChannelArg;
+    const { channel, categoryId } = req.body as AddChannelArg;
     const session = await unstable_getServerSession(req, res, options);
 
     if (req.method?.toUpperCase() !== 'POST') {
