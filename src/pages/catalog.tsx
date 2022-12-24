@@ -15,7 +15,6 @@ import style from '../scss/catalog.module.scss';
 import { Button } from '../components/Button/Button';
 import { Counter } from '../components/Counter/Counter';
 import { getParameterFromQuery } from '../utils/getParameterFromQuery';
-import { categoryRepository } from '../repositories/categoryRepository';
 import { CartContextProvider } from '../components/Cart/context/CartContext';
 import { FloatingCart } from '../components/Cart/FloatingCart';
 import { useGetCartValue } from '../components/Cart/hooks/useGetCartValue';
@@ -28,6 +27,7 @@ import {
   getChannelsByFilterWithSort,
   getMaxAllowedFiltersValue,
 } from '../features/channels/repository';
+import { getAllCategories } from '../features/channels/repository/getCategories';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats?: Format[];
@@ -54,7 +54,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         type: sortType,
       },
     });
-    const categories = await categoryRepository.getAllCategories();
+    const categories = await getAllCategories();
 
     const { _count: channelsCount } = await countAllChannels();
 

@@ -12,3 +12,5 @@ node_modules/
 .sentryclirc
 tsconfig.tsbuildinfo
 coverage
+
+.vscode

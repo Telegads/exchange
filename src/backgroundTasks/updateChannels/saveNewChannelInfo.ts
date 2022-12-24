@@ -1,8 +1,8 @@
 import { Channel } from '@prisma/client';
 
 import { updateChannel } from '../../features/channels/repository';
-
-import { NewChannelInfo } from './getNewChannelInfo';
+import { NewChannelInfo } from '../../features/channels/services/getNewChannelInfo';
+import { mapNewChannelInfoToModel } from '../../features/channels/services/helpers/mapNewChannelInfoToModel';
 
 type SaveNewChannelInfoArg = {
   oldChannelInfo: Channel;
@@ -10,32 +10,13 @@ type SaveNewChannelInfoArg = {
 };
 
 export const saveNewChannelInfo = async ({ newChannelInfo, oldChannelInfo }: SaveNewChannelInfoArg) => {
-  const {
-    views_last_30_days: viewsLast30days,
-    posts_last_30_days: postsLast30days,
-    subs_count: subscribers,
-    avatar_path: avatar,
-    description,
-    name,
-  } = newChannelInfo;
+  const newChannelModel = mapNewChannelInfoToModel({ newChannelInfo });
 
   const { url } = oldChannelInfo;
 
-  const er =
-    viewsLast30days && postsLast30days && subscribers
-      ? Math.round((viewsLast30days / postsLast30days / subscribers) * 100)
-      : 0;
-
   return updateChannel({
-    name,
-    subscribers,
-    views: viewsLast30days,
+    ...newChannelModel,
     url,
-    description,
-    avatar,
-    er,
-    viewsLast30days,
-    postsLast30days,
     lastUpdateFromTelegram: new Date(Date.now()),
   });
 };

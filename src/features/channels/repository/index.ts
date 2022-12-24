@@ -6,3 +6,5 @@ export { getChannelsByFilterWithSort } from './getChannelsByFilterWithSort';
 export { getChannelsToUpdate } from './getChannelsToUpdate';
 export { getMaxAllowedFiltersValue } from './getMaxAllowedFiltersValue';
 export { updateChannel } from './updateChannel';
+export { addChannel } from './add';
+export type { AddChannelArg } from './add';

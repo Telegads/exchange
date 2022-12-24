@@ -1,4 +1,4 @@
-import { getIdFromUrl } from '../getIdFromUrl';
+import { getIdFromUrl } from '../../../features/channels/services/helpers/getIdFromUrl';
 
 describe('first', () => {
   it('should return id string', () => {
