@@ -1,0 +1,23 @@
+{
+  "add": {
+    "header": "Добавить новый канал",
+    "channelUrl": {
+      "label": "Ссылка наканал",
+      "description": "Ссылка на ваш канал. Например: https://t.me/my_awesome_channel"
+    },
+    "channelCategory": {
+      "label": "Категория канала"
+    },
+    "getChannelInfoButton": "Получить информацию о канале",
+    "saveChannel": "Сохранить канал",
+    "preview": "Предпросмотр данных о канале",
+    "save": {
+      "success": "Канал сохранен",
+      "error": "Не получилось сохранить канал"
+    }
+  },
+  "list": {
+    "header": "Список каналов",
+    "addChannel": "Добавить канал"
+  }
+}

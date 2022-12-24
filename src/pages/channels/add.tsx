@@ -3,7 +3,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import React, { useCallback, useState } from 'react';
 import { unstable_getServerSession } from 'next-auth';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row, Stack } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -18,6 +18,7 @@ import { getAllCategories } from '../../features/channels/repository/getCategori
 import { getNewChannelInfo } from '../../features/channels/services/getNewChannelInfo';
 import { mapNewChannelInfoToModel } from '../../features/channels/services/helpers/mapNewChannelInfoToModel';
 import { getIdFromUrl } from '../../features/channels/services/helpers/getIdFromUrl';
+import style from '../../scss/channels.module.scss';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -68,7 +69,7 @@ const AddChannelPage = ({ categories }: AddChannelPageProps) => {
 
   const { notify } = useUserNotification();
 
-  const { t } = useTranslation('campaign');
+  const { t } = useTranslation('channels');
 
   const selectedCategory = watch('category');
 
@@ -87,8 +88,9 @@ const AddChannelPage = ({ categories }: AddChannelPageProps) => {
         setChannelInfo({ ...newChannelModel, url: data.channelUrl, isArchived: false, isBlogger: false });
       } catch (error) {
         console.log(error);
-
-        notify('not ok', 'error');
+        if (error instanceof Error) {
+          notify(error.message, 'error');
+        }
       }
     },
     [notify],
@@ -100,50 +102,65 @@ const AddChannelPage = ({ categories }: AddChannelPageProps) => {
         throw new Error('No channel info');
       }
 
-      await axios.post<any, any, Partial<AddChannelArg>>('/api/channels/add', {
+      await axios.post<any, any, Partial<AddChannelArg>>('/api/channels/addChannel', {
         categoryId: selectedCategory,
         channel: channelInfo,
       });
+      notify(t('add.save.success'), 'success');
     } catch (error) {
-      notify('not ok', 'error');
+      notify(t('add.save.error'), 'error');
     }
-  }, [channelInfo, notify, selectedCategory]);
+  }, [channelInfo, notify, selectedCategory, t]);
 
   return (
     <Layout>
-      <Container>
-        <h1>{t('add.header')}</h1>
-
-        <Form onSubmit={handleSubmit(getChannelInfo)}>
+      <Container className={style.container}>
+        <Stack direction="vertical" gap={5}>
+          <h1>{t('add.header')}</h1>
+          <Form onSubmit={handleSubmit(getChannelInfo)}>
+            <Row>
+              <Col md={4}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>{t('add.channelUrl.label')}</Form.Label>
+                  <Form.Control type="text" {...register('channelUrl')} />
+                  <Form.Text className="text-muted">{t('add.channelUrl.description')}</Form.Text>
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Label>{t('add.channelCategory.label')}</Form.Label>
+                <Form.Select {...register('category')}>
+                  {categories?.map((category) => (
+                    <option value={category.id} key={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Col>
+              <Col md={4}>
+                <Button variant="primary" type="submit" className={style.get_channel_info_button}>
+                  {t('add.getChannelInfoButton')}
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+          {channelInfo && (
+            <>
+              <h2>{t('add.preview')}</h2>
+              <Row>
+                <ChannelRow
+                  {...channelInfo}
+                  category={categories?.find((category) => category.id === selectedCategory)?.name}
+                  id="tempId"
+                />
+              </Row>
+            </>
+          )}
           <Row>
-            <Col md={6}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>{t('add.channelUrl')}</Form.Label>
-                <Form.Control type="text" {...register('channelUrl')} />
-                <Form.Text className="text-muted">Ссылка на канал</Form.Text>
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Label>{t('add.channelCategory')}</Form.Label>
-              <Form.Select {...register('category')}>
-                {categories?.map((category) => (
-                  <option value={category.id} key={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </Form.Select>
-            </Col>
-            <Button variant="primary" type="submit">
-              {t('add.getChannelInfo')}
+            <Button variant="primary" onClick={saveChannel} disabled={!channelInfo}>
+              {t('add.saveChannel')}
             </Button>
           </Row>
-        </Form>
-        <Row>{channelInfo && <ChannelRow {...channelInfo} category={selectedCategory} id="tempId" />}</Row>
-        <Row>
-          <Button variant="primary" onClick={saveChannel}>
-            {t('add.saveChannel')}
-          </Button>
-        </Row>
+        </Stack>
       </Container>
     </Layout>
   );
