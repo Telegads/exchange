@@ -31,7 +31,6 @@ model Channel {
   Campaign               Campaign?      @relation(fields: [campaignId], references: [id])
   Cart                   Cart?          @relation(fields: [cartId], references: [id])
   category               Category?      @relation(fields: [categoryId], references: [id])
-  ownedChannels          ChannelOnwer[]
   formats                Format[]
   ChannelOwner           ChannelOwner[]
 }
@@ -88,7 +87,6 @@ model User {
   accounts            Account[]
   Campaign            Campaign[]
   Cart                Cart?
-  ChannelOnwer        ChannelOnwer[]
   Notification        Notification[]
   sessions            Session[]
   TgBotAuthToken      TgBotAuthToken[]
@@ -147,15 +145,6 @@ model TgBotAuthToken {
   token    String @unique
   userTgId String @map("user_tg_id")
   user     User   @relation(fields: [userTgId], references: [tgId])
-}
-
-model ChannelOnwer {
-  ownerId   String
-  channelId String
-  channel   Channel @relation(fields: [channelId], references: [id])
-  owner     User    @relation(fields: [ownerId], references: [id])
-
-  @@id([ownerId, channelId])
 }
 
 model ChannelOwner {
