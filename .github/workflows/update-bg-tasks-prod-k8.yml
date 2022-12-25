@@ -1,0 +1,33 @@
+name: Update bg tasks - production - k8
+
+on: workflow_dispatch
+
+jobs:
+  update-bg-tasks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup helmfile
+        uses: mamezou-tech/setup-helmfile@v1.2.0
+
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: set secrets
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: ./deploy/bg-tasks/values/production/main.yaml
+          contents: |
+            DATABASE_URL: postgresql://telegads-prod:${{secrets.DB_PASS_PROD}}@db-production-postgresql:5432/exchange?schema=public
+            TG_BOT_AUTH: ${{secrets.TG_BOT_AUTH_PROD}}
+            release_date_time_utc: ${{steps.current-time.outputs.formattedTime}}
+          write-mode: append
+
+      - name: sync staging
+        run: |
+          helmfile sync -f ./deploy/bg-tasks/helmfile.yaml --environment production

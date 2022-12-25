@@ -1,0 +1,5 @@
+replicas: 1
+
+env: staging
+
+TG_BOT_API_URL: tg-bot-staging.telegads.uz

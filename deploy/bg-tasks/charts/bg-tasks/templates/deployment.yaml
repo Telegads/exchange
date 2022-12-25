@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: bg-tasks-{{ .Values.env }}
+  labels:
+    app: bg-tasks-{{ .Values.env }}
+
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: bg-tasks-{{ .Values.env }}
+  template:
+    metadata:
+      labels:
+        app: bg-tasks-{{ .Values.env }}
+      annotations:
+        deploy-date: {{ .Values.release_date_time_utc }}
+    spec:
+      containers:
+        - name: telegads-bg-tasks
+          image: peteranikitin/telegads-bg-tasks:latest
+          env:
+            - name: DATABASE_URL
+              value: {{ .Values.DATABASE_URL }}
+            
+            - name: TG_CONNECTOR_URL
+              value: https://tg-connector.nikitin-petr.ru
+
+            - name: TG_BOT_API_URL
+              value: {{ .Values.TG_BOT_API_URL }}
+
+            - name: TG_BOT_AUTH
+              value: {{ .Values.TG_BOT_AUTH }}
+
+          ports:
+            - containerPort: 3000

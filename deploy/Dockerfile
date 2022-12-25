@@ -20,8 +20,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN_ARG
 ENV DATABASE_URL=$DATABASE_URL
-RUN apk update \
-  && apk add openssl1.1-compat
+RUN apk update && apk add openssl1.1-compat
 RUN npm run prisma-generate
 RUN npm run build
 
