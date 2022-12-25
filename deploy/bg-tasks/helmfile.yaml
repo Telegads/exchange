@@ -1,0 +1,16 @@
+environments:
+  staging:
+    values:
+      - env: "staging"
+      - rootPath: "../helmfile"
+  production:
+    values:
+      - env: "production"
+      - rootPath: "../helmfile"
+---
+releases:
+  - name: bg-tasks-{{ .Environment.Name }}
+    chart: charts/bg-tasks
+    version: 0.0.1
+    values:
+      - values/{{ .Environment.Name }}/main.yaml
