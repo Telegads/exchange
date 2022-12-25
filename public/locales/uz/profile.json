@@ -1,0 +1,21 @@
+{
+  "header": "Sizning ma'lumotlaringiz",
+  "exit": "Chiqish",
+  "view": {
+    "name": "To'liq ism",
+    "id": "Ichki ID",
+    "tgId": "Telegram ID",
+    "email": "Elektron pochta"
+  },
+  "form": {
+    "header": "Shaxsiy ma'lumotlarni tahrirlash",
+    "userName": "Yangi to'liq ism",
+    "save": "Saqlash"
+  },
+  "save": {
+    "status": {
+      "success": "Ma'lumotlar saqlanadi",
+      "error": "Ma'lumotlarni saqlashda xatolik yuz berdi"
+    }
+  }
+}

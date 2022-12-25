@@ -1,4 +1,4 @@
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import React, { FC, useCallback, useState } from 'react';
 
 import { Button } from '../../../Button/Button';
@@ -16,14 +16,13 @@ export const AccountButton: FC<AccountButtonProps> = ({ isMobileMenuOpen }) => {
 
   const togglePopup = useCallback(() => setIsOpenPopup(!isOpenPopup), [isOpenPopup]);
 
-  const handleSingOutClick = useCallback(() => signOut(), []);
   const { data: session } = useSession();
 
   return (
     <>
       {session ? (
         <Button
-          onClick={handleSingOutClick}
+          href="/profile"
           variant="primary"
           rounded="rounded"
           size="lg"
