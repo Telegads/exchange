@@ -46,7 +46,7 @@ export const AccountButton: FC<AccountButtonProps> = ({ isMobileMenuOpen }) => {
         </Button>
       )}
       <Popup open={isOpenPopup} handleClose={togglePopup}>
-        <SignIn handleClose={togglePopup} />
+        <SignIn onSuccessAuth={togglePopup} />
       </Popup>
     </>
   );

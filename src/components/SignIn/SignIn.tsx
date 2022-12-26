@@ -14,10 +14,10 @@ type TokenInputFormType = {
 };
 
 interface SignInProps {
-  handleClose: () => void;
+  onSuccessAuth: () => void;
 }
 
-export default function SignIn({ handleClose }: SignInProps) {
+export default function SignIn({ onSuccessAuth }: SignInProps) {
   const {
     register,
     handleSubmit,
@@ -36,7 +36,7 @@ export default function SignIn({ handleClose }: SignInProps) {
         }
 
         notify('auth ok', 'success');
-        handleClose();
+        onSuccessAuth();
       } catch (error) {
         notify('auth internal error. try again', 'error');
       }
