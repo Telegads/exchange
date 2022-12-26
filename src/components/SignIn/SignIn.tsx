@@ -3,7 +3,6 @@ import { Alert, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
 import { CgArrowRight } from 'react-icons/cg';
-import { FcGoogle } from 'react-icons/fc';
 
 import { Button } from '../Button/Button';
 import { useUserNotification } from '../../hooks/useUserNotification';
@@ -14,7 +13,11 @@ type TokenInputFormType = {
   token: string;
 };
 
-export default function SignIn() {
+interface SignInProps {
+  onSuccessAuth: () => void;
+}
+
+export default function SignIn({ onSuccessAuth }: SignInProps) {
   const {
     register,
     handleSubmit,
@@ -33,6 +36,7 @@ export default function SignIn() {
         }
 
         notify('auth ok', 'success');
+        onSuccessAuth();
       } catch (error) {
         notify('auth internal error. try again', 'error');
       }
@@ -63,11 +67,6 @@ export default function SignIn() {
           <CgArrowRight size={20} />
         </Button>
       </Form>
-      <br />
-      <Button variant="outline-primary" type="button" size="lg" className={style.signin__btn} href="/api/auth/signin">
-        <FcGoogle size={20} />
-        Авторизация
-      </Button>
     </>
   );
 }
