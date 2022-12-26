@@ -142,9 +142,10 @@ model Notification {
 }
 
 model TgBotAuthToken {
-  token    String @unique
-  userTgId String @map("user_tg_id")
-  user     User   @relation(fields: [userTgId], references: [tgId])
+  token                String    @unique
+  userTgId             String    @map("user_tg_id")
+  user                 User      @relation(fields: [userTgId], references: [tgId])
+  validTillDateTimeUTC DateTime?
 }
 
 model ChannelOwner {

@@ -8,6 +8,9 @@ export function getByTgAuthToken(token: string) {
       TgBotAuthToken: {
         some: {
           token,
+          validTillDateTimeUTC: {
+            lte: new Date(),
+          },
         },
       },
     },

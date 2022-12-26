@@ -2,5 +2,6 @@
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "file:///Users/petrnikitin/Documents/Telegads/exchange/.github/workflows/helmfile.yaml"
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "workbench.colorTheme": "Default Light+"
 }
