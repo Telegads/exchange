@@ -11,7 +11,7 @@ export const getTokenByTgId = ({ tgId }: GetTokenByTgId) => {
     where: {
       userTgId: tgId,
       validTillDateTimeUTC: {
-        lte: DateTime.utc().toJSDate(),
+        gte: DateTime.utc().toJSDate(),
       },
     },
   });

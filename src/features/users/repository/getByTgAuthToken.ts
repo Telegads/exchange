@@ -11,7 +11,7 @@ export function getByTgAuthToken(token: string) {
         some: {
           token,
           validTillDateTimeUTC: {
-            lte: DateTime.utc().toJSDate(),
+            gte: DateTime.utc().toJSDate(),
           },
         },
       },
