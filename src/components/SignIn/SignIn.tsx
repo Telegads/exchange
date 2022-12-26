@@ -29,7 +29,7 @@ export default function SignIn() {
         const response = await signIn('telegram-bot-token', { redirect: false, token: data.token });
 
         if (response?.error) {
-          return setError('token', { message: 'invalid token' });
+          return setError('token', { message: 'invalid token. try get token again' });
         }
 
         notify('auth ok', 'success');

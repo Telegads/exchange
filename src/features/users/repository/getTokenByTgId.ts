@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import prisma from '../../../core/prisma';
 
 type GetTokenByTgId = {
@@ -8,6 +10,9 @@ export const getTokenByTgId = ({ tgId }: GetTokenByTgId) => {
   return prisma.tgBotAuthToken.findMany({
     where: {
       userTgId: tgId,
+      validTillDateTimeUTC: {
+        lte: DateTime.utc().toJSDate(),
+      },
     },
   });
 };
