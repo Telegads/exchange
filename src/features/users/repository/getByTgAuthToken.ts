@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import prisma from '../../../core/prisma';
 
 export function getByTgAuthToken(token: string) {
@@ -9,7 +11,7 @@ export function getByTgAuthToken(token: string) {
         some: {
           token,
           validTillDateTimeUTC: {
-            lte: new Date(),
+            lte: DateTime.utc().toJSDate(),
           },
         },
       },

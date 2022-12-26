@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import prisma from '../../../core/prisma';
 
 type GetTokenByTgId = {
@@ -9,7 +11,7 @@ export const getTokenByTgId = ({ tgId }: GetTokenByTgId) => {
     where: {
       userTgId: tgId,
       validTillDateTimeUTC: {
-        lte: new Date(),
+        lte: DateTime.utc().toJSDate(),
       },
     },
   });
