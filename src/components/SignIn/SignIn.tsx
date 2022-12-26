@@ -36,6 +36,7 @@ export default function SignIn({ handleClose }: SignInProps) {
         }
 
         notify('auth ok', 'success');
+        handleClose();
       } catch (error) {
         notify('auth internal error. try again', 'error');
       }
@@ -50,7 +51,7 @@ export default function SignIn({ handleClose }: SignInProps) {
         Для авторизации напишите боту, он пришлет код, который надо вставить ниже
       </a>
       <br />
-      <Form onSubmit={handleSubmit(handleTokenSubmit, handleClose)}>
+      <Form onSubmit={handleSubmit(handleTokenSubmit)}>
         {errors.token && <Alert variant="danger">{errors.token.message}</Alert>}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Код от бота</Form.Label>
