@@ -3,7 +3,6 @@ import { Alert, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
 import { CgArrowRight } from 'react-icons/cg';
-import { FcGoogle } from 'react-icons/fc';
 
 import { Button } from '../Button/Button';
 import { useUserNotification } from '../../hooks/useUserNotification';
@@ -14,7 +13,11 @@ type TokenInputFormType = {
   token: string;
 };
 
-export default function SignIn() {
+interface SignInProps {
+  handleClose: () => void;
+}
+
+export default function SignIn({ handleClose }: SignInProps) {
   const {
     register,
     handleSubmit,
@@ -47,7 +50,7 @@ export default function SignIn() {
         Для авторизации напишите боту, он пришлет код, который надо вставить ниже
       </a>
       <br />
-      <Form onSubmit={handleSubmit(handleTokenSubmit)}>
+      <Form onSubmit={handleSubmit(handleTokenSubmit, handleClose)}>
         {errors.token && <Alert variant="danger">{errors.token.message}</Alert>}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Код от бота</Form.Label>
@@ -63,11 +66,6 @@ export default function SignIn() {
           <CgArrowRight size={20} />
         </Button>
       </Form>
-      <br />
-      <Button variant="outline-primary" type="button" size="lg" className={style.signin__btn} href="/api/auth/signin">
-        <FcGoogle size={20} />
-        Авторизация
-      </Button>
     </>
   );
 }
