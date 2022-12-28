@@ -7,6 +7,12 @@
   flex-wrap: wrap;
 }
 
+@media (max-width: 399px) {
+  .sorting__title {
+    display: none;
+  }
+}
+
 @media (max-width: 990px) {
   .content_channels {
     display: none;
@@ -28,6 +34,12 @@
 
 .sort_button:hover {
   border: 1px solid #7044cc;
+}
+
+@media (max-width: 760px) {
+  .sort_button {
+    padding: 5px 5px;
+  }
 }
 
 .sorting_text {

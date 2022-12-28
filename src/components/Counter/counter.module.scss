@@ -12,3 +12,13 @@
   line-height: 91.5%;
   color: #7044cc;
 }
+
+@media (max-width: 1330px) {
+  .content_channels_text {
+    display: none;
+  }
+
+  .content_channels_number {
+    display: none;
+  }
+}

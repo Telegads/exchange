@@ -1,11 +1,12 @@
 import { Category } from '@prisma/client';
 import { useRouter } from 'next/router';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import style from '../../scss/catalog.module.scss';
 import { getParameterFromQuery } from '../../utils/getParameterFromQuery';
+import { Button } from '../Button/Button';
 
+import style from './filter.module.scss';
 import { CategorySelect } from './components/CategorySelect/CategorySelect';
 import { Search } from './components/Search/Search';
 import { FilterRangeRange } from './components/FilterRangeRange/FilterRangeRange';
@@ -39,27 +40,40 @@ export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }
     });
   }, [router]);
 
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const toggleMobileFilter = useCallback(() => setIsMobileFilterOpen(!isMobileFilterOpen), [isMobileFilterOpen]);
+
   return (
-    <div className={style.wrapper_content}>
-      <div className={style.filter}>
-        <div className={style.filter__close}>
-          <img src="/img/icons/close.svg" alt="" />
+    <>
+      <Button variant="link" className={style.mob_filter} onClick={toggleMobileFilter}>
+        {t('filter.header')}
+        <img src="/img/icons/filter.svg" alt="" />
+      </Button>
+      <div className={isMobileFilterOpen ? style.wrapper_content : style.mob_filter_content}>
+        <div className={style.filter}>
+          <Button
+            variant="link"
+            className={isMobileFilterOpen ? style.filter__close_none : style.filter__close}
+            onClick={toggleMobileFilter}
+          >
+            <img src="/img/icons/close.svg" alt="" />
+          </Button>
+          <div className={style.filter__reset}>
+            <p>{t('filter.header')}</p>
+            <button type="reset" onClick={handleFilterClear}>
+              {t('filter.button')}
+            </button>
+          </div>
+          <Search />
+          <CategorySelect categories={categories} />
+          <FilterRangeRange
+            maxAllowedValue={maxSubscribers}
+            fieldName={t('filter.rangeSubscribers')}
+            parameterName="subscriptionsCount"
+          />
+          <FilterRangeRange maxAllowedValue={maxViews} fieldName={t('filter.rangeViews')} parameterName="views" />
         </div>
-        <div className={style.filter__reset}>
-          <p>{t('filter.header')}</p>
-          <button type="reset" onClick={handleFilterClear}>
-            {t('filter.button')}
-          </button>
-        </div>
-        <Search />
-        <CategorySelect categories={categories} />
-        <FilterRangeRange
-          maxAllowedValue={maxSubscribers}
-          fieldName={t('filter.rangeSubscribers')}
-          parameterName="subscriptionsCount"
-        />
-        <FilterRangeRange maxAllowedValue={maxViews} fieldName={t('filter.rangeViews')} parameterName="views" />
       </div>
-    </div>
+    </>
   );
 };
