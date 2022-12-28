@@ -8,15 +8,11 @@
       margin-right: 70px;
     }
   }
+
   @media (max-width: 1330px) {
     .wrapper_content {
       display: none;
     }
-  }
-  .wrapper_content.active {
-    display: flex;
-    flex-direction: column;
-    margin: 63px 30px 290px 30px;
   }
 
   .mob_filter {
@@ -31,11 +27,12 @@
       margin-top: 20px;
       font-weight: 500;
       padding: 0;
-  font-size: 17px;
-  color: #000;
-  text-decoration: none;
-  text-transform: none;
+      font-size: 17px;
+      color: #000;
+      text-decoration: none;
+      text-transform: none;
     }
+
     .mob_filter img {
       margin-left: 10px;
     }
@@ -43,7 +40,7 @@
 
   @media (max-width: 760px) {
     .mob_filter {
-    right: 20px;
+      right: 20px;
     }
   }
 
@@ -52,8 +49,10 @@
     position: absolute;
     background-color: #fff;
     height: 100%;
+    min-height: 2000px;
     border: 1px solid #DCDCDC;
     padding: 70px 30px 0;
+    z-index: 50;
   }
 
   .filter__close {
@@ -67,12 +66,6 @@
     display: none;
   }
 
-  .filter__close.active {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
   .filter {
     width: 262px;
   }
@@ -84,11 +77,13 @@
     padding-bottom: 38px;
     margin-bottom: 61px;
   }
+
   .filter__reset p {
     font-weight: 700;
     font-size: 28px;
     text-transform: uppercase;
   }
+
   .filter__reset button {
     font-size: 15px;
     text-decoration: underline;

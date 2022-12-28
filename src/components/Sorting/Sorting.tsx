@@ -77,7 +77,7 @@ export const Sorting = () => {
   return (
     <div className={style.wrapper}>
       <Stack direction="horizontal" gap={2} className={style.sorting}>
-        <div>{t('sorting.title')}: </div>
+        <div className={style.sorting__title}>{t('sorting.title')}: </div>
         {SORTING_OPTIONS.map(({ name, sortType, action }) => (
           <SortButton
             key={sortType}
