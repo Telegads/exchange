@@ -40,7 +40,7 @@ export const Filter: FC<FilterProps> = ({ categories, maxSubscribers, maxViews }
     });
   }, [router]);
 
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(true);
   const toggleMobileFilter = useCallback(() => setIsMobileFilterOpen(!isMobileFilterOpen), [isMobileFilterOpen]);
 
   return (
