@@ -29,12 +29,12 @@ export const FloatingCart: FC = () => {
   return (
     <Portal>
       <div className={style.content__basket}>
-        <Container>
+        <Container className={style.basket__container}>
           <Row>
-            <Col>
-              <Stack direction="horizontal" gap={5}>
+            <Col className={style.basket__counters_wrapper}>
+              <Stack direction="horizontal" gap={5} className={style.basket__counters}>
                 <div className={style.stats}>
-                  <p className={style.basket__subtitle}>Выбрано каналов:</p>
+                  <p className={style.basket__subtitle}>Выбрано:</p>
                   <p className={style.basket__number}>{channelsCount}</p>
                 </div>
 
@@ -48,8 +48,8 @@ export const FloatingCart: FC = () => {
                 </div>
               </Stack>
             </Col>
-            <Col xs lg="6">
-              <Stack direction="horizontal" gap={3}>
+            <Col xs lg="5" className={style.basket__buttons_wrapper}>
+              <Stack direction="horizontal" gap={3} className={style.basket__buttons}>
                 <Button href="/campaign/check" variant="primary">
                   Оформить кампанию
                 </Button>
