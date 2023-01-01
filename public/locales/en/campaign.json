@@ -4,13 +4,25 @@
     "header": "Check your channel selection",
     "addChannelsButton": "Add channels"
   },
+  "status": {
+    "DRAFT": "Draft"
+  },
   "edit": {
+    "step": "2 / 3 Master post",
     "header": "Edit post content",
-
-    "postImage": "Image",
+    "subtitle": "Create a single post for all channels",
+    "postImage": "Image of post",
+    "postImagePlaceholder": "Image format png, jpg, GIF, no more than 1280x1080px",
     "postText": "Text of post",
-    
+    "postTextPlaceholder": "the maximum characters in a post with a picture is 1000, without media files - 3500",
     "saveDraft": "Save as draft",
-    "saveForModeration": "Save and send to moderation"
+    "saveForModeration": "Save and send to moderation",
+    "requiredField": "This field is required",
+    "sidebar": {
+      "title": "Preview",
+      "total": "Total",
+      "runProject": "Start project",
+      "emptyImage": "There will be preview. Start filling post test or image< to see preview"
+    }
   }
 }

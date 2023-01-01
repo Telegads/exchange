@@ -4,13 +4,25 @@
     "header": "Check your channel selection",
     "addChannelsButton": "Add channels"
   },
+  "status": {
+    "DRAFT": "loyiha"
+  },
   "edit": {
+    "step": "2 / 3 Master post",
     "header": "Kampaniya matni",
-
-    "postImage": "Rasm",
+    "subtitle": "Barcha kanallar uchun bitta post yarating",
+    "postImage": "Xabarning tasviri",
+    "postImagePlaceholder": "Rasm formati png, jpg, GIF, ko'pi bilan 1280x1080px",
     "postText": "Xat matni",
-
+    "postTextPlaceholder": "rasmli postdagi maksimal belgilar - 1000, ommaviy axborot vositalarisiz-3500",
     "saveDraft": "Qoralama sifatida saqlash",
-    "saveForModeration": "Saqlash va moderatsiyaga yuborish"
+    "saveForModeration": "Saqlash va moderatsiyaga yuborish",
+    "requiredField": "Bu maydon talab qilinadi",
+    "sidebar": {
+      "title": "Ko'rib chiqish",
+      "emptyImage": "Bu erda postning oldindan ko'rishi. Uni ko'rish uchun matn yoki rasmni to'ldirishni boshlang",
+      "total": "Jami",
+      "runProject": "loyihani boshlash"
+    }
   }
 }

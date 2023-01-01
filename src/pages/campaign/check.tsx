@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import React, { useMemo } from 'react';
-import { Col, Row, Stack } from 'react-bootstrap';
+import { Col, Container, Row, Stack } from 'react-bootstrap';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'react-i18next';
 
@@ -14,6 +14,7 @@ import Layout from '../../components/Layout/Layout';
 import { Progress } from '../../components/Progress/Progress';
 import { options } from '../api/auth/[...nextauth]';
 import style from '../../scss/check.module.scss';
+import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await unstable_getServerSession(context.req, context.res, options);
@@ -54,41 +55,48 @@ const Check = () => {
   return (
     <Layout>
       <CartContextProvider value={cartContextValue}>
-        <div>
-          <Progress position={33} />
-          <Row className={style.row}>
-            <Col md={9} className={style.cartItems}>
-              <p className={style.steps}>{t('check.step')}</p>
-              <div className={style.headWrapper}>
-                <div className={style.titleEditContainer}>
-                  <h1 className={style.title}>{t('check.header')}</h1>
-                  <button className={style.editButton}>
-                    <img className={style.editIcon} src="/img/icons/edit.svg" alt="edit" />
-                  </button>
-                </div>
-                <div className={style.draft}>Черновик</div>
-                <Button className={style.addChannelButton} href="/catalog" variant="outline-primary">
-                  {t('check.addChannelsButton')}
-                  <img src="/img/icons/plus.svg" alt="add channel" />
-                </Button>
+        <Progress position={33} />
+        <Container fluid>
+          <Row>
+            <Col md={9}>
+              <div className={style.mainColumn}>
+                <ScreenHeader
+                  preHeader={t('check.step') || undefined}
+                  action={
+                    <Button className={style.addChannelButton} href="/catalog" variant="outline-primary">
+                      {t('check.addChannelsButton')}
+                      <img src="/img/icons/plus.svg" alt="add channel" />
+                    </Button>
+                  }
+                >
+                  <Stack direction="horizontal" gap={3}>
+                    <Stack direction="horizontal" gap={2}>
+                      <h1 className={style.title}>{t('check.header')}</h1>
+                      <button className={style.editButton}>
+                        <img className={style.editIcon} src="/img/icons/edit.svg" alt="edit" />
+                      </button>
+                    </Stack>
+                  </Stack>
+                </ScreenHeader>
+                <Stack gap={3}>
+                  <div className={style.cartItems}>
+                    {cartValue?.cartItems.map((cartItem) => (
+                      <ChannelRow
+                        id={cartItem.id}
+                        name={cartItem.name}
+                        avatar={cartItem.avatar}
+                        category={cartItem.category?.name}
+                        description={cartItem.description}
+                        er={cartItem.er}
+                        subscribers={cartItem.subscribers}
+                        malePercent={cartItem.malePercent}
+                        views={cartItem.views}
+                        key={cartItem.id}
+                      />
+                    ))}
+                  </div>
+                </Stack>
               </div>
-
-              <Stack gap={3}>
-                {cartValue?.cartItems.map((cartItem) => (
-                  <ChannelRow
-                    id={cartItem.id}
-                    name={cartItem.name}
-                    avatar={cartItem.avatar}
-                    category={cartItem.category?.name}
-                    description={cartItem.description}
-                    er={cartItem.er}
-                    subscribers={cartItem.subscribers}
-                    malePercent={cartItem.malePercent}
-                    views={cartItem.views}
-                    key={cartItem.id}
-                  />
-                ))}
-              </Stack>
             </Col>
             <Col className={style.cartColumn}>
               <div className={style.stickyCart}>
@@ -96,7 +104,7 @@ const Check = () => {
               </div>
             </Col>
           </Row>
-        </div>
+        </Container>
       </CartContextProvider>
     </Layout>
   );

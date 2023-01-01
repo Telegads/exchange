@@ -5,7 +5,20 @@
   margin-top: 36px;
 }
 
-.wrapper {
-  display: flex;
+.pageWrapper {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-grow: 3;
+}
+
+.childrenWrapper {
+  flex-grow: 3;
+  min-height: 100%;
 }

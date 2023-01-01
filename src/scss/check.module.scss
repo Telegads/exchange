@@ -2,22 +2,14 @@
   padding: 0 20px;
 }
 
-.cart {
-  &Items {
-    padding: 30px 20px;
-  }
-
-  &Column {
-    position: relative;
-    border-left: 1px solid #dcdcdc;
-    padding: 45px 45px 45px 45px;
-  }
+.mainColumn {
+  padding: 0 30px;
 }
 
-.steps {
-  font-size: 15px;
-  color: #7044cc;
-  font-weight: 500;
+.cartColumn {
+  position: relative;
+  border-left: 1px solid #dcdcdc;
+  padding: 45px 45px 45px 45px;
 }
 
 .headWrapper {
@@ -26,9 +18,22 @@
   margin-bottom: 25px;
 }
 
-.title {
-  color: #000;
-  margin-bottom: 0;
+.emptyPreviewDescriptionLine {
+  height: 20px;
+  background-color: #dcdcdc;
+  border-radius: 3px;
+}
+
+.emptyPreviewImage {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+  background-color: #d9d9d9;
+  border-radius: 3px;
+  padding: 15px;
+  text-align: center;
 }
 
 .edit {
@@ -40,9 +45,75 @@
     width: 24px;
     height: 24px;
   }
+
+  &Subtitle {
+    color: #7e7e7e;
+    margin-bottom: 30px;
+    font-size: 15px;
+  }
+
+  &FormSection {
+    padding: 50px;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+  }
+
+  &Group {
+    &:not(:last-child) {
+      padding-bottom: 32px;
+      border-bottom: 1px solid #dcdcdc;
+      margin-bottom: 32px;
+    }
+
+    &Title {
+      font-size: 20px;
+      color: #000;
+      font-weight: 500;
+      margin-bottom: 25px;
+    }
+  }
+
+  &Sidebar {
+    &Title {
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: left;
+      color: #000;
+    }
+
+    &Total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 0;
+      border-top: 1px solid #dcdcdc;
+      font-size: 25px;
+      font-weight: 500;
+
+      &Name {
+        color: #000;
+        margin-right: 20px;
+      }
+
+      &Value {
+        color: #7044cc;
+        text-align: right;
+      }
+    }
+
+    &SaveFor {
+      &Moderation,
+      &Draft {
+        width: 100%;
+        border-radius: 0;
+        min-height: 65px;
+      }
+    }
+  }
 }
 
-.draft {
+.status {
   color: #9b9b9b;
   padding: 10px 25px;
   border-radius: 50px;
