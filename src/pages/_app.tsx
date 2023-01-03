@@ -1,13 +1,21 @@
 import { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import '../scss/main.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { appWithTranslation } from 'next-i18next';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Head from 'next/head';
+import TagManager from 'react-gtm-module';
+
+const tagManagerArgs = {
+  gtmId: 'GTM-52F9G83',
+};
 
 const App = ({ Component, pageProps }: AppProps) => {
+  useEffect(() => {
+    TagManager.initialize(tagManagerArgs);
+  });
   return (
     <SessionProvider session={pageProps.session}>
       <Head>
