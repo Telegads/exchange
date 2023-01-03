@@ -15,7 +15,7 @@ const tagManagerArgs = {
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     TagManager.initialize(tagManagerArgs);
-  });
+  }, []);
   return (
     <SessionProvider session={pageProps.session}>
       <Head>
