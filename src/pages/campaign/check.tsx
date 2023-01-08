@@ -62,7 +62,7 @@ const Check = () => {
               <div className={style.mainColumn}>
                 <ScreenHeader
                   preHeader={t('check.step') || undefined}
-                  action={
+                  rightSection={
                     <Button className={style.addChannelButton} href="/catalog" variant="outline-primary">
                       {t('check.addChannelsButton')}
                       <img src="/img/icons/plus.svg" alt="add channel" />
