@@ -7,7 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Head from 'next/head';
 
+import { Gtm } from '../components/Gtm/Gtm';
+
 const App = ({ Component, pageProps }: AppProps) => {
+  Gtm();
   return (
     <SessionProvider session={pageProps.session}>
       <Head>
