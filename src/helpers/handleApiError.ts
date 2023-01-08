@@ -7,14 +7,20 @@ import { captureException } from '../core/sentry';
 
 export const handleApiError = (res: NextApiResponse, error: any) => {
   captureException(error);
-  console.log(error);
+
   res.status(HTTP_STATUS.INTERNAL_ERROR);
+
+  let message = 'Internal error';
 
   if (error instanceof PrismaClientKnownRequestError) {
     if (error.code === PRISMA_ERROR_CODES.RECORD_NOT_FOUND.code) {
-      res.send(PRISMA_ERROR_CODES.RECORD_NOT_FOUND.message);
-      return;
+      message = PRISMA_ERROR_CODES.RECORD_NOT_FOUND.message;
     }
   }
-  res.send('Internal error');
+
+  if (error instanceof Error) {
+    message = error.message;
+  }
+
+  res.json({ status: 'error', message });
 };

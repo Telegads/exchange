@@ -6,6 +6,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useTranslation } from 'react-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
+import { Col, Container, Row } from 'react-bootstrap';
 
 import { ChannelRow } from '../components/ChannelRow/ChannelRow';
 import { Sorting } from '../components/Sorting/Sorting';
@@ -28,6 +29,7 @@ import {
   getMaxAllowedFiltersValue,
 } from '../features/channels/repository';
 import { getAllCategories } from '../features/channels/repository/getCategories';
+import { ScreenHeader } from '../components/ScreenHeader/ScreenHeader';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats?: Format[];
@@ -143,51 +145,56 @@ const Catalog = ({ ssr }: CatalogProps) => {
         <title>{t('catalog.title')} - Telegads</title>
       </Head>
       <Layout>
-        <Filter
-          categories={ssr.categories}
-          maxSubscribers={ssr.filterAllowedMax?.subscribers || 0}
-          maxViews={ssr.filterAllowedMax?.views || 0}
-        />
-        <div className={style.line_filter}></div>
-        <div className={style.content}>
-          <div className={style.content__display_no}>
-            <div className={style.content__wrapper}>
-              <div className={style.content__header}>
-                <h1>{t('catalog.header')}</h1>
-                <Counter ssrCount={ssr.channelsCount} />
+        <Container fluid>
+          <Row>
+            <Col md={3}>
+              <Filter
+                categories={ssr.categories}
+                maxSubscribers={ssr.filterAllowedMax?.subscribers || 0}
+                maxViews={ssr.filterAllowedMax?.views || 0}
+              />
+            </Col>
+            <Col>
+              {' '}
+              <div className={style.content}>
+                <div className={style.content__display_no}>
+                  <ScreenHeader subHeader={<Sorting />} rightSection={<Counter ssrCount={ssr.channelsCount} />}>
+                    <h1>{t('catalog.header')}</h1>
+                  </ScreenHeader>
+                  <div className={style.catalog_rows}>
+                    {isLoading ? (
+                      <Loading />
+                    ) : (
+                      channels.map((channel) => (
+                        <ChannelRow
+                          id={channel.id}
+                          name={channel.name}
+                          avatar={channel.avatar}
+                          category={channel.category?.name}
+                          description={channel.description}
+                          er={channel.er}
+                          malePercent={channel.malePercent}
+                          subscribers={channel.subscribers}
+                          views={channel.views}
+                          key={channel.id}
+                          url={channel.url}
+                        />
+                      ))
+                    )}
+                  </div>
+                  {!isReachingEnd && !isLoading && (
+                    <div className={style.loadMore}>
+                      <Button onClick={loadMore} variant="primary">
+                        {t('catalog.loadmore')}
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
-              <Sorting />
-            </div>
-            <div className={style.catalog_rows}>
-              {isLoading ? (
-                <Loading />
-              ) : (
-                channels.map((channel) => (
-                  <ChannelRow
-                    id={channel.id}
-                    name={channel.name}
-                    avatar={channel.avatar}
-                    category={channel.category?.name}
-                    description={channel.description}
-                    er={channel.er}
-                    malePercent={channel.malePercent}
-                    subscribers={channel.subscribers}
-                    views={channel.views}
-                    key={channel.id}
-                    url={channel.url}
-                  />
-                ))
-              )}
-            </div>
-            {!isReachingEnd && !isLoading && (
-              <div className={style.loadMore}>
-                <Button onClick={loadMore} variant="primary">
-                  {t('catalog.loadmore')}
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
+
         <FloatingCart />
       </Layout>
     </CartContextProvider>

@@ -9,3 +9,8 @@ export const PRISMA_ERROR_CODES: Record<string, PrismaErrorCodeType> = {
     message: 'Not found',
   },
 };
+
+export const USER_GROUP_SYSTEM_NAMES = {
+  admins: 'ADMINS',
+  users: 'USERS',
+};

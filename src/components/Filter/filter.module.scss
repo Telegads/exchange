@@ -1,12 +1,6 @@
   .wrapper_content {
     max-width: 1272px;
-    margin: 110px 200px 290px 48px;
-  }
-
-  @media (max-width: 1552px) {
-    .wrapper_content {
-      margin-right: 70px;
-    }
+    padding: 70px 35px 35px 35px;
   }
 
   @media (max-width: 1330px) {
@@ -67,7 +61,7 @@
   }
 
   .filter {
-    width: 262px;
+    // width: 262px;
   }
 
   .filter__reset {

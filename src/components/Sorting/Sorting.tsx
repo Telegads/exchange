@@ -75,20 +75,18 @@ export const Sorting = () => {
   );
 
   return (
-    <div className={style.wrapper}>
-      <Stack direction="horizontal" gap={2} className={style.sorting}>
-        <div className={style.sorting__title}>{t('sorting.title')}: </div>
-        {SORTING_OPTIONS.map(({ name, sortType, action }) => (
-          <SortButton
-            key={sortType}
-            action={action}
-            name={name}
-            sortDirection={sortDirection}
-            sortType={sortType}
-            selectedSortType={selectedSortType}
-          />
-        ))}
-      </Stack>
-    </div>
+    <Stack direction="horizontal" gap={2} className={style.sorting}>
+      <div className={style.sorting__title}>{t('sorting.title')}: </div>
+      {SORTING_OPTIONS.map(({ name, sortType, action }) => (
+        <SortButton
+          key={sortType}
+          action={action}
+          name={name}
+          sortDirection={sortDirection}
+          sortType={sortType}
+          selectedSortType={selectedSortType}
+        />
+      ))}
+    </Stack>
   );
 };
