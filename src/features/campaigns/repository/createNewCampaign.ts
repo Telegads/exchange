@@ -9,8 +9,10 @@ export const createNewCampaign = ({ channels, userId }: CreateNewCampaignArgs) =
   return prisma.$transaction([
     prisma.campaign.create({
       data: {
-        channels: {
-          connect: channels,
+        ChannelsInCampaign: {
+          create: channels.map((channel) => ({
+            channelId: channel.id,
+          })),
         },
         userId: userId,
       },
