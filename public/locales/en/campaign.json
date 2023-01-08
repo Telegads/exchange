@@ -24,5 +24,20 @@
       "runProject": "Start project",
       "emptyImage": "There will be preview. Start filling post test or image< to see preview"
     }
-  }
+  },
+  "list": {
+    "header": "My campaigns",
+    "item": {
+      "channelTableHeader": {
+        "name": "Channel name",
+        "category": "Category",
+        "subscribers": "Subscribers count"
+      },
+      "showChannels": "Show channels",
+      "report": "Report",
+      "edit": "Edit",
+      "remove": "Remove campaign"
+    }
+  },
+  "noName": "Campaign without name"
 }

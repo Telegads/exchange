@@ -8,11 +8,11 @@ datasource db {
 }
 
 model Channel {
-  id                     String         @id @default(cuid())
+  id                     String               @id @default(cuid())
   name                   String
   description            String?
   avatar                 String?
-  url                    String         @unique
+  url                    String               @unique
   isArchived             Boolean
   isBlogger              Boolean
   subscribers            Int?
@@ -22,17 +22,18 @@ model Channel {
   cpv                    Int?
   postPrice              Float?
   categoryId             String?
-  lastUpdateDateTime     DateTime       @default(now()) @updatedAt
+  lastUpdateDateTime     DateTime             @default(now()) @updatedAt
   cartId                 String?
   lastUpdateFromTelegram DateTime?
   postsLast30days        Int?
   viewsLast30days        Int?
   campaignId             String?
-  Campaign               Campaign?      @relation(fields: [campaignId], references: [id])
-  Cart                   Cart?          @relation(fields: [cartId], references: [id])
-  category               Category?      @relation(fields: [categoryId], references: [id])
+  Campaign               Campaign?            @relation(fields: [campaignId], references: [id])
+  Cart                   Cart?                @relation(fields: [cartId], references: [id])
+  category               Category?            @relation(fields: [categoryId], references: [id])
   formats                Format[]
   ChannelOwner           ChannelOwner[]
+  ChannelsInCampaign     ChannelsInCampaign[]
 }
 
 model Category {
@@ -123,13 +124,16 @@ model Cart {
 }
 
 model Campaign {
-  id        String         @id @default(cuid())
-  userId    String         @map("user_id")
-  status    CampaignStatus @default(DRAFT)
-  postImage String?
-  postText  String?
-  user      User           @relation(fields: [userId], references: [id])
-  channels  Channel[]
+  id                 String               @id @default(cuid())
+  userId             String               @map("user_id")
+  status             CampaignStatus       @default(DRAFT)
+  postImage          String?
+  postText           String?
+  user               User                 @relation(fields: [userId], references: [id])
+  channels           Channel[]
+  creationDateTime   DateTime?            @default(now())
+  ChannelsInCampaign ChannelsInCampaign[]
+  name               String?
 }
 
 model Notification {
@@ -175,4 +179,23 @@ enum CampaignStatus {
 enum NotificationStatus {
   SENT
   ERROR
+}
+
+enum CampaignChannelStatus {
+  WAITING
+  ACCEPTED
+  DECLINE
+  DONE
+}
+
+model ChannelsInCampaign {
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id])
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id])
+
+  status CampaignChannelStatus @default(WAITING)
+
+  @@unique([campaignId, channelId])
 }

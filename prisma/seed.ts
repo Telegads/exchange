@@ -3,6 +3,7 @@ import path from 'path';
 import csv from 'csvtojson';
 
 import prisma from '../src/core/prisma';
+import { USER_GROUP_SYSTEM_NAMES } from '../src/core/constants';
 
 const getNumberOrUndefined = (value: string | undefined | null) => {
   try {
@@ -60,6 +61,43 @@ async function main() {
   }
 
   console.log(`Update ${categories.length} categories and ${channels.length} channels`);
+
+  await prisma.userGroup.upsert({
+    where: {
+      systemName: USER_GROUP_SYSTEM_NAMES.users,
+    },
+    create: {
+      systemName: USER_GROUP_SYSTEM_NAMES.users,
+      name: 'Users',
+    },
+    update: {},
+  });
+  await prisma.userGroup.upsert({
+    where: {
+      systemName: USER_GROUP_SYSTEM_NAMES.admins,
+    },
+    create: {
+      systemName: USER_GROUP_SYSTEM_NAMES.admins,
+      name: 'Admins',
+    },
+    update: {},
+  });
+
+  await prisma.user.upsert({
+    where: { id: 'basicUser' },
+    create: {
+      id: 'basicUser',
+      name: 'Basic User',
+      tgId: 'basicUser',
+      TgBotAuthToken: {
+        create: {
+          token: 'testToken',
+          validTillDateTimeUTC: new Date(Date.parse('2028')),
+        },
+      },
+    },
+    update: {},
+  });
 }
 
 main()

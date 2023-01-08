@@ -24,5 +24,20 @@
       "total": "Jami",
       "runProject": "loyihani boshlash"
     }
-  }
+  },
+  "list": {
+    "header": "Mening kampaniyalarim",
+    "item": {
+      "channelTableHeader": {
+        "name": "Kanal nomi",
+        "category": "Kategoriya",
+        "subscribers": "Obunachilar soni"
+      },
+      "showChannels": "Kanallarni ko'rsatish",
+      "report": "Hisobot",
+      "edit": "Edit",
+      "remove": "Kampaniyani olib tashlash"
+    }
+  },
+  "noName": "Nomsiz kampaniya"
 }

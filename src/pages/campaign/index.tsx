@@ -1,14 +1,17 @@
 import { captureException } from '@sentry/nextjs';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { unstable_getServerSession } from 'next-auth';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Container, Table } from 'react-bootstrap';
-import Link from 'next/link';
+import { Container } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { options } from '../api/auth/[...nextauth]';
 import Layout from '../../components/Layout/Layout';
 import { getAllCampaignsByUser } from '../../features/campaigns/repository/getAllCampaignsByUser';
+import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
+import { CampaignList } from '../../features/campaigns/components/screens/list';
+import { mapCampaignToView } from '../../features/campaigns/helpers/mapCampaignToView';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -24,7 +27,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       props: {
         ...(await serverSideTranslations(context.locale ?? 'en', ['campaign', 'common'])),
         status: 'found',
-        campaigns,
+        campaigns: campaigns.map((campaign) => ({
+          ...campaign,
+        })),
       } as const,
     };
   } catch (error) {
@@ -38,35 +43,23 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 
-type CampaignListProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+type CampaignListPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const CampaignList = ({ campaigns }: CampaignListProps) => {
-  console.log(campaigns);
+const CampaignListPage = ({ campaigns }: CampaignListPageProps) => {
+  const { t } = useTranslation('campaign');
+  const campaignsArray = useMemo(() => (campaigns ? mapCampaignToView(campaigns) : []), [campaigns]);
+  console.log(campaignsArray);
 
   return (
     <Layout>
       <Container>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Campaign ID</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {campaigns?.map((campaign) => (
-              <tr key={campaign.id}>
-                <td>
-                  <Link href={`/campaign/${campaign.id}`}>{campaign.id}</Link>
-                </td>
-                <td>{campaign.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <ScreenHeader>
+          <h1>{t('list.header')}</h1>
+        </ScreenHeader>
+        {campaignsArray && <CampaignList list={campaignsArray} />}
       </Container>
     </Layout>
   );
 };
 
-export default CampaignList;
+export default CampaignListPage;
