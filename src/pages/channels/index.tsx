@@ -13,6 +13,7 @@ import { ChannelRow } from '../../components/ChannelRow/ChannelRow';
 import { Button } from '../../components/Button/Button';
 import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
+import style from '../../components/EmptyState/emptyState.module.scss';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -65,7 +66,18 @@ const ChannelsListPage = ({ channels }: ChannelsListPageProps) => {
           {channels?.map((channel) => (
             <ChannelRow {...channel} category={channel.category?.name} key={channel.id} />
           ))}
-          {isEmpty && <EmptyState title={t('emptyState.title')} subtitle={t('emptyState.subtitle')} action="channel" />}
+          {isEmpty && (
+            <EmptyState
+              title={t('emptyState.title')}
+              subtitle={t('emptyState.subtitle')}
+              button={
+                <Button className={style.emptyState_button} variant="outline-primary" href="/channels/add">
+                  {t('emptyState.buttonName')}
+                  <img src="/img/icons/plus.svg" alt="add channel" />
+                </Button>
+              }
+            />
+          )}
         </Stack>
       </Container>
     </Layout>

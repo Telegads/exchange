@@ -139,7 +139,6 @@ const Catalog = ({ ssr }: CatalogProps) => {
   const loadMore = useCallback(() => {
     setSize(size + 1);
   }, [setSize, size]);
-  console.log(isEmpty);
 
   return (
     <CartContextProvider value={cartContextValue}>

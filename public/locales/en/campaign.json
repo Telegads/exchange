@@ -42,6 +42,7 @@
   "noName": "Campaign without name",
   "emptyState": {
     "title": "No campaigns",
-    "subtitle": "You haven't created any campaigns yet"
+    "subtitle": "You haven't created any campaigns yet",
+    "buttonName": "Create campaign"
   }
 }

@@ -22,6 +22,7 @@
   },
   "emptyState": {
     "title": "No channels",
-    "subtitle": "You haven't added any channels yet"
+    "subtitle": "You haven't added any channels yet",
+    "buttonName": "Add channel"
   }
 }

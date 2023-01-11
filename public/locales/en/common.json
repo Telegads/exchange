@@ -39,10 +39,6 @@
     "subscribers": "Subscribers"
   },
   "emptyState": {
-    "buttons": {
-      "channel": "Add channel",
-      "campaign": "Create campaign"
-    },
     "catalog": {
       "title": "No channels",
       "subtitle": "No channels were found for this filter. Change the filter settings"

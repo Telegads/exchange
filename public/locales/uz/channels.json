@@ -22,6 +22,7 @@
   },
   "emptyState": {
     "title": "Kanallar yo'q",
-    "subtitle": "Siz hali bitta kanal qo'shmadingiz"
+    "subtitle": "Siz hali bitta kanal qo'shmadingiz",
+    "buttonName": "Kanal qo'shing"
   }
 }

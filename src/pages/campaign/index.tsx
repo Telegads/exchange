@@ -6,6 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
+import { Button } from '../../components/Button/Button';
 import { options } from '../api/auth/[...nextauth]';
 import Layout from '../../components/Layout/Layout';
 import { getAllCampaignsByUser } from '../../features/campaigns/repository/getAllCampaignsByUser';
@@ -13,6 +14,7 @@ import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 import { CampaignList } from '../../features/campaigns/components/screens/list';
 import { mapCampaignToView } from '../../features/campaigns/helpers/mapCampaignToView';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
+import style from '../../components/EmptyState/emptyState.module.scss';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -50,7 +52,6 @@ const CampaignListPage = ({ campaigns }: CampaignListPageProps) => {
   const { t } = useTranslation('campaign');
   const campaignsArray = useMemo(() => (campaigns ? mapCampaignToView(campaigns) : []), [campaigns]);
   const isEmpty = campaignsArray?.length === 0;
-  console.log(isEmpty);
 
   return (
     <Layout>
@@ -61,7 +62,16 @@ const CampaignListPage = ({ campaigns }: CampaignListPageProps) => {
         {!isEmpty && campaignsArray ? (
           <CampaignList list={campaignsArray} />
         ) : (
-          <EmptyState title={t('emptyState.title')} subtitle={t('emptyState.subtitle')} action="campaign" />
+          <EmptyState
+            title={t('emptyState.title')}
+            subtitle={t('emptyState.subtitle')}
+            button={
+              <Button className={style.emptyState_button} variant="outline-primary" href="/catalog">
+                {t('emptyState.buttonName')}
+                <img src="/img/icons/plus.svg" alt="add campain" />
+              </Button>
+            }
+          />
         )}
       </Container>
     </Layout>

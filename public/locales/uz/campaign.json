@@ -42,6 +42,7 @@
   "noName": "Nomsiz kampaniya",
   "emptyState": {
     "title": "Kampaniyalar yo'q",
-    "subtitle": "Siz hali biron bir kampaniya yaratmadingiz"
+    "subtitle": "Siz hali biron bir kampaniya yaratmadingiz",
+    "buttonName": "Kampaniya yaratish"
   }
 }
