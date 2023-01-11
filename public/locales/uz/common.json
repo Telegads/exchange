@@ -37,6 +37,16 @@
     "title": "Saralash",
     "views": "Ko'rishlar",
     "subscribers": "Abonentlar"
+  },
+  "emptyState": {
+    "buttons": {
+      "channel": "Kanal qo'shing",
+      "campaign": "Kampaniya yaratish"
+    },
+    "catalog": {
+      "title": "Kanallar yo'q",
+      "subtitle": "Ushbu filtr uchun kanallar topilmadi. Filtr sozlamalarini o'zgartiring"
+    }
   }
 }
 

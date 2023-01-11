@@ -19,5 +19,9 @@
   "list": {
     "header": "Kanallar",
     "addChannel": "Yangi kanal qo'shish"
+  },
+  "emptyState": {
+    "title": "Kanallar yo'q",
+    "subtitle": "Siz hali bitta kanal qo'shmadingiz"
   }
 }

@@ -12,6 +12,7 @@ import { getAllCampaignsByUser } from '../../features/campaigns/repository/getAl
 import { ScreenHeader } from '../../components/ScreenHeader/ScreenHeader';
 import { CampaignList } from '../../features/campaigns/components/screens/list';
 import { mapCampaignToView } from '../../features/campaigns/helpers/mapCampaignToView';
+import { EmptyState } from '../../components/EmptyState/EmptyState';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
@@ -48,7 +49,8 @@ type CampaignListPageProps = InferGetServerSidePropsType<typeof getServerSidePro
 const CampaignListPage = ({ campaigns }: CampaignListPageProps) => {
   const { t } = useTranslation('campaign');
   const campaignsArray = useMemo(() => (campaigns ? mapCampaignToView(campaigns) : []), [campaigns]);
-  console.log(campaignsArray);
+  const isEmpty = campaignsArray?.length === 0;
+  console.log(isEmpty);
 
   return (
     <Layout>
@@ -56,7 +58,11 @@ const CampaignListPage = ({ campaigns }: CampaignListPageProps) => {
         <ScreenHeader>
           <h1>{t('list.header')}</h1>
         </ScreenHeader>
-        {campaignsArray && <CampaignList list={campaignsArray} />}
+        {!isEmpty && campaignsArray ? (
+          <CampaignList list={campaignsArray} />
+        ) : (
+          <EmptyState title={t('emptyState.title')} subtitle={t('emptyState.subtitle')} action="campaign" />
+        )}
       </Container>
     </Layout>
   );

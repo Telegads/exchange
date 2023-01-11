@@ -30,6 +30,7 @@ import {
 } from '../features/channels/repository';
 import { getAllCategories } from '../features/channels/repository/getCategories';
 import { ScreenHeader } from '../components/ScreenHeader/ScreenHeader';
+import { EmptyState } from '../components/EmptyState/EmptyState';
 
 export type ChannelWithTagsAndFormats = Channel & {
   formats?: Format[];
@@ -138,6 +139,7 @@ const Catalog = ({ ssr }: CatalogProps) => {
   const loadMore = useCallback(() => {
     setSize(size + 1);
   }, [setSize, size]);
+  console.log(isEmpty);
 
   return (
     <CartContextProvider value={cartContextValue}>
@@ -188,6 +190,9 @@ const Catalog = ({ ssr }: CatalogProps) => {
                         {t('catalog.loadmore')}
                       </Button>
                     </div>
+                  )}
+                  {isEmpty && (
+                    <EmptyState title={t('emptyState.catalog.title')} subtitle={t('emptyState.catalog.subtitle')} />
                   )}
                 </div>
               </div>
