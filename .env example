@@ -11,12 +11,6 @@ POSTGRES_DB="exchange"
 
 DATABASE_URL="postgresql://prisma:hilly-sand-pit@localhost:5432/exchange?schema=public"
 
-POSTGRES_USER="telegads-staging"
-POSTGRES_PASSWORD="FK3B9RG4UNNS"
-POSTGRES_DB="exchange"
-
-DATABASE_URL="postgresql://telegads-staging:FK3B9RG4UNNS@telegads.uz:32222/exchange?schema=public"
-
 # Google OAuth
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
