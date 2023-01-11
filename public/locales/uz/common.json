@@ -37,6 +37,12 @@
     "title": "Saralash",
     "views": "Ko'rishlar",
     "subscribers": "Abonentlar"
+  },
+  "emptyState": {
+    "catalog": {
+      "title": "Kanallar yo'q",
+      "subtitle": "Ushbu filtr uchun kanallar topilmadi. Filtr sozlamalarini o'zgartiring"
+    }
   }
 }
 

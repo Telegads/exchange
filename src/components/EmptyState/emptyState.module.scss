@@ -1,0 +1,35 @@
+.emptyState {
+  max-width: 300px;
+  margin: 100px auto;
+}
+
+.emptyState_title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  text-align: center;
+  margin: 0;
+}
+
+.emptyState_subtitle {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21px;
+  text-align: center;
+  color: #7E7E7E;
+  margin: 30px 0;
+}
+
+.emptyState_button {
+  margin-left: auto;
+
+  & img {
+    margin-left: 15px;
+  }
+
+  &:hover {
+    color: #7044cc;
+    background-color: #fff;
+  }
+}

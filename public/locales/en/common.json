@@ -37,5 +37,11 @@
     "title": "Sorting",
     "views": "Views",
     "subscribers": "Subscribers"
+  },
+  "emptyState": {
+    "catalog": {
+      "title": "No channels",
+      "subtitle": "No channels were found for this filter. Change the filter settings"
+    }
   }
 }

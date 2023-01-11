@@ -19,5 +19,10 @@
   "list": {
     "header": "Channels",
     "addChannel": "Add new channel"
+  },
+  "emptyState": {
+    "title": "No channels",
+    "subtitle": "You haven't added any channels yet",
+    "buttonName": "Add channel"
   }
 }
